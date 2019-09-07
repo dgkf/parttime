@@ -72,4 +72,4 @@ tibble(dates = iso8601_dates) %>%
     imputed_times = as.POSIXct(impute_time(parttimes)))
 ```
 
-![image](https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png)
+<img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></img>
