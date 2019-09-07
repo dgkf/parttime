@@ -24,6 +24,7 @@ Imports:
     vctrs,
     utils
 Suggests:
+    dplyr,
     testthat,
     knitr,
     rmarkdown
