@@ -5,7 +5,7 @@ definitely <- function(x, ...) {
 
 
 
-#' @export
+#' Determine whether a partial_time logical matrix is definitely TRUE
 #' 
 #' @examples
 #' 
@@ -13,10 +13,11 @@ definitely <- function(x, ...) {
 #' y <- as.parttime(c("2018", "2019-02", "2018-02"))
 #' 
 #' definitely(x != y)
-#' definitely(x != y, res = "year")
+#' definitely(x != y, by = "year")
 #' 
+#' @export
 definitely.partial_time_logical <- function(x, 
-    by = ncol(attr(x, "pttm_lgl"))) {
+    by = ncol(attr(x, "pttm_lgl")), ...) {
   
   res <- validate_res(x, by)
   x_na <- apply(is.na(attr(x, "pttm_lgl")), 1, all)
@@ -34,7 +35,7 @@ possibly <- function(x, ...) {
 
 
 
-#' @export
+#' Determine whether a partial_time logical matrix is possibly TRUE
 #' 
 #' @examples 
 #' 
@@ -44,8 +45,9 @@ possibly <- function(x, ...) {
 #' possibly(x != y)
 #' possibly(x != y, by = "month")
 #' 
+#' @export
 possibly.partial_time_logical <- function(x, 
-    by = ncol(attr(x, "pttm_lgl"))) {
+    by = ncol(attr(x, "pttm_lgl")), ...) {
   
   res <- validate_res(x, by)
   x_na <- apply(is.na(attr(x, "pttm_lgl")), 1, all)

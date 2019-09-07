@@ -34,6 +34,8 @@ min_max_parttime_matrix_list <- function(f, x, na.rm = FALSE, na.warn = TRUE) {
 
 
 
+#' Get the maximum of a vector of partial_time objects
+#' 
 #' @examples
 #' max(parttime(c("2019", "2018", "2019-02", "2018-03")))
 #'
@@ -44,6 +46,8 @@ max.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
 
 
 
+#' Get the minimum of a vector of partial_time objects
+#' 
 #' @export
 min.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
   min_max_handler(min, ..., na.rm = na.rm, na.warn = na.warn)
@@ -119,6 +123,8 @@ pmax.default <- function(..., na.rm = FALSE) {
 
 
 
+#' Get the elementwise maximum of vectors of partial_time objects
+#' 
 #' @examples
 #' pmax(
 #'   parttime(c("2019", "2018", "2019-02", "2018",    "2010")),
@@ -145,6 +151,8 @@ pmin.default <- function(..., na.rm = FALSE) {
 
 
 
+#' Get the elementwise minimum of vectors of partial_time objects
+#' 
 #' @export
 pmin.partial_time <- function(..., na.rm = FALSE) {
   pmin_pmax_handler(base::min, ..., na.rm = na.rm)

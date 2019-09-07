@@ -17,7 +17,7 @@ type_sum.partial_time <- function(x) {
 #' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.partial_time <- function(x, ...) {
-  x_fmt <- format(x, ..., use_crayon = use_crayon(), quote = FALSE)
+  x_fmt <- format(x, ..., quote = FALSE)
   
   pillar::new_pillar_shaft(
     x_fmt, 

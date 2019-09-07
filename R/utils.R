@@ -60,20 +60,17 @@ local_tz <- function() {
 
 
 
+#' @importFrom utils head tail
+#' @importFrom crayon col_nchar col_align
 format_vector <- function(x) {
-  xtrunc <- head(x, getOption("max.print"))
+  xtrunc <- utils::head(x, getOption("max.print"))
 
   indxs <- paste0('[', seq_along(xtrunc), ']')
-  max_indx_chr <- nchar(tail(indxs, 1))
+  max_indx_chr <- nchar(utils::tail(indxs, 1))
   x <- paste0(' ', x)
 
-  if (use_crayon()) {
-    max_chr <- max(crayon::col_nchar(x), 0, na.rm = TRUE)
-    x <- crayon::col_align(x, max_chr)
-  } else {
-    max_chr <- max(nchar(x), 0, na.rm = TRUE)
-    x <- sprintf(sprintf("%%-%ds", max_chr), x)
-  }
+  max_chr <- max(crayon::col_nchar(x), 0, na.rm = TRUE)
+  x <- crayon::col_align(x, max_chr)
 
   n_per_row <- max((getOption("width", 80) - max_indx_chr) %/% max_chr, 1)
   last_in_row_indx <-  seq_len((length(xtrunc) - 1) %/% n_per_row) * n_per_row
