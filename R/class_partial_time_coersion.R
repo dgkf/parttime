@@ -69,12 +69,11 @@ vec_cast.partial_time.character <- function(x, to, ...) {
   else
     match_iso8601_to_matrix("")[0,,drop = FALSE]
   
-  # when tz isn't provided, use getOption('parttime.assumeGMT')
   tzhour_na <- is.na(pttm_mat[,"tzhour"])
   all_na <- apply(is.na(pttm_mat), 1, all)
   
   if (any(tzhour_na)) {
-    gmt_offset <- assume_tz()
+    gmt_offset <- interpret_tz(getOption('parttime.assume_tz_offset', NA))
     pttm_mat[!all_na & tzhour_na, "tzhour"] <- gmt_offset %/% 60
     pttm_mat[!all_na & tzhour_na, "tzmin"]  <- gmt_offset %%  60
   }
@@ -145,7 +144,14 @@ as.character.partial_time <- function(x, ...) {
 
 #' @export
 as.data.frame.partial_time <- function(x, ...) {
-  as.data.frame(vctrs::vec_data(x))
+  as.data.frame(vctrs::field(x, "pttm_mat"))
+}
+
+
+
+#' @export
+as.matrix.partial_time <- function(x, ...) {
+  vctrs::field(x, "pttm_mat")
 }
 
 

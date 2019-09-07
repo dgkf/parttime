@@ -54,17 +54,6 @@ gmtoff <- function(tzone) {
 
 
 
-assume_tz <- memoise::memoize(
-function(assume = getOption('parttime.assume_tz')) {
-  if (is.null(assume)) return(NA)
-  switch(assume,
-    'TRUE'  = 0,
-    'local' = gmtoff(Sys.timezone()),
-    gmtoff(assume))
-})
-
-
-
 local_tz <- function() {
   attr(as.POSIXlt(lubridate::now()), "tzone")
 }
@@ -107,20 +96,18 @@ extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
   args <- args[names(args) == ""]
   
   vals <- sapply(args, class) != "name"
-  args[vals] <- lapply(args[vals], eval, envir = envir)
-  
   length_dims <- sapply(args, length) * (as.character(args) != "")
   
   if (is.logical(drop))
     if (length(drop) == 1)
-      return(do.call("[", append(append(list(x), args), list(drop = drop))))
+      return(do.call("[", append(append(list(x), args), list(drop = drop)), envir = envir))
     else if (length(drop) == length(dim(x)))
       drop <- which(drop)
   
   if (!is.numeric(drop))
     stop('argument `drop` must be either logical of length 1 or numeric')
   
-  x <- do.call("[", append(append(list(x), args), list(drop = FALSE)))
+  x <- do.call("[", append(append(list(x), args), list(drop = FALSE)), envir = envir)
   drop <- 1:length(dim(x)) %in% drop & dim(x) == 1
   dimnames_keep <- dimnames(x)[!drop]
   dim(x) <- dim(x)[!drop]

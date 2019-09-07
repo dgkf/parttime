@@ -1,6 +1,6 @@
 #' @export
 format.timespan <- function(x, ..., use_crayon = FALSE, quote = TRUE, 
-    verbose = getOption("parttime.print_verbose")) {
+    verbose = getOption("parttime.print_verbose", FALSE)) {
   
   x_str <- vector("character", length(x))
   x_str[] <- style_na_safe('NA')
