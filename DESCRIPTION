@@ -8,7 +8,7 @@ Authors@R: c(
         family = "Kelkhoff", 
         email = "kelkhoff.douglas@gene.com", 
         role = c("aut", "cre")))
-Description: A package for partial datetime format handling
+Description: A package for partial datetime format handling.
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
@@ -20,7 +20,9 @@ Imports:
     parsedate,
     lubridate,
     pillar,
-    vctrs
+    crayon,
+    vctrs,
+    utils
 Suggests:
     dplyr (>= 0.9.0),
     testthat,

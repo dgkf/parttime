@@ -32,20 +32,11 @@ obj_print_header.partial_time <- function(x, ...) {
   perc_complete[!is.finite(perc_complete)] <- NA
   
   # style header summary of missingness
-  names(perc_complete) <- if (use_crayon())
-    ifelse(
-      is.na(perc_complete), "", ifelse(
-      perc_complete == 0, pillar::style_na(names(perc_complete)), ifelse(
-      perc_complete == 1, names(perc_complete), 
-      pillar::style_subtle(names(perc_complete))
-    )))
-  else
-    ifelse(
-      is.na(perc_complete), "", ifelse(
-      perc_complete == 0, "", ifelse(
-      perc_complete == 1, names(perc_complete), 
-      gsub("\\w+", "?", names(perc_complete))
-    )))
+  names(perc_complete) <- ifelse(
+    is.na(perc_complete), "", ifelse(
+    perc_complete == 0, pillar::style_na(names(perc_complete)), ifelse(
+    perc_complete == 1, names(perc_complete), 
+    pillar::style_subtle(names(perc_complete)))))
   
   # format header
   complete_txt <- paste0(names(perc_complete), collapse = "")
@@ -62,7 +53,7 @@ obj_print_header.partial_time <- function(x, ...) {
 #' @export
 obj_print_data.partial_time <- function(x, ...) {
   if (!length(x)) return(invisible(x))
-  cat(format_vector(format(x, ..., use_crayon = use_crayon())), '\n')
+  cat(format_vector(format(x, ...)), '\n')
   
   invisible(x)
 }

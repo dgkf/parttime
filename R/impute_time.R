@@ -38,15 +38,15 @@ impute_time_mid <- function(x, tz = "GMT", ...) {
 
 
 #' @export
-impute_time.default <- function(x, tz = "GMT", ...) {
-  impute_time(as.parttime(x), tz = tz, ...)
+impute_time.default <- function(x, time, tz = "GMT", ...) {
+  impute_time(as.parttime(x), time, tz = tz, ...)
 }
 
 
 
 #' @export
-impute_time.POSIXt <- function(x, tz = "GMT", ...) {
-  impute_time(as.parttime(x), tz = tz, ...)
+impute_time.POSIXt <- function(x, time, tz = "GMT", ...) {
+  impute_time(as.parttime(x), time, tz = tz, ...)
 }
 
 

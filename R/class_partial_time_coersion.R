@@ -1,3 +1,7 @@
+#' Coerce an object to a parttime object
+#' 
+#' @param x an object for coersion
+#'
 #' @export
 as.parttime <- function(x) {
   # spoof a parttime class object for dispatch to prevent recursion since
@@ -7,6 +11,10 @@ as.parttime <- function(x) {
 
 
 
+#' Vector casting for partial_time vectors
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
 #' @export
 vec_cast.partial_time <- function(x, to, ...) {
   if (is.partial_time(x)) return(x)
@@ -15,6 +23,8 @@ vec_cast.partial_time <- function(x, to, ...) {
 
 
 
+#' @inheritParams vec_cast.partial_time
+#' 
 #' @export
 vec_cast.partial_time.default <- function(x, to, ...) {
   if (!all(is.na(x) | is.null(x))) stop_incompatible_cast(x, to)
@@ -23,7 +33,9 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 
 
 
-#' @export
+#' Coerce character date representations to parttime objects
+#'
+#' @inheritParams vec_cast.partial_time
 #'
 #' @examples
 #' dates <- c(
@@ -63,6 +75,8 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' # okay (stand-in for mutate until dplyr v0.9.0)
 #' 
 #' }
+#' 
+#' @export
 vec_cast.partial_time.character <- function(x, to, ...) {
   pttm_mat <- if (length(x))
     match_iso8601_to_matrix(x)

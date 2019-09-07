@@ -1,3 +1,5 @@
+#' Subsetting assignment of partial_time objects
+#' 
 #' @examples
 #' x <- as.parttime(c("2019", "2019-02", "2019-02-02"))
 #' x[c(1, 3)] <- as.parttime(c("2000", "1999"))

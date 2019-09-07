@@ -11,7 +11,7 @@ vec_ptype_abbr.timespan <- function(x) "tmspn"
 #' @export
 obj_print_data.timespan <- function(x, ...) {
   if (!length(x)) return(invisible(x))
-  cat(format_vector(format(x, ..., use_crayon = use_crayon())), '\n')
+  cat(format_vector(format(x, ...)), '\n')
   invisible(x)
 }
 

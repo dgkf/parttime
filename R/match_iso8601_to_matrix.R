@@ -34,16 +34,16 @@ match_iso8601_to_matrix <- function(dates) {
   match_m[match_m[,"tz"] == "Z", c("tzhour", "tzmin")] <- "00"
 
   # apply offset sign to tzhour and tzmin
-  match_m[,"tzhour"] <- paste0(match_m[,"tzpm"], match_m[,"tzhour"])
+  match_m[,"tzhour"] <- ifelse(nchar(match_m[,"tzhour"]), 
+    paste0(match_m[,"tzpm"], match_m[,"tzhour"]),
+    "")
   match_m[,"tzmin"]  <- ifelse(nchar(match_m[,"tzmin"]), 
     paste0(match_m[,"tzpm"], match_m[,"tzmin"]), 
     "")
-
-  
     
   match_m <- match_m[,c("year", "month", "day", "week", "weekday", "yearday",
     "hour", "min", "frac", "sec", "secfrac", "tzhour", "tzmin"), drop = FALSE]
-  
+
   storage.mode(match_m) <- "numeric"
   
   # when year, month, day available calculate week, weekday, yearday

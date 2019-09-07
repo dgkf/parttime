@@ -1,8 +1,9 @@
-#' @export
+#' Create a parttime object
 #'
 #' @examples
 #' parttime(2019)
 #' 
+#' @export
 parttime <- function(year = NA, month = NA, day = NA, hour = NA, min = NA, 
     sec = NA, 
     tzhour = interpret_tz(getOption('parttime.assume_tz_offset', NA)) %/% 60,
@@ -15,9 +16,10 @@ parttime <- function(year = NA, month = NA, day = NA, hour = NA, min = NA,
   secfrac <- sec %% 1
   sec <- sec %/% 1
   
-  fields <- setNames(vctrs::vec_recycle_common(
-      year, month, day, hour, min, sec, secfrac, tzhour, tzmin
-    ), append(names(formals()), "secfrac", 6))
+  fields <- vctrs::vec_recycle_common(year, month, day, hour, min, sec, 
+      secfrac, tzhour, tzmin)
+  
+  names(fields) <- append(names(formals()), "secfrac", 6)
   
   l <- length(fields[[1]])
   as.parttime(matrix(

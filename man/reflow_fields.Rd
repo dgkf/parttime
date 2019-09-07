@@ -26,8 +26,7 @@ Reflow potentially invalid time components to adjacent fields
 x <- as.parttime("2019-06-23 04:33:21.123")
 y <- as.parttime("2018-02-08 12:59:28.987")
 
-diff_fields <- attr(x, "fields") - attr(y, "fields")
-diff_fields
+diff_fields <- vctrs::field(x, "pttm_mat") - vctrs::field(y, "pttm_mat")
 
 parttime:::reflow_fields(diff_fields)
 

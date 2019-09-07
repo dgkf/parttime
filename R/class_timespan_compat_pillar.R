@@ -15,9 +15,10 @@ type_sum.timespan <- function(x) {
 
 
 #' @importFrom pillar pillar_shaft
+#' @importFrom crayon col_nchar
 #' @export
 pillar_shaft.timespan <- function(x, ...) {
-  x_fmt <- format(x, ..., use_crayon = use_crayon(), quote = FALSE)
+  x_fmt <- format(x, ..., quote = FALSE)
   
   pillar::new_pillar_shaft(
     x_fmt, 

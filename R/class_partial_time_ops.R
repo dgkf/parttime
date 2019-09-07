@@ -62,6 +62,8 @@ gt_lt_gte_lte_timespans <- function(generic, e1, e2) {
 
 
 
+#' Not-equal comparison handler for partial_time objects
+#' 
 #' @examples
 #' x <- as.parttime(c("2019", "2018-01",    NA, "2011"))
 #' y <- as.parttime(c("2019", "2018-01-03", NA, "2010-01"))
@@ -78,6 +80,8 @@ neq_parttimes <- function(generic, e1, e2) {
 
 
 
+#' Equal comparison handler for partial_time objects
+#' 
 #' @examples
 #' x <- as.parttime(c("2019", "2018-01-04", NA, "2011"))
 #' y <- as.parttime(c("2019", "2018-01-03", NA, "2010-01"))
@@ -93,11 +97,17 @@ eq_parttimes <- function(generic, e1, e2) {
 
 
 
+#' Handler for Ops generics for partial_time objects
+#' 
 #' @examples
-#' parttime(1998) < parttime(1999)     # TRUE  # possibly TRUE  # definitely TRUE
-#' parttime(1998) < parttime(1997)     # FALSE # possibly FALSE # definitely FALSE
-#' parttime(1999) < parttime(1999)     # NA    # possibly TRUE  # definitely FALSE
-#' parttime(1998) < parttime(1998, 1)  # NA    # possibly TRUE  # definitely FALSE
+#'                                        # when assume_tz "GMT"         when assume_tz NA
+#'                                        # ---------------------------  ---------------------------
+#'                                        # raw    possibly  definitely   raw   possibly  definitely  
+#'                                        # -----  --------- -----------  ----- --------- -----------
+#' parttime(1998) < parttime(1999)        # TRUE   TRUE      TRUE         NA    TRUE      FALSE
+#' parttime(1998) < parttime(1997)        # FALSE  FALSE     FALSE        NA    TRUE      FALSE
+#' parttime(1999) < parttime(1999)        # NA     TRUE      FALSE        NA    TRUE      FALSE
+#' parttime(1998) < parttime(1999, 1, 3)  # TRUE   TRUE      TRUE         TRUE  TRUE      TRUE
 #' 
 #' @export
 Ops.partial_time <- function(e1, e2) {
@@ -106,7 +116,7 @@ Ops.partial_time <- function(e1, e2) {
     "!=" = neq_parttimes,
     NULL)
   
-  if (!is.null(f)) f(.Generic, e1, e2)
+  if (!is.null(f)) return(f(.Generic, e1, e2))
   do.call(.Generic, list(as.timespan(e1), as.timespan(e2)))
 }
 
@@ -119,8 +129,8 @@ Ops.timespan <- function(e1, e2) {
     "<"  = gt_lt_gte_lte_timespans,
     ">=" = gt_lt_gte_lte_timespans,
     "<=" = gt_lt_gte_lte_timespans,
-    "==" = eq_parttimes,
-    "!=" = neq_parttimes,
+    # "==" = eq_timespans,
+    # "!=" = neq_timespans,
     NULL)
   
   if (is.null(f)) 
