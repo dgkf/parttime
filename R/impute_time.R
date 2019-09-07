@@ -1,0 +1,117 @@
+#' Impute a partial time object with a timestamp or specific fields
+#'
+#' @param x a datetime-like object to impute
+#' @param time a datetime-like object to use for imputation
+#' @param tz a timezone for imputation
+#' @param ... additional individual named fields to impute. Can be one of
+#'   "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".
+#'
+#' @return a new partial_time with specified fields imputed
+#'
+#' @export
+impute_time <- function(x, time, tz = "GMT", ...) {
+  UseMethod("impute_time")
+}
+
+
+
+#' @export
+impute_time_min <- function(x, tz = "GMT", ...) {
+  impute_time(x, time = time_min(), tz = tz, ...)
+}
+
+
+
+#' @export
+impute_time_max <- function(x, tz = "GMT", ...) {
+  impute_time(x, time = time_max(), tz = tz, ...)
+}
+
+
+
+#' @export
+impute_time_mid <- function(x, tz = "GMT", ...) {
+  impute_time(x, time = time_mid(), tz = tz, ...)
+}
+
+
+
+#' @export
+impute_time.default <- function(x, tz = "GMT", ...) {
+  impute_time(as.parttime(x), tz = tz, ...)
+}
+
+
+
+#' @export
+impute_time.POSIXt <- function(x, tz = "GMT", ...) {
+  impute_time(as.parttime(x), tz = tz, ...)
+}
+
+
+
+#' @export
+impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
+  dots <- list(...)
+
+  if (missing(time)) {
+    impute_pttm <- parttime(NA)
+    impute_dots <- dots[names(dots) %in% colnames(vctrs::field(impute_pttm, "pttm_mat"))]
+
+    # trigger error for missing time if dots don't include imputation fields
+    if (!length(impute_dots)) time
+    impute_dots <- do.call(vctrs::vec_recycle_common, impute_dots)
+    impute_pttm <- vctrs::vec_recycle(impute_pttm, length(impute_dots[[1]]))
+
+    # fill out new imputations with input
+    for (i in names(impute_dots))
+      vctrs::field(impute_pttm, "pttm_mat")[,i] <- impute_dots[[i]]
+    
+  } else if ("partial_time" %in% class(time)) {
+    impute_pttm <- time
+  } else {
+    impute_pttm <- as.parttime(as.character(time))
+  }
+  
+  # recycle imputed partial_time to length of x
+  impute_pttm <- vctrs::vec_recycle(impute_pttm, length(x))
+
+  # fill in imputed fields, retaining entirely NA values
+  x_na <- is.na(x)
+  i_na <- is.na(vctrs::field(x, "pttm_mat"))
+  vctrs::field(x, "pttm_mat")[i_na] <- vctrs::field(impute_pttm, "pttm_mat")[i_na]
+  x[x_na] <- NA
+
+  # normalize improper days back to month max
+  x <- normalize_month_day(x)
+
+  # propegate uncertainty back into imputed fields where necessary
+  x <- propegate_na(x)
+
+  x
+}
+
+
+
+#' @export
+impute_partial_time_to_chr <- function(x, time, ...) {
+  if (!"partial_time" %in% class(x)) x <- as.parttime(x)
+
+  if (!missing(time)) {
+    time <- match_iso8601_to_matrix(time)
+    if (any(is.na(time)))
+      stop("time parameter with must specify a complete timestamp.")
+  }
+
+  fields <- rbind(
+    attr(x,"field"),
+    if (!missing(time)) time,
+    attr(x,"impute"),
+    match_iso8601_to_matrix("0000-01-01T01:00:00.000Z"))
+
+  fields <- as.list(apply(fields, 2, Find, f = Negate(is.na)))
+
+  with(fields, sprintf(
+    "%04.f-%02.f-%02.f %02.f:%02.f:%02.f.%03.f +%02.f%02.f",
+    year, month, day, hour, min, sec, secfrac * 1000, tzhour, tzmin))
+}

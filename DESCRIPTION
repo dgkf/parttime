@@ -1,0 +1,27 @@
+Package: parttime
+Type: Package
+Title: A package for partial datetime format handling
+Version: 0.0.1.23
+Authors@R: c(
+    person(
+        given = "Doug", 
+        family = "Kelkhoff", 
+        email = "kelkhoff.douglas@gene.com", 
+        role = c("aut", "cre")))
+Description: A package for partial datetime format handling
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+BugReports: https://www.github.com/dgkf/parttime/issues
+Imports:
+    parsedate,
+    lubridate,
+    pillar,
+    vctrs
+Suggests:
+    dplyr (>= 0.9.0),
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
