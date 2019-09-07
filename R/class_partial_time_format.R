@@ -13,7 +13,7 @@ format.partial_time <- function(x, ..., use_crayon = FALSE, quote = TRUE) {
 
 
 format_field_matrix <- function(x, 
-    verbose = getOption("parttime.print_verbose")) {
+    verbose = getOption("parttime.print_verbose", FALSE)) {
   
   tz <- .i(x, 2, "tzhour", "tzmin")
   

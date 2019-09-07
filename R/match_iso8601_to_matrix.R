@@ -1,10 +1,27 @@
+#' slightly modified from parsedate - added 'secfrac' capture group
+iso_regex <- paste0(
+  "^\\s*",
+  "(?<year>[\\+-]?\\d{4}(?!\\d{2}\\b))",
+  "(?:(?<dash>-?)",
+   "(?:(?<month>0[1-9]|1[0-2])",
+    "(?:\\g{dash}(?<day>[12]\\d|0[1-9]|3[01]))?",
+    "|W(?<week>[0-4]\\d|5[0-3])(?:-?(?<weekday>[1-7]))?",
+    "|(?<yearday>00[1-9]|0[1-9]\\d|[12]\\d{2}|3",
+      "(?:[0-5]\\d|6[1-6])))",
+   "(?<time>[T\\s](?:(?:(?<hour>[01]\\d|2[0-3])",
+            "(?:(?<colon>:?)(?<min>[0-5]\\d))?|24\\:?00)",
+           "(?<frac>[\\.,]\\d+(?!:))?)?",
+    "(?:\\g{colon}(?<sec>[0-5]\\d)(?<secfrac>[\\.,]\\d+)?)?",
+    "(?<tz>[zZ]|(?<tzpm>[\\+-])",
+     "(?<tzhour>[01]\\d|2[0-3]):?(?<tzmin>[0-5]\\d)?)?)?)?$")
+
 #' A rework of parsedate::regexpr_to_df
 #'
 #' Provides a vertical dataframe of matches more ammeneable to a tidyverse-style
 #' analysis
 #'
 match_iso8601_to_matrix <- function(dates) {
-  match <- regexpr(parsedate:::iso_regex, as.character(dates), perl = TRUE)
+  match <- regexpr(iso_regex, as.character(dates), perl = TRUE)
   match_m <- matrix(
     substring(
       dates,
@@ -21,6 +38,8 @@ match_iso8601_to_matrix <- function(dates) {
   match_m[,"tzmin"]  <- ifelse(nchar(match_m[,"tzmin"]), 
     paste0(match_m[,"tzpm"], match_m[,"tzmin"]), 
     "")
+
+  
     
   match_m <- match_m[,c("year", "month", "day", "week", "weekday", "yearday",
     "hour", "min", "frac", "sec", "secfrac", "tzhour", "tzmin"), drop = FALSE]

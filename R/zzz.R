@@ -1,14 +1,10 @@
 .onAttach <- function(libname, pkgname) {
-  if (!'parttime.assume_tz' %in% names(.Options)) {
-    options('parttime.assume_tz' = 'GMT')
-    
+  if (is.null(getOption('parttime.assume_tz_offset', NULL))) {
+    options('parttime.assume_tz_offset' = 0)
     message(paste(strwrap(sprintf(paste0(
-        'Initializing `options("parttime.assume_tz")` with "%s", which will ', 
-        'assume the "GMT" timezone when timezone parts are missing.'), 
-      options('parttime.assume_tz'))),
+        'Initializing `options("parttime.assume_tz_offset")` with `%s`, which will ', 
+        'assume a timezone offset when timezone parts are missing.\n'), 
+      getOption('parttime.assume_tz_offset'))),
       collapse = '\n'))
   }
-  
-  if (!'parttime.print_verbose' %in% names(.Options))
-    options('parttime.print_verbose' = FALSE)
 }

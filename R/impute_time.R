@@ -2,28 +2,29 @@
 #'
 #' @param x a datetime-like object to impute
 #' @param time a datetime-like object to use for imputation
-#' @param tz a timezone for imputation
+#' @param tz a character timezone name for imputation, a character value to use
+#'   as the timezone part of the datetime or an numeric minute offset.
 #' @param ... additional individual named fields to impute. Can be one of
 #'   "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".
 #'
 #' @return a new partial_time with specified fields imputed
 #'
 #' @export
-impute_time <- function(x, time, tz = "GMT", ...) {
+impute_time <- function(x, time, tz, ...) {
   UseMethod("impute_time")
 }
 
 
 
 #' @export
-impute_time_min <- function(x, tz = "GMT", ...) {
+impute_time_min <- function(x, tz = "-1200", ...) {
   impute_time(x, time = time_min(), tz = tz, ...)
 }
 
 
 
 #' @export
-impute_time_max <- function(x, tz = "GMT", ...) {
+impute_time_max <- function(x, tz = "+1400", ...) {
   impute_time(x, time = time_max(), tz = tz, ...)
 }
 
@@ -53,7 +54,8 @@ impute_time.POSIXt <- function(x, tz = "GMT", ...) {
 #' @export
 impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
   dots <- list(...)
-
+  tz <- interpret_tz(tz)  
+  
   if (missing(time)) {
     impute_pttm <- parttime(NA)
     impute_dots <- dots[names(dots) %in% colnames(vctrs::field(impute_pttm, "pttm_mat"))]
@@ -73,9 +75,15 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
     impute_pttm <- as.parttime(as.character(time))
   }
   
+  tzhour_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[,"tzhour"])
+  vctrs::field(impute_pttm, "pttm_mat")[tzhour_na, "tzhour"] <- tz %/% 60
+  
+  tzmin_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[,"tzmin"])
+  vctrs::field(impute_pttm, "pttm_mat")[tzmin_na, "tzmin"] <- tz %% 60
+
   # recycle imputed partial_time to length of x
   impute_pttm <- vctrs::vec_recycle(impute_pttm, length(x))
-
+  
   # fill in imputed fields, retaining entirely NA values
   x_na <- is.na(x)
   i_na <- is.na(vctrs::field(x, "pttm_mat"))
@@ -88,6 +96,25 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
   # propegate uncertainty back into imputed fields where necessary
   x <- propegate_na(x)
 
+  x
+}
+
+
+
+#' @export
+impute_time.matrix <- function(x, time, tz = "GMT", ...) {
+  tz <- interpret_tz(tz)
+  if (is.character(time)) time <- as.parttime(time)
+  
+  time <- as.matrix(time)
+  time <- time[,datetime_parts,drop = FALSE]
+  
+  time[is.na(time[,"tzhour"]), "tzhour"] <- tz %/% 60
+  time[is.na(time[,"tzmin"]), "tzmin"] <- tz %% 60
+  
+  xna <- is.na(x[,datetime_parts])
+  x[,datetime_parts][xna] <- matrix(rep(time, nrow(x)), ncol = ncol(time), byrow = TRUE)[xna]
+  
   x
 }
 
@@ -114,4 +141,13 @@ impute_partial_time_to_chr <- function(x, time, ...) {
   with(fields, sprintf(
     "%04.f-%02.f-%02.f %02.f:%02.f:%02.f.%03.f +%02.f%02.f",
     year, month, day, hour, min, sec, secfrac * 1000, tzhour, tzmin))
+}
+
+
+
+interpret_tz <- function(tz) {
+  if (!is.character(tz)) return(tz)
+  if (is.na(suppressWarnings(as.numeric(tz)))) return(gmtoff(tz))
+  tz <- as.numeric(tz)
+  ((abs(tz) %/% 100) * 60 + abs(tz) %% 100) * sign(tz)
 }

@@ -25,7 +25,7 @@ compare_timespans <- function(x1, x2) {
   x1_ub <- extract(x1,,-inc,2,drop = 3)
   x2_lb <- extract(x2,,-inc,1,drop = 3)
   x2_ub <- extract(x2,,-inc,2,drop = 3)
-  
+ 
   a <- compare_matrices(x1_lb, x2_ub)
   a[!inc1 & col(a) == apply(a, 1, Position, f = Negate(is.na), right = TRUE) & a == 0] <- 1
   a[col(a) > apply(a != 0, 1, Position, f = isTRUE)] <- 0
@@ -106,13 +106,8 @@ Ops.partial_time <- function(e1, e2) {
     "!=" = neq_parttimes,
     NULL)
   
-  if (!is.null(f))
-    f(.Generic, e1, e2)
-  
-  e1 <- as.timespan(e1)
-  e2 <- as.timespan(e2)
-  
-  do.call(.Generic, list(e1, e2))
+  if (!is.null(f)) f(.Generic, e1, e2)
+  do.call(.Generic, list(as.timespan(e1), as.timespan(e2)))
 }
 
 
@@ -128,9 +123,8 @@ Ops.timespan <- function(e1, e2) {
     "!=" = neq_parttimes,
     NULL)
   
-  if (is.null(f)) warning(sprintf(
-    "'%s' not defined for \"timespan\" objects",
-    .Generic))
+  if (is.null(f)) 
+    warning(sprintf("'%s' not defined for \"timespan\" objects", .Generic))
 
-  f(.Generic, e1, e2)
+  f(.Generic, complete_timespan(e1), complete_timespan(e2))
 }

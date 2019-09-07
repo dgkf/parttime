@@ -4,14 +4,15 @@
 \alias{impute_time}
 \title{Impute a partial time object with a timestamp or specific fields}
 \usage{
-impute_time(x, time, tz = "GMT", ...)
+impute_time(x, time, tz, ...)
 }
 \arguments{
 \item{x}{a datetime-like object to impute}
 
 \item{time}{a datetime-like object to use for imputation}
 
-\item{tz}{a timezone for imputation}
+\item{tz}{a character timezone name for imputation, a character value to use
+as the timezone part of the datetime or an numeric minute offset.}
 
 \item{...}{additional individual named fields to impute. Can be one of
 "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".}
