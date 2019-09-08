@@ -128,8 +128,8 @@ tibble(dates = iso8601_dates) %>%
 |`partial_time`|`to_gmt`|convert to gmt timezone|✔︎*︎|
 |`partial_time`|`print`|printing|✔︎*︎|
 |`partial_time`|`format`|format as character|✔︎*︎|
-|`partial_time`|`<vctrs>`|various `vctrs` compatability functions|✔︎*︎|
-|`partial_time`|`<pillar>`|various `pillar` compatability functions|✔︎*︎|
+|`partial_time`|`<vctrs>`|misc `vctrs` functions|✔︎*︎|
+|`partial_time`|`<pillar>`|misc `pillar` functions|✔︎*︎|
 |`partial_difftime`|`difftime`|create `partial_difftime`|︎|
 |`partial_difftime`|`as.difftime`|cast to `partial_difftime`|︎|
 |`partial_difftime`|`>`,`<`,`<=`,`>=`|comparison operators|︎|
@@ -140,8 +140,8 @@ tibble(dates = iso8601_dates) %>%
 |`partial_difftime`|`to_gmt`|convert to gmt timezone|︎|
 |`partial_difftime`|`print`|printing||
 |`partial_difftime`|`format`|format as character||
-|`partial_difftime`|`<vctrs>`|various `vctrs` compatability functions||
-|`partial_difftime`|`<pillar>`|various `pillar` compatability functions||
+|`partial_difftime`|`<vctrs>`|misc `vctrs` functions||
+|`partial_difftime`|`<pillar>`|misc `pillar` functions||
 ||``` `-`(partial_time, partial_difftime) ```|subraction|︎|
 ||``` `-`(partial_time, partial_time) ```|subraction|︎|
 ||``` `-`(partial_difftime, partial_difftime) ```|subraction|︎|
