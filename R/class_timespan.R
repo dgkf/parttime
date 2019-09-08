@@ -1,11 +1,19 @@
+#' Create a timespan object
+#'
+#' @param start vector of datetime objects to start timespans
+#' @param end vector of datetime objects to end timespans
+#' @param inclusive vector or matrix of logicals where each row is composed of
+#'   two logical values indicating whether the timespan start and end are
+#'   inclusive respectively
+#'
 #' @export
 timespan <- function(start, end, inclusive = c(TRUE, FALSE)) {
   common_size <- vctrs::vec_size_common(start, end)
   
-  inclusive <- matrix(
+  
+  inclusive <- t(matrix(
     rep_len(inclusive, common_size * 2),
-    ncol = 2,
-    byrow = TRUE)
+    nrow = 2))
   
   start <- as.parttime(start)
   start <- vctrs::vec_recycle(start, common_size)

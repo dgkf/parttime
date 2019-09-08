@@ -1,14 +1,14 @@
-#' @export
+#' @importFrom vctrs vec_ptype_full
 vec_ptype_full.partial_time <- function(x) "partial_time"
 
 
 
-#' @export
+#' @importFrom vctrs vec_ptype_abbr
 vec_ptype_abbr.partial_time <- function(x) "pttm"
 
 
 
-#' @export
+#' @importFrom vctrs obj_print_header
 obj_print_header.partial_time <- function(x, ...) {
   perc_complete <- apply(!is.na(vctrs::field(x, "pttm_mat")), 2, mean)
   
@@ -50,17 +50,16 @@ obj_print_header.partial_time <- function(x, ...) {
 
 
 
-#' @export
+#' @importFrom vctrs obj_print_data
 obj_print_data.partial_time <- function(x, ...) {
   if (!length(x)) return(invisible(x))
   cat(format_vector(format(x, ...)), '\n')
-  
   invisible(x)
 }
 
 
 
-#' @export
+#' @importFrom vctrs obj_print_footer
 obj_print_footer.partial_time <- function(x, ...) {
   l <- length(x) - getOption("max.print")
   if (l > 0) 

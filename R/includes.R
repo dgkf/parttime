@@ -1,3 +1,8 @@
+#' Determine whether one object includes another
+#'
+#' @param e1 object to test whether includes \code{e2}
+#' @param e2 object to test whether included in \code{e1}
+#'
 #' @export
 includes <- function(e1, e2) {
   UseMethod("includes")
@@ -5,6 +10,11 @@ includes <- function(e1, e2) {
 
 
 
+#' Determine whether a partial time contains an object
+#' 
+#' @inheritParams includes
+#' 
+#' @rdname includes
 #' @export 
 includes.partial_time <- function(e1, e2) {
   UseMethod("includes.partial_time", e2)
@@ -13,6 +23,8 @@ includes.partial_time <- function(e1, e2) {
 
 
 #' Test for whether a timestamp could be included within parttime uncertainty
+#'
+#' @inheritParams includes
 #'
 #' @export
 #' @examples

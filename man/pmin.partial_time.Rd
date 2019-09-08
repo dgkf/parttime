@@ -6,6 +6,12 @@
 \usage{
 \method{pmin}{partial_time}(..., na.rm = FALSE)
 }
+\arguments{
+\item{...}{numeric or character arguments (see Note).}
+
+\item{na.rm}{a logical indicating whether missing values should be
+    removed.}
+}
 \description{
 Get the elementwise minimum of vectors of partial_time objects
 }

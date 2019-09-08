@@ -1,3 +1,10 @@
+#' "Definitely" generic for resolving uncertainty
+#' 
+#' @param x an uncertain object to resolve
+#' @param ... additional paramters used by class-specific functions
+#'
+#' @family uncert-resolvers
+#' 
 #' @export
 definitely <- function(x, ...) {
   UseMethod("definitely")
@@ -7,6 +14,10 @@ definitely <- function(x, ...) {
 
 #' Determine whether a partial_time logical matrix is definitely TRUE
 #' 
+#' @param x a partial_time_logical matrix for coersion
+#' @param by the resolution of assessment, a column or index
+#' @param ... additional arguments unused
+#'
 #' @examples
 #' 
 #' x <- as.parttime(c("", "2019", "2018-01-02"))
@@ -28,6 +39,12 @@ definitely.partial_time_logical <- function(x,
 
 
 
+#' "Possibly" generic for resolving uncertainty
+#' 
+#' @inheritParams definitely
+#'
+#' @family uncert-resolvers
+#' 
 #' @export
 possibly <- function(x, ...) {
   UseMethod("possibly")
@@ -36,6 +53,8 @@ possibly <- function(x, ...) {
 
 
 #' Determine whether a partial_time logical matrix is possibly TRUE
+#' 
+#' @inheritParams definitely.partial_time_logical
 #' 
 #' @examples 
 #' 

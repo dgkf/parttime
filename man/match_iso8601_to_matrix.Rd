@@ -6,6 +6,9 @@
 \usage{
 match_iso8601_to_matrix(dates)
 }
+\arguments{
+\item{dates}{character vector of dates to parse for iso8601 components}
+}
 \description{
 Provides a vertical dataframe of matches more ammeneable to a tidyverse-style
 analysis

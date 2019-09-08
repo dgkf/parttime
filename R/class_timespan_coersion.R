@@ -1,3 +1,7 @@
+#' Cast an object to a timespan 
+#' 
+#' @param x an object to cast
+#'
 #' @export
 as.timespan <- function(x) {
   UseMethod("as.timespan")
@@ -12,9 +16,14 @@ as.timespan.default <- function(x) {
 
 
 
+#' Wrapper for lubridate as.interval
+#' 
+#' @inherit lubridate::as.interval
+#' 
+#' @importFrom methods setMethod signature
 #' @importFrom lubridate as.interval
 #' @export
-setMethod("as.interval", signature("ANY"), function(x, ...) {
+methods::setMethod("as.interval", methods::signature("ANY"), function(x, ...) {
   # attempt to play nicely with lubridate precedent
   tryCatch({
     vctrs::vec_cast(x, structure(0L, class = "timespan"))
@@ -28,6 +37,10 @@ setMethod("as.interval", signature("ANY"), function(x, ...) {
 
 
 
+#' Cast to timespan object
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
 #' @export
 vec_cast.timespan <- function(x, to, ...) {
   if (is.timespan(x)) return(x)
@@ -36,6 +49,11 @@ vec_cast.timespan <- function(x, to, ...) {
 
 
 
+#' Default handler for casting to a timespan
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
+#' @importFrom vctrs stop_incompatible_cast
 #' @export
 vec_cast.timespan.default <- function(x, to, ...) {
   if (!all(is.na(x) | is.null(x))) vctrs::stop_incompatible_cast(x, to)
@@ -44,6 +62,10 @@ vec_cast.timespan.default <- function(x, to, ...) {
 
 
 
+#' Cast partial time to timespan, representing uncertainty as a range
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
 #' @export
 vec_cast.timespan.partial_time <- function(x, to, ...) {
   xdim <- dim(vctrs::field(x, "pttm_mat"))
@@ -57,10 +79,12 @@ vec_cast.timespan.partial_time <- function(x, to, ...) {
 
 
 
+#' Cast an array to a timespan
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
 #' @export
-vec_cast.timespan.array <- function(x, to, ..., inclusive = TRUE) {
-  inclusive <- matrix(inclusive, nrow = nrow(x), ncol = 2, byrow = TRUE)
-  
+vec_cast.timespan.array <- function(x, to, ...) {
   vctrs::new_rcrd(
     fields = list(tmspn_arr = x),
     class = "timespan")

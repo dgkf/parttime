@@ -6,6 +6,13 @@
 \usage{
 neq_parttimes(generic, e1, e2)
 }
+\arguments{
+\item{generic}{the generic operator selected}
+
+\item{e1}{objects}
+
+\item{e2}{objects}
+}
 \description{
 Not-equal comparison handler for partial_time objects
 }

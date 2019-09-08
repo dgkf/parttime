@@ -6,6 +6,13 @@
 \usage{
 \method{min}{partial_time}(..., na.rm = FALSE, na.warn = TRUE)
 }
+\arguments{
+\item{...}{partial_time objects}
+
+\item{na.rm}{whether \code{NA} should be removed when calculating min}
+
+\item{na.warn}{whether to raise a warning for \code{NA}}
+}
 \description{
 Get the minimum of a vector of partial_time objects
 }

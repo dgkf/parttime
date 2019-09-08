@@ -7,6 +7,13 @@
 \method{possibly}{partial_time_logical}(x, by = ncol(attr(x,
   "pttm_lgl")), ...)
 }
+\arguments{
+\item{x}{a partial_time_logical matrix for coersion}
+
+\item{by}{the resolution of assessment, a column or index}
+
+\item{...}{additional arguments unused}
+}
 \description{
 Determine whether a partial_time logical matrix is possibly TRUE
 }

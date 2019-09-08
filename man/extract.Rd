@@ -7,6 +7,16 @@ vector of dimensions to drop}
 \usage{
 extract(x, ..., drop = TRUE, envir = parent.frame())
 }
+\arguments{
+\item{x}{array or matrix to extract from}
+
+\item{...}{pased to \code{[}}
+
+\item{drop}{whether to drop dimensions, a logical or numeric vector of
+dimensions to drop}
+
+\item{envir}{environment in which to evaluate \code{[} call}
+}
 \description{
 Similar to matrix and array `[` behavior, but allows for providing a numeric
 vector of dimensions to drop

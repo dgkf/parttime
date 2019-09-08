@@ -1,5 +1,14 @@
 #' Create a parttime object
 #'
+#' @param year numeric vector to use for partial time year component
+#' @param month numeric vector to use for partial time month component
+#' @param day numeric vector to use for partial time day component
+#' @param hour numeric vector to use for partial time hour component
+#' @param min numeric vector to use for partial time min component
+#' @param sec numeric vector to use for partial time sec component
+#' @param tzhour numeric vector to use for partial time tzhour component
+#' @param tzmin numeric vector to use for partial time tzmin component
+#'
 #' @examples
 #' parttime(2019)
 #' 

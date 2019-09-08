@@ -1,6 +1,6 @@
-# methods::getGroupMembers("Arith")
-# methods::getGroupMembers("Compare")
-# methods::getGroupMembers("Logic")
+# methods  getGroupMembers("Arith")
+# methods  getGroupMembers("Compare")
+# methods  getGroupMembers("Logic")
 
 compare_matrices <- function(x1, x2) {
   # greater: 1, equal: 0, less than: -1
@@ -64,6 +64,10 @@ gt_lt_gte_lte_timespans <- function(generic, e1, e2) {
 
 #' Not-equal comparison handler for partial_time objects
 #' 
+#' @param generic the generic operator selected
+#' @param e1 objects
+#' @param e2 objects
+#'
 #' @examples
 #' x <- as.parttime(c("2019", "2018-01",    NA, "2011"))
 #' y <- as.parttime(c("2019", "2018-01-03", NA, "2010-01"))
@@ -82,6 +86,10 @@ neq_parttimes <- function(generic, e1, e2) {
 
 #' Equal comparison handler for partial_time objects
 #' 
+#' @param generic the generic operator selected
+#' @param e1 objects
+#' @param e2 objects
+#' 
 #' @examples
 #' x <- as.parttime(c("2019", "2018-01-04", NA, "2011"))
 #' y <- as.parttime(c("2019", "2018-01-03", NA, "2010-01"))
@@ -99,6 +107,9 @@ eq_parttimes <- function(generic, e1, e2) {
 
 #' Handler for Ops generics for partial_time objects
 #' 
+#' @param e1 objects
+#' @param e2 objects
+#'
 #' @examples
 #'                                        # when assume_tz "GMT"         when assume_tz NA
 #'                                        # ---------------------------  ---------------------------
@@ -122,6 +133,11 @@ Ops.partial_time <- function(e1, e2) {
 
 
 
+#' Handler for Ops generics for timespan objects
+#' 
+#' @param e1 objects
+#' @param e2 objects
+#'
 #' @export
 Ops.timespan <- function(e1, e2) {
   f <- switch(.Generic,

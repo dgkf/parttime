@@ -10,6 +10,23 @@ parttime(year = NA, month = NA, day = NA, hour = NA, min = NA,
   NA))\%/\%60,
   tzmin = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%\%60)
 }
+\arguments{
+\item{year}{numeric vector to use for partial time year component}
+
+\item{month}{numeric vector to use for partial time month component}
+
+\item{day}{numeric vector to use for partial time day component}
+
+\item{hour}{numeric vector to use for partial time hour component}
+
+\item{min}{numeric vector to use for partial time min component}
+
+\item{sec}{numeric vector to use for partial time sec component}
+
+\item{tzhour}{numeric vector to use for partial time tzhour component}
+
+\item{tzmin}{numeric vector to use for partial time tzmin component}
+}
 \description{
 Create a parttime object
 }

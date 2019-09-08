@@ -9,6 +9,9 @@ propegate_na(x, keep_tz = FALSE)
 \arguments{
 \item{x}{a vector of parttime objects with days which may exceed viable days
 of month}
+
+\item{keep_tz}{logical indicating whether to retain timezone fields, even if
+other fields are missing}
 }
 \value{
 a vector of parttime objects with missingness propegated to lower

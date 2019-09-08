@@ -15,10 +15,14 @@ iso_regex <- paste0(
     "(?<tz>[zZ]|(?<tzpm>[\\+-])",
      "(?<tzhour>[01]\\d|2[0-3]):?(?<tzmin>[0-5]\\d)?)?)?)?$")
 
+
+
 #' A rework of parsedate::regexpr_to_df
 #'
 #' Provides a vertical dataframe of matches more ammeneable to a tidyverse-style
 #' analysis
+#'
+#' @param dates character vector of dates to parse for iso8601 components
 #'
 match_iso8601_to_matrix <- function(dates) {
   match <- regexpr(iso_regex, as.character(dates), perl = TRUE)
