@@ -9,14 +9,15 @@ A package for a partial datetime class and generics
 # Installation
 
 ```r
-devtools::install_github("kelkhofd/parttime")
+devtools::install_github("dgkf/parttime")
 ```
 
 # Example
 
 ## Parsing Incomplete Timestamps
 
-Parse ISO8601 timestampes using the `parsedate` package, but retain information about missingness in the timestamp format. 
+Parse ISO8601 timestampes using the `parsedate` package's pareser, but retain
+information about missingness in the timestamp format.
 
 ```r
 iso8601_dates <- c(
@@ -36,43 +37,78 @@ iso8601_dates <- c(
   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
   "20150101T08:35:32.123+05:30")  # condensed form
   
-parttime(iso8601_dates)
+as.parttime(iso8601_dates)
+
+#> <partial_time<YMDhms+tz>[15]> 
+#>  [1] NA                             "2001+0000"                   
+#>  [3] "2002-01-01+0000"              "2004-09-01+0000"             
+#>  [5] "2005+0000"                    "2006-01-13+0000"             
+#>  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       
+#>  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    
+#> [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"
+#> [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"
+#> [15] "2015-01-01 08:35:32.123+0530" 
 ```
 
-```
- [1] "0000*-01*-01* 01*:00*:00*.000* +00*00*"
- [2] "2001 -01*-01* 01*:00*:00*.000* +00*00*"
- [3] "2002 -01 -01  01*:00*:00*.000* +00*00*"
- [4] "2004 -09 -01  01*:00*:00*.000* +00*00*"
- [5] "2005 -01*-01* 01*:00*:00*.000* +00*00*"
- [6] "2006 -01 -13  01*:00*:00*.000* +00*00*"
- [7] "2007 -10 -01  08 :00*:00*.000* +00*00*"
- [8] "2008 -09 -20  08 :35 :00*.000* +00*00*"
- [9] "2009 -08 -12  08 :35 :02 .001  +00*00*"
-[10] "2010 -07 -22  08 :35 :32 .000* +00*00*"
-[11] "2011 -06 -13  08 :35 :32 .000  +00*00*"
-[12] "2012 -05 -23  08 :35 :32 .000  +00 00"
-[13] "2013 -04 -14  08 :35 :32 .000  +05 00*"
-[14] "2014 -03 -24  08 :35 :32 .000  +05 30"
-[15] "2015 -01 -01  08 :35 :32 .000  +05 30"
-```
-
-## Imputing With a Timestamp
+## Imputing Timestamps
 
 ```r
-impute_time("2019", "2000-01-02T03:04:05.006+0730")
+>  impute_time("2019", "2000-01-02T03:04:05.006+0730")
+
+#> <partial_time<YMDhms+tz>[1]> 
+#> [1] "2019-01-02 03:04:05.006" 
 ```
 
-```
-[1] "2019-01-01 19:34:05 GMT"
-```
+## Datetime Comparisons
 
-## Tidyverse Compatible (in-progress)
+Partial timestamps include uncertainty, which means that there is often
+uncertainty when comparing between timestamps. To help resolve this uncertainty
+there are two helper functions, `possibly` and `definitely` resolving this uncertainty for when the windows of uncertainty overlap, or equal (to a given resolution).
 
 ```r
+options(parttime.assume_tz_offset = 0)  # assume GMT
+parttime(2019) < parttime(2020)
+#> TRUE
+
+options(parttime.assume_tz_offset = NA)  # don't assume a timezone
+parttime(2019) < parttime(2020)
+#> NA  # due to potentially different timezones, this can't be certain
+
+possibly(parttime(2019) < parttime(2020))
+#> TRUE 
+
+definitely(parttime(2019) < parttime(2020))
+#> FALSE
+
+parttime(2019) == parttime(2019)
+#> NA  # given uncertainty in timestamps, we can't be sure these are equal
+
+options(parttime.assume_tz_offset = 0)
+definitely(parttime(2019) == parttime(2019), by = "year")
+#> TRUE  # but we know they're equal within the same year
+
+options(parttime.assume_tz_offset = NA)
+definitely(parttime(2019) == parttime(2019), by = "year")
+#> NA  # with an unknown timezone, these may not even be within the same year
+```
+
+## Timespans
+
+Cast a partial time's missingness to a range of possible values
+
+```r
+as.timespan(parttime(2019))
+#> <timespan[1]>
+#> [1] [2019 — 2020) 
+```
+
+## Tidyverse Compatible (coming with `vctrs` support in `dplyr` 0.9.0)
+
+```r
+# Not yet working because `dplyr` doesn't yet support `vctrs_rcrd` classes
 tibble(dates = iso8601_dates) %>%
   mutate(
-    parttimes = parttime(dates), 
+    parttimes = as.parttime(dates), 
     imputed_times = as.POSIXct(impute_time(parttimes)))
 ```
 
