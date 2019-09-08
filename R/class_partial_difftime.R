@@ -5,6 +5,8 @@ partial_difftime <- function(fmat, umat) {
   #  - "uncert" matrix (n x 2) of value uncertainty in last field before NA and
   #    first NA field
 
+  
+  
   structure(
     vector("logical", nrow(fmat)),
     fields = fmat,

@@ -113,3 +113,39 @@ tibble(dates = iso8601_dates) %>%
 ```
 
 <img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></img>
+
+# Roadmap
+
+|class|function/op|description|status|
+|---|---|---|---|
+|`partial_time`|`parttime`|create `partial_time`|✔︎*︎|
+|`partial_time`|`as.parttime`|cast to `partial_time`|✔︎*︎|
+|`partial_time`|`>`,`<`,`<=`,`>=`|comparison operators|✔︎*︎|
+|`partial_time`|`possibly`,`definitely`|uncertainty resolvers|✔︎*︎|
+|`partial_time`|`==`,`!=`|equivalence operators|✔︎*︎|
+|`partial_time`|`min`,`max`,`pmin`,`pmax`|partial time extremes|✔︎*︎|
+|`partial_time`|`impute_time`|imputing partial time|✔︎*︎|
+|`partial_time`|`to_gmt`|convert to gmt timezone|✔︎*︎|
+|`partial_time`|`print`|printing|✔︎*︎|
+|`partial_time`|`format`|format as character|✔︎*︎|
+|`partial_time`|`<vctrs>`|various `vctrs` compatability functions|✔︎*︎|
+|`partial_time`|`<pillar>`|various `pillar` compatability functions|✔︎*︎|
+|`partial_difftime`|`difftime`|create `partial_difftime`|︎|
+|`partial_difftime`|`as.difftime`|cast to `partial_difftime`|︎|
+|`partial_difftime`|`>`,`<`,`<=`,`>=`|comparison operators|︎|
+|`partial_difftime`|`possibly`,`definitely`|uncertainty resolvers|︎|
+|`partial_difftime`|`==`,`!=`|equivalence operators|︎|
+|`partial_difftime`|`min`,`max`,`pmin`,`pmax`|partial difftime extremes|︎|
+|`partial_difftime`|`impute_time`|imputing partial time|︎|
+|`partial_difftime`|`to_gmt`|convert to gmt timezone|︎|
+|`partial_difftime`|`print`|printing||
+|`partial_difftime`|`format`|format as character||
+|`partial_difftime`|`<vctrs>`|various `vctrs` compatability functions||
+|`partial_difftime`|`<pillar>`|various `pillar` compatability functions||
+||``` `-`(partial_time, partial_difftime) ```|subraction|︎|
+||``` `-`(partial_time, partial_time) ```|subraction|︎|
+||``` `-`(partial_difftime, partial_difftime) ```|subraction|︎|
+||``` `-`(partial_difftime, partial_difftime) ```|addition|︎|
+
+*[Debating internal representation of class](#1), which would require tweaking
+existing implementations
