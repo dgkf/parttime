@@ -145,5 +145,5 @@ tibble(dates = iso8601_dates) %>%
 ||``` `-`(partial_difftime, partial_difftime) ```|subraction|︎|
 ||``` `-`(partial_difftime, partial_difftime) ```|addition|︎|
 
-*[Debating internal representation of class](#1), which would require tweaking
+*[Debating internal representation of class](https://github.com/dgkf/parttime/issues/5), which would require tweaking
 existing implementations
