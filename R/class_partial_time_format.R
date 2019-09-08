@@ -1,5 +1,5 @@
-#' @export
 #' @importFrom pillar style_na
+#' @export
 format.partial_time <- function(x, ..., quote = TRUE) {
   x_str <- vector("character", length(x))
   x_str[] <- pillar::style_na('NA')
@@ -19,6 +19,7 @@ format_field_matrix <- function(x,
     verbose = getOption("parttime.print_verbose", FALSE)) {
   
   tz <- .i(x, 2, "tzhour", "tzmin")
+  tzs <- all_tz(x)
   
   x_omit <- FALSE
   if (isFALSE(verbose)) {
@@ -54,10 +55,14 @@ format_field_matrix <- function(x,
     crayon::col_substring(format_field(x[,"secfrac"], 3, fmt = "%.03f"), 3))
   
   # optional timezone (timespan/duration have no tz elements)
-  if ("tzhour" %in% colnames(x_str))
-    x_str[,"tzhour"] <- format_field(x[,"tzhour"], 2, fmt = "%+03.f")
-  if ("tzmin" %in% colnames(x_str))
-    x_str[,"tzmin"] <- crayon::col_substring(format_field(x[,"tzmin"], 2, fmt = "%+03.f"), 2)
+  if (is.na(tzs)) {
+    if ("tzhour" %in% colnames(x_str))
+      x_str[,"tzhour"] <- format_field(x[,"tzhour"], 2, fmt = "%+03.f")
+    if ("tzmin" %in% colnames(x_str))
+      x_str[,"tzmin"] <- crayon::col_substring(format_field(x[,"tzmin"], 2, fmt = "%+03.f"), 2)
+  } else {
+    x_str[,c("tzhour", "tzmin")] <- ""
+  }
   
   x_str[x_omit] <- ''
   apply(x_str, 1, paste0, collapse = '')

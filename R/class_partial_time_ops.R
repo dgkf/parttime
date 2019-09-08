@@ -54,7 +54,7 @@ gt_lt_gte_lte_timespans <- function(generic, e1, e2) {
   
   # build comparison matrix
   x <- cbind(na, compare_timespans(e1, e2))
-  
+ 
   # apply comparison
   x <- do.call(generic, list(x, 0))
   parttime_logical(x)
@@ -75,11 +75,17 @@ gt_lt_gte_lte_timespans <- function(generic, e1, e2) {
 #' x != y
 #'
 neq_parttimes <- function(generic, e1, e2) {
+  na <- is.na(e1) | is.na(e2)
+  
+  e1 <- propegate_na(e1)
+  e2 <- propegate_na(e2)
+  
   x <- vctrs::field(e1, "pttm_mat") != vctrs::field(e2, "pttm_mat")
   x <- t(apply(x, 1, cumsum)) > 0
   x_any <- which(apply(x, 1, any))
   x[x_any,] <- x[x_any,] | is.na(x[x_any,])
-  parttime_logical(x)
+  
+  parttime_logical(cbind(na, x))
 }
 
 
@@ -97,10 +103,16 @@ neq_parttimes <- function(generic, e1, e2) {
 #' x == y
 #'
 eq_parttimes <- function(generic, e1, e2) {
+  na <- is.na(e1) | is.na(e2)
+  
+  e1 <- propegate_na(e1)
+  e2 <- propegate_na(e2)
+  
   x <- vctrs::field(e1, "pttm_mat") == vctrs::field(e2, "pttm_mat")
   x_nall <- which(apply(!x, 1, any))
   x[x_nall,] <- !(!x[x_nall,] | is.na(x[x_nall,]))
-  parttime_logical(x)
+  
+  parttime_logical(cbind(na, x))
 }
 
 
@@ -145,8 +157,8 @@ Ops.timespan <- function(e1, e2) {
     "<"  = gt_lt_gte_lte_timespans,
     ">=" = gt_lt_gte_lte_timespans,
     "<=" = gt_lt_gte_lte_timespans,
-    # "==" = eq_timespans,
-    # "!=" = neq_timespans,
+    # "==" = eq_neq_timespans,
+    # "!=" = eq_neq_timespans,
     NULL)
   
   if (is.null(f)) 
