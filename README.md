@@ -136,8 +136,6 @@ tibble(dates = iso8601_dates) %>%
 |`partial_difftime`|`possibly`,`definitely`|uncertainty resolvers|︎|
 |`partial_difftime`|`==`,`!=`|equivalence operators|︎|
 |`partial_difftime`|`min`,`max`,`pmin`,`pmax`|partial difftime extremes|︎|
-|`partial_difftime`|`impute_time`|imputing partial time|︎|
-|`partial_difftime`|`to_gmt`|convert to gmt timezone|︎|
 |`partial_difftime`|`print`|printing||
 |`partial_difftime`|`format`|format as character||
 |`partial_difftime`|`<vctrs>`|misc `vctrs` functions||
