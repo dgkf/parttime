@@ -1,11 +1,15 @@
 # parttime
 
+[![status](https://img.shields.io/static/v1?label=status&message=experimental&color=red)]()
+[![travisci](https://api.travis-ci.org/dgkf/parttime.svg?branch=master)](https://travis-ci.org/dgkf/parttime)
+[![codecov](https://codecov.io/gh/dgkf/parttime/branch/master/graph/badge.svg)](https://codecov.io/gh/dgkf/parttime)
+
 A package for a partial datetime class and generics
 
 # Installation
 
 ```r
-devtools::install_github("kelkhofd/parttime", host = "https://github.roche.com/api/v3")
+devtools::install_github("kelkhofd/parttime")
 ```
 
 # Example
@@ -72,4 +76,4 @@ tibble(dates = iso8601_dates) %>%
     imputed_times = as.POSIXct(impute_time(parttimes)))
 ```
 
-<img src="https://media.github.roche.com/user/112/files/bb604b00-3eba-11e9-9669-2a8c81213ed5" width="75%"></img>
+<img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></img>
