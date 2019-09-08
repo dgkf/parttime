@@ -4,7 +4,7 @@
 \alias{includes.partial_time.partial_time}
 \title{Test for whether a timestamp could be included within parttime uncertainty}
 \usage{
-\method{includes}{partial_time.partial_time}(e1, e2)
+\method{includes.partial_time}{partial_time}(e1, e2)
 }
 \arguments{
 \item{e1}{object to test whether includes \code{e2}}
