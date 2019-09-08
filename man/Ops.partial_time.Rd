@@ -6,6 +6,11 @@
 \usage{
 \method{Ops}{partial_time}(e1, e2)
 }
+\arguments{
+\item{e1}{objects}
+
+\item{e2}{objects}
+}
 \description{
 Handler for Ops generics for partial_time objects
 }

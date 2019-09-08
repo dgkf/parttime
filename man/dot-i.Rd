@@ -6,6 +6,13 @@
 \usage{
 .i(x, dim, ...)
 }
+\arguments{
+\item{x}{an object with dimnames<- defined}
+
+\item{dim}{the dimension to index}
+
+\item{...}{names selected by which}
+}
 \description{
 shorthand for converting dimnames to indices, for easier column subtraction
 }

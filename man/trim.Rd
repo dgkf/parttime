@@ -6,6 +6,11 @@
 \usage{
 trim(x, ...)
 }
+\arguments{
+\item{x}{timespan object to trim}
+
+\item{...}{additional arguments passed on to functions}
+}
 \description{
 Shorten a timespan
 }

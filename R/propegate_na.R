@@ -2,6 +2,8 @@
 #'
 #' @param x a vector of parttime objects with days which may exceed viable days
 #'   of month
+#' @param keep_tz logical indicating whether to retain timezone fields, even if
+#'   other fields are missing
 #'
 #' @return a vector of parttime objects with missingness propegated to lower
 #'   resolution time fields

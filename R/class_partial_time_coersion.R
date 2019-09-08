@@ -11,7 +11,7 @@ as.parttime <- function(x) {
 
 
 
-#' Vector casting for partial_time vectors
+#' Cast to partial time object
 #' 
 #' @inheritParams vctrs::vec_cast
 #' 
@@ -23,11 +23,14 @@ vec_cast.partial_time <- function(x, to, ...) {
 
 
 
-#' @inheritParams vec_cast.partial_time
+#' Default handler for casting to a partial time
 #' 
+#' @inheritParams vctrs::vec_cast
+#' 
+#' @importFrom vctrs stop_incompatible_cast
 #' @export
 vec_cast.partial_time.default <- function(x, to, ...) {
-  if (!all(is.na(x) | is.null(x))) stop_incompatible_cast(x, to)
+  if (!all(is.na(x) | is.null(x))) vctrs::stop_incompatible_cast(x, to)
   vctrs::vec_recycle(parttime(NA), size = length(x))
 }
 
@@ -35,7 +38,7 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 
 #' Coerce character date representations to parttime objects
 #'
-#' @inheritParams vec_cast.partial_time
+#' @inheritParams vctrs::vec_cast
 #'
 #' @examples
 #' dates <- c(
@@ -78,10 +81,8 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' 
 #' @export
 vec_cast.partial_time.character <- function(x, to, ...) {
-  pttm_mat <- if (length(x))
-    match_iso8601_to_matrix(x)
-  else
-    match_iso8601_to_matrix("")[0,,drop = FALSE]
+  pttm_mat <- if (length(x)) match_iso8601_to_matrix(x)
+    else match_iso8601_to_matrix("")[0,,drop = FALSE]
   
   tzhour_na <- is.na(pttm_mat[,"tzhour"])
   all_na <- apply(is.na(pttm_mat), 1, all)
@@ -100,6 +101,10 @@ vec_cast.partial_time.character <- function(x, to, ...) {
 
 
 
+#' Cast a matrix to a partial time
+#' 
+#' @inheritParams vctrs::vec_cast
+#' 
 #' @export
 vec_cast.partial_time.matrix <- function(x, to, ...) {
   stopifnot(ncol(x) == 9)
@@ -112,8 +117,14 @@ vec_cast.partial_time.matrix <- function(x, to, ...) {
 
 
 
+#' Cast partial time to logical
+#'
+#' @inheritParams vctrs::vec_cast
+#'
 #' @export
-vec_cast.logical.partial_time <- function(x, to, ...) unname(is.na(x))
+vec_cast.logical.partial_time <- function(x, to, ...) {
+  unname(is.na(x))
+}
 
 
 

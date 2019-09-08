@@ -1,7 +1,7 @@
 Package: parttime
 Type: Package
 Title: A package for partial datetime format handling
-Version: 0.0.1.23
+Version: 0.0.1.24
 Authors@R: c(
     person(
         given = "Doug", 
@@ -22,9 +22,10 @@ Imports:
     pillar,
     crayon,
     vctrs,
-    utils
+    utils,
+    methods
 Suggests:
-    dplyr (>= 0.9.0),
+    dplyr,
     testthat,
     knitr,
     rmarkdown

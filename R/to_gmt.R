@@ -1,3 +1,7 @@
+#' Generic for coercing timestamps to GMT timezone
+#'
+#' @param x object to coerce to GMT time
+#'
 #' @export
 to_gmt <- function(x) {
   UseMethod("to_gmt")

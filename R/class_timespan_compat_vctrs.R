@@ -1,14 +1,14 @@
-#' @export
+#' @importFrom vctrs vec_ptype_full 
 vec_ptype_full.timespan <- function(x) "timespan"
 
 
 
-#' @export
+#' @importFrom vctrs vec_ptype_abbr 
 vec_ptype_abbr.timespan <- function(x) "tmspn"
 
 
 
-#' @export
+#' @importFrom vctrs obj_print_data
 obj_print_data.timespan <- function(x, ...) {
   if (!length(x)) return(invisible(x))
   cat(format_vector(format(x, ...)), '\n')
@@ -17,7 +17,7 @@ obj_print_data.timespan <- function(x, ...) {
 
 
 
-#' @export
+#' @importFrom vctrs obj_print_footer
 obj_print_footer.timespan <- function(x, ...) {
   l <- length(x) - getOption("max.print")
   if (l > 0) 

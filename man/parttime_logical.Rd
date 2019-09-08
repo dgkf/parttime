@@ -7,6 +7,10 @@ truncation as to not overccomplicate coersion needs with another vctr class}
 \usage{
 parttime_logical(x)
 }
+\arguments{
+\item{x}{create a parttime logical to store logical matrix following parttime
+comparison operations}
+}
 \description{
 This class is purely for retaining logical information for immediate
 truncation as to not overccomplicate coersion needs with another vctr class

@@ -9,6 +9,8 @@
 #'
 #' @return a new partial_time with specified fields imputed
 #'
+#' @family impute_time
+#'
 #' @export
 impute_time <- function(x, time, tz, ...) {
   UseMethod("impute_time")
@@ -16,6 +18,14 @@ impute_time <- function(x, time, tz, ...) {
 
 
 
+#' Impute with the minimum possible timestamp
+#' 
+#' @param x timestamp object to impute
+#' @param tz a timezone to use, defaults to +1400
+#' @inheritParams impute_time
+#' 
+#' @family impute_time
+#' 
 #' @export
 impute_time_min <- function(x, tz = "-1200", ...) {
   impute_time(x, time = time_min(), tz = tz, ...)
@@ -23,6 +33,14 @@ impute_time_min <- function(x, tz = "-1200", ...) {
 
 
 
+#' Impute with the maximum possible timestamp
+#'
+#' @param x timestamp object to impute
+#' @param tz a timezone to use, defaults to +1400
+#' @inheritParams impute_time
+#'
+#' @family impute_time
+#'
 #' @export
 impute_time_max <- function(x, tz = "+1400", ...) {
   impute_time(x, time = time_max(), tz = tz, ...)
@@ -30,6 +48,14 @@ impute_time_max <- function(x, tz = "+1400", ...) {
 
 
 
+#' Impute with middle timestamp values
+#' 
+#' @param x timestamp object to impute
+#' @param tz a timezone to use, defaults to +1400
+#' @inheritParams impute_time
+#' 
+#' @family impute_time
+#' 
 #' @export
 impute_time_mid <- function(x, tz = "GMT", ...) {
   impute_time(x, time = time_mid(), tz = tz, ...)
@@ -120,7 +146,6 @@ impute_time.matrix <- function(x, time, tz = "GMT", ...) {
 
 
 
-#' @export
 impute_partial_time_to_chr <- function(x, time, ...) {
   if (!"partial_time" %in% class(x)) x <- as.parttime(x)
 

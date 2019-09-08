@@ -1,5 +1,9 @@
 #' This class is purely for retaining logical information for immediate
 #' truncation as to not overccomplicate coersion needs with another vctr class
+#'
+#' @param x create a parttime logical to store logical matrix following parttime
+#'   comparison operations
+#' 
 parttime_logical <- function(x) {
   structure(unname(x[,ncol(x)]), 
     pttm_lgl = x, 

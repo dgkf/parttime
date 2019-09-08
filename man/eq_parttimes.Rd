@@ -6,6 +6,13 @@
 \usage{
 eq_parttimes(generic, e1, e2)
 }
+\arguments{
+\item{generic}{the generic operator selected}
+
+\item{e1}{objects}
+
+\item{e2}{objects}
+}
 \description{
 Equal comparison handler for partial_time objects
 }

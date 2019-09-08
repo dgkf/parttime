@@ -6,44 +6,34 @@ curry_field_f <- function(field) {
   function(x) get_field(x, field)
 }
 
+#' @importFrom lubridate year
 #' @export
 year.partial_time <- curry_field_f("year")
 
+#' @importFrom lubridate month
 #' @export
 month.partial_time <- curry_field_f("month")
 
+#' @importFrom lubridate day
 #' @export
 day.partial_time <- curry_field_f("day")
 
+#' @importFrom lubridate hour
 #' @export
 hour.partial_time <- curry_field_f("hour")
 
+#' @importFrom lubridate minute
 #' @export
 minute.partial_time <- curry_field_f("min")
 
+#' @importFrom lubridate second
 #' @export
-min.partial_time <- curry_field_f("min")
+second.partial_time <- function(x) { 
+  get_field(x, "sec") + get_field(x, "secfrac")
+}
 
+#' @importFrom lubridate tz
 #' @export
-second.partial_time <- curry_field_f("sec")
-
-#' @export
-sec.partial_time <- curry_field_f("sec")
-
-#' @export
-secfrac <- function(x) UseMethod("secfrac")
-
-#' @export
-secfrac.partial_time <- curry_field_f("secfrac")
-
-#' @export
-tzhour <- function(x) UseMethod("tzhour")
-
-#' @export
-tzhour.partial_time <- curry_field_f("tzhour")
-
-#' @export
-tzmin <- function(x) UseMethod("tzmin")
-
-#' @export
-tzmin.partial_time <- curry_field_f("tzmin")
+tz.partial_time <- function(x) {
+  get_field(x, "tzhour") * 60 + get_field(x, "tzmin")
+}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_partial_time_coersion.R
 \name{vec_cast.partial_time}
 \alias{vec_cast.partial_time}
-\title{Vector casting for partial_time vectors}
+\title{Cast to partial time object}
 \usage{
 vec_cast.partial_time(x, to, ...)
 }
@@ -16,5 +16,5 @@ vec_cast.partial_time(x, to, ...)
 extensions and should be empty.}
 }
 \description{
-Vector casting for partial_time vectors
+Cast to partial time object
 }

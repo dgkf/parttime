@@ -88,6 +88,13 @@ format_vector <- function(x) {
 
 #' Similar to matrix and array `[` behavior, but allows for providing a numeric
 #' vector of dimensions to drop
+#'
+#' @param x array or matrix to extract from
+#' @param ... pased to \code{[}
+#' @param drop whether to drop dimensions, a logical or numeric vector of
+#'   dimensions to drop
+#' @param envir environment in which to evaluate \code{[} call
+#' 
 extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
   args <- as.list(match.call())[-1]
   args <- args[names(args) == ""]
@@ -115,6 +122,11 @@ extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
 
 
 #' shorthand for converting dimnames to indices, for easier column subtraction
+#'
+#' @param x an object with dimnames<- defined
+#' @param dim the dimension to index
+#' @param ... names selected by which
+#' 
 .i <- function(x, dim, ...) {
   which(dimnames(x)[[dim]] %in% c(...))
 }
