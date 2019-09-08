@@ -16,7 +16,7 @@ devtools::install_github("dgkf/parttime")
 
 ## Parsing Incomplete Timestamps
 
-Parse ISO8601 timestampes using the `parsedate` package's pareser, but retain
+Parse ISO8601 timestampes using the `parsedate` package's parser, but retains
 information about missingness in the timestamp format.
 
 ```r
