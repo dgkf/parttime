@@ -4,11 +4,16 @@
 \alias{parttime}
 \title{Create a parttime object}
 \usage{
-parttime(year = NA, month = NA, day = NA, hour = NA, min = NA,
+parttime(
+  year = NA,
+  month = NA,
+  day = NA,
+  hour = NA,
+  min = NA,
   sec = NA,
-  tzhour = interpret_tz(getOption("parttime.assume_tz_offset",
-  NA))\%/\%60,
-  tzmin = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%\%60)
+  tzhour = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%/\%60,
+  tzmin = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%\%60
+)
 }
 \description{
 Create a parttime object

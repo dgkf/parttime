@@ -4,7 +4,9 @@
 \name{iso_regex}
 \alias{iso_regex}
 \title{slightly modified from parsedate - added 'secfrac' capture group}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 iso_regex
 }

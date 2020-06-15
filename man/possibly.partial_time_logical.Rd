@@ -4,8 +4,7 @@
 \alias{possibly.partial_time_logical}
 \title{Determine whether a partial_time logical matrix is possibly TRUE}
 \usage{
-\method{possibly}{partial_time_logical}(x, by = ncol(attr(x,
-  "pttm_lgl")), ...)
+\method{possibly}{partial_time_logical}(x, by = ncol(attr(x, "pttm_lgl")), ...)
 }
 \description{
 Determine whether a partial_time logical matrix is possibly TRUE
