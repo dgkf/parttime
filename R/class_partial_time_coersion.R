@@ -6,7 +6,7 @@
 as.parttime <- function(x) {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
-  vctrs::vec_cast(x, structure(0L, class = "partial_time"))
+  vec_cast.partial_time(x, structure(0L, class = "partial_time"))
 }
 
 
