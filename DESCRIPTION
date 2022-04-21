@@ -1,7 +1,7 @@
 Package: parttime
 Type: Package
 Title: A package for partial datetime format handling
-Version: 0.0.1.25
+Version: 0.0.1.26
 Authors@R: c(
     person(
         given = "Doug", 

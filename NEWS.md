@@ -1,3 +1,7 @@
+# parttime 0.0.2 (dev)
+
+* bring package up-to-speed with `vctrs` package changes from last few years
+
 # parttime 0.0.1.2
 
 * fixed subset assignment operators [<- and [[<- 
