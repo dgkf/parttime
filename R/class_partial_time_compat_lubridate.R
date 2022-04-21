@@ -1,6 +1,6 @@
 #' Wrapper for lubridate as.interval
 #'
-#' @inherit lubridate::as.interval
+#' @inheritParams lubridate::as.interval
 #'
 #' @importFrom methods setMethod signature
 #' @importFrom lubridate as.interval

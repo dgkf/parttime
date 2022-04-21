@@ -13,39 +13,6 @@
 
 \item{...}{additional arguments to pass to as.interval}
 }
-\value{
-an interval object
-}
 \description{
-as.interval changes difftime, Duration, Period and numeric class objects to
-intervals that begin at the specified date-time. Numeric objects are first
-coerced to timespans equal to the numeric value in seconds.
-}
-\details{
-as.interval can be used to create accurate transformations between Period
-objects, which measure time spans in variable length units, and Duration objects,
-which measure timespans as an exact number of seconds. A start date-
-time must be supplied to make the conversion. Lubridate uses
-this start date to look up how many seconds each variable
-length unit (e.g. month, year) lasted for during the time span
-described. See
-\code{\link[lubridate:as.duration]{as.duration()}}, \code{\link[lubridate:as.period]{as.period()}}.
-}
-\examples{
-diff <- make_difftime(days = 31) #difftime
-as.interval(diff, ymd("2009-01-01"))
-as.interval(diff, ymd("2009-02-01"))
-
-dur <- duration(days = 31) #duration
-as.interval(dur, ymd("2009-01-01"))
-as.interval(dur, ymd("2009-02-01"))
-
-per <- period(months = 1) #period
-as.interval(per, ymd("2009-01-01"))
-as.interval(per, ymd("2009-02-01"))
-
-as.interval(3600, ymd("2009-01-01")) #numeric
-}
-\seealso{
-\code{\link[lubridate:interval]{interval()}}
+Wrapper for lubridate as.interval
 }

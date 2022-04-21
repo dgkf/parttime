@@ -2,9 +2,18 @@
 % Please edit documentation in R/class_partial_time_is.R
 \name{is_partial_time}
 \alias{is_partial_time}
+\alias{is.partial_time}
+\alias{is_parttime}
+\alias{is.parttime}
 \title{Shorthand for checking partial time inheritance}
 \usage{
 is_partial_time(x)
+
+is.partial_time(x)
+
+is_parttime(x)
+
+is.parttime(x)
 }
 \arguments{
 \item{x}{object to test}

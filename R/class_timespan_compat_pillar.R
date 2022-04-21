@@ -1,11 +1,3 @@
-#' @importFrom pillar is_vector_s3
-#' @export
-is_vector_s3.timespan <- function(x) {
-  TRUE
-}
-
-
-
 #' @importFrom pillar type_sum
 #' @export
 type_sum.timespan <- function(x) {
@@ -19,10 +11,10 @@ type_sum.timespan <- function(x) {
 #' @export
 pillar_shaft.timespan <- function(x, ...) {
   x_fmt <- format(x, ..., quote = FALSE)
-  
+
   pillar::new_pillar_shaft(
-    x_fmt, 
-    width = max(crayon::col_nchar(x_fmt)), 
+    x_fmt,
+    width = max(crayon::col_nchar(x_fmt)),
     subclass = "pillar_shaft_timespan")
 }
 
