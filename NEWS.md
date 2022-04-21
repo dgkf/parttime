@@ -1,5 +1,9 @@
 # parttime 0.0.2 (dev)
 
+* rename `is_partial_*` to `has_partial_*` to avoid ambiguity with class checks
+
+* removed some deprecated `pillar` interfaces
+
 * bring package up-to-speed with `vctrs` package changes from last few years
 
 # parttime 0.0.1.2
