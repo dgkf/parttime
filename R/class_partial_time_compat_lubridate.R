@@ -1,3 +1,14 @@
+#' Wrapper for lubridate as.interval
+#'
+#' @inherit lubridate::as.interval
+#'
+#' @importFrom methods setMethod signature
+#' @importFrom lubridate as.interval
+#' @export
+methods::setMethod("as.interval", methods::signature("partial_time"), function(x, ...) {
+  vctrs::vec_cast(x, structure(0L, class = "timespan"))
+})
+
 get_field <- function(x, field) {
   vctrs::field(x, "pttm_mat")[,field]
 }
@@ -28,7 +39,7 @@ minute.partial_time <- curry_field_f("min")
 
 #' @importFrom lubridate second
 #' @export
-second.partial_time <- function(x) { 
+second.partial_time <- function(x) {
   get_field(x, "sec") + get_field(x, "secfrac")
 }
 

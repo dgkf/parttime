@@ -5,7 +5,7 @@
 #' @param components components to include in testing
 #'
 #' @export
-is_partial <- function(x, ..., components = c("year", "month", "day", "hour",
+has_partial <- function(x, ..., components = c("year", "month", "day", "hour",
     "min", "sec", "secfrac", "tzhour", "tzmin")) {
 
   dots <- as.list(match.call())[-1]
@@ -13,34 +13,38 @@ is_partial <- function(x, ..., components = c("year", "month", "day", "hour",
 
   if (length(dots)) components <- dots
 
-  match.arg(components, c("year", "month", "day", "hour", "min", "sec", 
-      "secfrac", "tzhour", "tzmin"), several.ok = TRUE)
+  match.arg(
+    components,
+    c("year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin"),
+    several.ok = TRUE
+  )
 
   apply(
-    vctrs::field(x, "pttm_mat")[,components, drop = FALSE], 
-    1, 
-    function(row) any(is.na(row)))
+    vctrs::field(x, "pttm_mat")[, components, drop = FALSE],
+    1,
+    function(row) any(is.na(row))
+  )
 }
 
 
 
 #' Test whether a partial_time object's date components are incomplete
-#' 
-#' @inheritParams is_partial
-#' 
+#'
+#' @inheritParams has_partial
+#'
 #' @export
-is_partial_date <- function(x, ...) {
-  is_partial(x, ..., components = c("year", "month", "day", "tzhour", "tzmin"))
+has_partial_date <- function(x) {
+  has_partial(x, components = c("year", "month", "day", "tzhour", "tzmin"))
 }
 
 
 
 #' Test whether a partial_time object's time components are incomplete
-#' 
-#' @inheritParams is_partial
-#' 
+#'
+#' @inheritParams has_partial
+#'
 #' @export
-is_partial_time <- function(x, ...) {
-  is_partial(x, ..., components = c("hour", "min", "sec", "secfrac", "tzhour", 
+has_partial_time <- function(x) {
+  has_partial(x, components = c("hour", "min", "sec", "secfrac", "tzhour",
       "tzmin"))
 }

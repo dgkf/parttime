@@ -17,7 +17,7 @@ Handler for Ops generics for partial_time objects
 \examples{
                                        # when assume_tz "GMT"         when assume_tz NA
                                        # ---------------------------  ---------------------------
-                                       # raw    possibly  definitely   raw   possibly  definitely  
+                                       # raw    possibly  definitely   raw   possibly  definitely
                                        # -----  --------- -----------  ----- --------- -----------
 parttime(1998) < parttime(1999)        # TRUE   TRUE      TRUE         NA    TRUE      FALSE
 parttime(1998) < parttime(1997)        # FALSE  FALSE     FALSE        NA    TRUE      FALSE

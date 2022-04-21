@@ -10,12 +10,12 @@ is.na.partial_time <- function(x, ...) {
 
 
 
-#' Shorthand for checking partial time inheritance 
-#' 
+#' Shorthand for checking partial time inheritance
+#'
 #' @param x object to test
-#' 
+#'
 #' @family is_parttime
-#' 
+#'
 #' @export
 is_partial_time <- function(x) {
   inherits(x, "partial_time")
@@ -23,18 +23,15 @@ is_partial_time <- function(x) {
 
 
 
-#' @inherit is_partial_time
 #' @export
 is.partial_time <- is_partial_time
 
 
 
-#' @inherit is_partial_time
-#' @export
-is.parttime <- is_partial_time
-
-
-
-#' @inherit is_partial_time
 #' @export
 is_parttime <- is_partial_time
+
+
+
+#' @export
+is.parttime <- is_partial_time

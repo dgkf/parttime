@@ -18,7 +18,9 @@ impute_time_mid(x, tz = "GMT", ...)
 Impute with middle timestamp values
 }
 \seealso{
-Other impute_time: \code{\link{impute_time_max}},
-  \code{\link{impute_time_min}}, \code{\link{impute_time}}
+Other impute_time: 
+\code{\link{impute_time_max}()},
+\code{\link{impute_time_min}()},
+\code{\link{impute_time}()}
 }
 \concept{impute_time}

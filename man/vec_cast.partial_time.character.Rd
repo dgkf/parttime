@@ -4,7 +4,7 @@
 \alias{vec_cast.partial_time.character}
 \title{Coerce character date representations to parttime objects}
 \usage{
-\method{vec_cast.partial_time}{character}(x, to, ...)
+\method{vec_cast}{partial_time.character}(x, to, ...)
 }
 \arguments{
 \item{x}{Vectors to cast.}
@@ -45,14 +45,14 @@ as.parttime(dates)
 rcrd_test <- vctrs::new_rcrd(
   fields = list(a = 1:3, b = 4:6),
   class = numeric())
- 
+
 tibble(x = 1:3, y = rcrd_test)
 # okay
 
 tibble(x = 1:3) \%>\% mutate(y = rcrd_test)
 # Error: Column `y` must be length 3 (the number of rows) or one, not 2
- 
-tibble(x = 1:3) \%>\% { .$y <- rcrd_test; . }  
+
+tibble(x = 1:3) \%>\% { .$y <- rcrd_test; . }
 # okay (stand-in for mutate until dplyr v0.9.0)
 
 }

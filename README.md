@@ -1,8 +1,10 @@
 # parttime
 
+<!-- badges: start -->
 [![status](https://img.shields.io/static/v1?label=status&message=experimental&color=red)]()
-[![travisci](https://api.travis-ci.org/dgkf/parttime.svg?branch=master)](https://travis-ci.org/dgkf/parttime)
-[![codecov](https://codecov.io/gh/dgkf/parttime/branch/master/graph/badge.svg)](https://codecov.io/gh/dgkf/parttime)
+[![R-CMD-check](https://github.com/dgkf/parttime/workflows/R-CMD-check/badge.svg)](https://github.com/dgkf/parttime/actions)
+[![Coverage](https://codecov.io/gh/dgkf/parttime/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=master)
+<!-- badges: end -->
 
 A package for a partial datetime class and generics
 

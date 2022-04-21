@@ -35,8 +35,8 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
 }
 \details{
 \code{max} and \code{min} return the maximum or minimum of \emph{all}
-  the  values present in their arguments, as \code{\link{integer}} if
-  all are \code{logical} or \code{integer}, as \code{\link{double}} if
+  the  values present in their arguments, as \code{\link[base]{integer}} if
+  all are \code{logical} or \code{integer}, as \code{\link[base]{double}} if
   all are numeric, and character otherwise.
 
   If \code{na.rm} is \code{FALSE} an \code{NA} value in any of the
@@ -59,8 +59,8 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
   second element of the result is the maximum (minimum) of the second
   elements of all the arguments and so on.  Shorter inputs (of non-zero
   length) are recycled if necessary.  Attributes (see
-  \code{\link{attributes}}: such as \code{\link{names}} or
-  \code{\link{dim}}) are copied from the first argument (if applicable,
+  \code{\link[base]{attributes}}: such as \code{\link[base]{names}} or
+  \code{\link[base]{dim}}) are copied from the first argument (if applicable,
   e.g., \emph{not} for an \code{S4} object).
 
   \code{pmax.int} and \code{pmin.int} are faster internal versions only
@@ -70,7 +70,7 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
 
   \code{max} and \code{min} are generic functions: methods can be
   defined for them individually or via the
-  \code{\link[=S3groupGeneric]{Summary}} group generic.  For this to
+  \code{\link[base:groupGeneric]{Summary}} group generic.  For this to
   work properly, the arguments \code{\dots} should be unnamed, and
   dispatch is on the first argument.
 
@@ -82,7 +82,7 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
 
   Character versions are sorted lexicographically, and this depends on
   the collating sequence of the locale in use: the help for
-  \sQuote{\link{Comparison}} gives details.  The max/min of an empty
+  \sQuote{\link[base]{Comparison}} gives details.  The max/min of an empty
   character vector is defined to be character \code{NA}.  (One could
   argue that as \code{""} is the smallest character element, the maximum
   should be \code{""}, but there is no obvious candidate for the
@@ -123,8 +123,8 @@ Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
   Wadsworth & Brooks/Cole.
 }
 \seealso{
-\code{\link{range}} (\emph{both} min and max) and
-  \code{\link{which.min}} (\code{which.max}) for the \emph{arg min},
+\code{\link[base]{range}} (\emph{both} min and max) and
+  \code{\link[base]{which.min}} (\code{which.max}) for the \emph{arg min},
   i.e., the location where an extreme value occurs.
 
   \sQuote{\link{plotmath}} for the use of \code{min} in plot annotation.

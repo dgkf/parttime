@@ -15,6 +15,7 @@ definitely(x, ...)
 "Definitely" generic for resolving uncertainty
 }
 \seealso{
-Other uncert-resolvers: \code{\link{possibly}}
+Other uncert-resolvers: 
+\code{\link{possibly}()}
 }
 \concept{uncert-resolvers}
