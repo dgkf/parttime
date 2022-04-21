@@ -26,7 +26,7 @@ warn_partial <- function(x, ..., envir = parent.frame()) {
 
 
 spoken_list <- function(x, quote = FALSE, oxford = FALSE) {
-  if (isFALSE(quote)) quote <- ''
+  if (identical(quote, FALSE)) quote <- ''
   else if (isTRUE(quote)) quote <- '"'
 
   paste0(
@@ -40,15 +40,15 @@ spoken_list <- function(x, quote = FALSE, oxford = FALSE) {
 
 gmtoff <- function(tzone) {
   if (is.numeric(tzone)) return(tzone)
-  
+
   if (!tzone %in% OlsonNames())
     stop("Invalid timezone. Use `OlsonNames()` to see a list of valid timezones.")
-  
+
   date_stub <- lubridate::as_datetime("1970-01-01 00:00:00 GMT")
-  
+
   as.numeric(difftime(
-    date_stub, 
-    lubridate::force_tz(date_stub, tzone = tzone), 
+    date_stub,
+    lubridate::force_tz(date_stub, tzone = tzone),
     units = "secs")) / 60
 }
 
@@ -94,23 +94,23 @@ format_vector <- function(x) {
 #' @param drop whether to drop dimensions, a logical or numeric vector of
 #'   dimensions to drop
 #' @param envir environment in which to evaluate \code{[} call
-#' 
+#'
 extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
   args <- as.list(match.call())[-1]
   args <- args[names(args) == ""]
-  
+
   vals <- sapply(args, class) != "name"
   length_dims <- sapply(args, length) * (as.character(args) != "")
-  
+
   if (is.logical(drop))
     if (length(drop) == 1)
       return(do.call("[", append(append(list(x), args), list(drop = drop)), envir = envir))
     else if (length(drop) == length(dim(x)))
       drop <- which(drop)
-  
+
   if (!is.numeric(drop))
     stop('argument `drop` must be either logical of length 1 or numeric')
-  
+
   x <- do.call("[", append(append(list(x), args), list(drop = FALSE)), envir = envir)
   drop <- 1:length(dim(x)) %in% drop & dim(x) == 1
   dimnames_keep <- dimnames(x)[!drop]
@@ -126,7 +126,7 @@ extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
 #' @param x an object with dimnames<- defined
 #' @param dim the dimension to index
 #' @param ... names selected by which
-#' 
+#'
 .i <- function(x, dim, ...) {
   which(dimnames(x)[[dim]] %in% c(...))
 }
