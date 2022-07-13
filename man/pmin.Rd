@@ -70,7 +70,7 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
 
   \code{max} and \code{min} are generic functions: methods can be
   defined for them individually or via the
-  \code{\link[base:groupGeneric]{Summary}} group generic.  For this to
+  \code{\link[base:S3groupGeneric]{Summary}} group generic.  For this to
   work properly, the arguments \code{\dots} should be unnamed, and
   dispatch is on the first argument.
 
@@ -87,6 +87,15 @@ Returns the (regular or \bold{p}arallel) maxima and minima of the
   argue that as \code{""} is the smallest character element, the maximum
   should be \code{""}, but there is no obvious candidate for the
   minimum.)
+}
+\note{
+\sQuote{Numeric} arguments are vectors of type integer and numeric,
+  and logical (coerced to integer).  For historical reasons, \code{NULL}
+  is accepted as equivalent to \code{integer(0)}.% PR#1283
+
+  \code{pmax} and \code{pmin} will also work on classed S3 or S4 objects
+  with appropriate methods for comparison, \code{is.na} and \code{rep}
+  (if recycling of arguments is needed).
 }
 \section{S4 methods}{
 

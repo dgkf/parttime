@@ -10,4 +10,3 @@ rep.partial_time <- function(x, ..., length.out) {
 rep_len.partial_time <- function(x, length.out) {
   x[rep_len(vctrs::vec_seq_along(x), length.out = length.out)]
 }
-

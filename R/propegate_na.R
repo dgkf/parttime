@@ -9,16 +9,16 @@
 #'   resolution time fields
 #'
 #' @examples
-#' x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31", 
+#' x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31",
 #'   "2016-01-05", "2020-01-01 03:04:05.1234"))
 #' vctrs::field(x, "pttm_mat")[,"min"] <- 23
 #' parttime:::propegate_na(x)
 #'
 propegate_na <- function(x, keep_tz = FALSE) {
   vctrs::field(x, "pttm_mat") <- propegate_na_matrix(
-    vctrs::field(x, "pttm_mat"), 
+    vctrs::field(x, "pttm_mat"),
     keep_tz = keep_tz)
-  
+
   x
 }
 
@@ -27,14 +27,14 @@ propegate_na <- function(x, keep_tz = FALSE) {
 propegate_na_matrix <- function(x, keep_tz = FALSE) {
   cols <- grepl("^tz", colnames(x))
 
-  # if not keeping tz fixed, propegate tz uncertainty back up through values  
+  # if not keeping tz fixed, propegate tz uncertainty back up through values
   x_pos_na <- apply(x, 1, Position, f = is.na)
   subset_of_na <- col(x) >= x_pos_na
   if (keep_tz) {
-    subset_of_na[,cols] <- FALSE
+    subset_of_na[, cols] <- FALSE
   } else {
-    tz_na <- apply(is.na(x[,cols,drop=FALSE]), 1, any)
-    subset_of_na[tz_na,] <- col(x[tz_na,,drop=FALSE]) + 1 >= x_pos_na
+    tz_na <- apply(is.na(x[, cols, drop = FALSE]), 1, any)
+    subset_of_na[tz_na, ] <- col(x[tz_na, , drop = FALSE]) + 1 >= x_pos_na
   }
 
   # only propegate to tz fields if tz

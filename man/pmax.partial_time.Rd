@@ -18,6 +18,7 @@ Get the elementwise maximum of vectors of partial_time objects
 \examples{
 pmax(
   parttime(c("2019", "2018", "2019-02", "2018",    "2010")),
-  parttime(c("2020", NA,     "2019-03", "2018-01", "2010")))
+  parttime(c("2020", NA,     "2019-03", "2018-01", "2010"))
+)
 
 }

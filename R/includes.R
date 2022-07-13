@@ -11,9 +11,9 @@ includes <- function(e1, e2) {
 
 
 #' Determine whether a partial time contains an object
-#' 
+#'
 #' @inheritParams includes
-#' 
+#'
 #' @method includes partial_time
 #' @export
 includes.partial_time <- function(e1, e2) {

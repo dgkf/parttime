@@ -21,7 +21,7 @@ a vector of parttime objects with missingness propegated to lower
 Propegate field missingness from higher to lower resolution
 }
 \examples{
-x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31", 
+x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31",
   "2016-01-05", "2020-01-01 03:04:05.1234"))
 vctrs::field(x, "pttm_mat")[,"min"] <- 23
 parttime:::propegate_na(x)
