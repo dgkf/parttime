@@ -18,9 +18,12 @@ impute_time_min(x, tz = "-1200", ...)
 Impute with the minimum possible timestamp
 }
 \seealso{
-Other impute_time: 
+Other parttime_impute: 
+\code{\link{impute_date_max}()},
+\code{\link{impute_date_mid}()},
+\code{\link{impute_date_min}()},
 \code{\link{impute_time_max}()},
 \code{\link{impute_time_mid}()},
 \code{\link{impute_time}()}
 }
-\concept{impute_time}
+\concept{parttime_impute}

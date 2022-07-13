@@ -9,7 +9,7 @@
 #'
 #' @return a new partial_time with specified fields imputed
 #'
-#' @family impute_time
+#' @family parttime_impute
 #'
 #' @export
 impute_time <- function(x, time, tz, ...) {
@@ -19,16 +19,30 @@ impute_time <- function(x, time, tz, ...) {
 
 
 #' Impute with the minimum possible timestamp
-#' 
+#'
 #' @param x timestamp object to impute
 #' @param tz a timezone to use, defaults to +1400
 #' @inheritParams impute_time
-#' 
-#' @family impute_time
-#' 
+#'
+#' @family parttime_impute
+#'
 #' @export
 impute_time_min <- function(x, tz = "-1200", ...) {
   impute_time(x, time = time_min(), tz = tz, ...)
+}
+
+
+
+#' Impute with the minimum possible date
+#'
+#' @param x timestamp object to impute
+#' @inheritParams impute_time
+#'
+#' @family parttime_impute
+#'
+#' @export
+impute_date_min <- function(x, ..., res = "day") {
+  impute_time_min(x, ..., res = res)
 }
 
 
@@ -39,7 +53,7 @@ impute_time_min <- function(x, tz = "-1200", ...) {
 #' @param tz a timezone to use, defaults to +1400
 #' @inheritParams impute_time
 #'
-#' @family impute_time
+#' @family parttime_impute
 #'
 #' @export
 impute_time_max <- function(x, tz = "+1400", ...) {
@@ -48,17 +62,45 @@ impute_time_max <- function(x, tz = "+1400", ...) {
 
 
 
+#' Impute with the maximum possible date
+#'
+#' @param x timestamp object to impute
+#' @inheritParams impute_time
+#'
+#' @family parttime_impute
+#'
+#' @export
+impute_date_max <- function(x, ..., res = "day") {
+  impute_time_max(x, ..., res = res)
+}
+
+
+
 #' Impute with middle timestamp values
-#' 
+#'
 #' @param x timestamp object to impute
 #' @param tz a timezone to use, defaults to +1400
 #' @inheritParams impute_time
-#' 
-#' @family impute_time
-#' 
+#'
+#' @family parttime_impute
+#'
 #' @export
 impute_time_mid <- function(x, tz = "GMT", ...) {
   impute_time(x, time = time_mid(), tz = tz, ...)
+}
+
+
+
+#' Impute with the mid-point possible date
+#'
+#' @param x timestamp object to impute
+#' @inheritParams impute_time
+#'
+#' @family parttime_impute
+#'
+#' @export
+impute_date_mid <- function(x, ..., res = "day") {
+  impute_time_mid(x, ..., res = res)
 }
 
 
@@ -78,10 +120,10 @@ impute_time.POSIXt <- function(x, time, tz = "GMT", ...) {
 
 
 #' @export
-impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
+impute_time.partial_time <- function(x, time, tz = "GMT", ..., res = NULL) {
   dots <- list(...)
-  tz <- interpret_tz(tz)  
-  
+  tz <- interpret_tz(tz)
+
   if (missing(time)) {
     impute_pttm <- parttime(NA)
     impute_dots <- dots[names(dots) %in% colnames(vctrs::field(impute_pttm, "pttm_mat"))]
@@ -92,24 +134,30 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
     impute_pttm <- vctrs::vec_recycle(impute_pttm, length(impute_dots[[1]]))
 
     # fill out new imputations with input
-    for (i in names(impute_dots))
-      vctrs::field(impute_pttm, "pttm_mat")[,i] <- impute_dots[[i]]
-    
+    for (i in names(impute_dots)) {
+      vctrs::field(impute_pttm, "pttm_mat")[, i] <- impute_dots[[i]]
+    }
+
   } else if ("partial_time" %in% class(time)) {
     impute_pttm <- time
   } else {
     impute_pttm <- as.parttime(as.character(time))
   }
-  
-  tzhour_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[,"tzhour"])
+
+  if (!is.null(res)) {
+    fields <- seq_len(match(res, datetime_parts, nomatch = length(datetime_parts)))
+    vctrs::field(impute_pttm, "pttm_mat")[, -fields] <- NA_integer_
+  }
+
+  tzhour_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[, "tzhour"])
   vctrs::field(impute_pttm, "pttm_mat")[tzhour_na, "tzhour"] <- tz %/% 60
-  
-  tzmin_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[,"tzmin"])
+
+  tzmin_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[, "tzmin"])
   vctrs::field(impute_pttm, "pttm_mat")[tzmin_na, "tzmin"] <- tz %% 60
 
   # recycle imputed partial_time to length of x
   impute_pttm <- vctrs::vec_recycle(impute_pttm, length(x))
-  
+
   # fill in imputed fields, retaining entirely NA values
   x_na <- is.na(x)
   i_na <- is.na(vctrs::field(x, "pttm_mat"))
@@ -131,16 +179,16 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ...) {
 impute_time.matrix <- function(x, time, tz = "GMT", ...) {
   tz <- interpret_tz(tz)
   if (is.character(time)) time <- as.parttime(time)
-  
+
   time <- as.matrix(time)
-  time <- time[,datetime_parts,drop = FALSE]
-  
-  time[is.na(time[,"tzhour"]), "tzhour"] <- tz %/% 60
-  time[is.na(time[,"tzmin"]), "tzmin"] <- tz %% 60
-  
+  time <- time[, datetime_parts, drop = FALSE]
+
+  time[is.na(time[, "tzhour"]), "tzhour"] <- tz %/% 60
+  time[is.na(time[, "tzmin"]), "tzmin"] <- tz %% 60
+
   xna <- is.na(x[,datetime_parts])
   x[,datetime_parts][xna] <- matrix(rep(time, nrow(x)), ncol = ncol(time), byrow = TRUE)[xna]
-  
+
   x
 }
 

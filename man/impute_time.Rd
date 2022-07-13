@@ -24,9 +24,12 @@ a new partial_time with specified fields imputed
 Impute a partial time object with a timestamp or specific fields
 }
 \seealso{
-Other impute_time: 
+Other parttime_impute: 
+\code{\link{impute_date_max}()},
+\code{\link{impute_date_mid}()},
+\code{\link{impute_date_min}()},
 \code{\link{impute_time_max}()},
 \code{\link{impute_time_mid}()},
 \code{\link{impute_time_min}()}
 }
-\concept{impute_time}
+\concept{parttime_impute}
