@@ -1,11 +1,11 @@
 min_max_handler <- function(f, ..., na.rm = FALSE, na.warn = TRUE) {
   dots <- lapply(list(...), as.parttime)
   x <- do.call(rbind, lapply(dots, vctrs::field, "pttm_mat"))
-  
+
   x <- min_max_parttime_matrix_list(f, x, na.rm = na.rm, na.warn = na.warn)
-  
+
   out <- parttime(NA)
-  vctrs::field(out, "pttm_mat") <- x[1,, drop = FALSE]
+  vctrs::field(out, "pttm_mat") <- x[1, , drop = FALSE]
   out
 }
 
@@ -17,25 +17,25 @@ min_max_parttime_matrix_list <- function(f, x, na.rm = FALSE, na.warn = TRUE) {
     warning("no non-missing arguments for parttime fields ",
       spoken_list(colnames(x)[all_na], quote = TRUE),
       "; leaving as NA.")
-    x[,all_na] <- NA
+    x[, all_na] <- NA
   }
 
   # work our way down time resolution scale, filtering down for max values
   f_handler <- function(i) i == f(i, na.rm = na.rm) | (!na.rm & is.na(i))
   for (i in seq_len(ncol(x))) {
-    max_mask_i <- f_handler(x[,i])
+    max_mask_i <- f_handler(x[, i])
     max_mask_i[is.na(max_mask_i)] <- FALSE
-    x <- x[max_mask_i,, drop = FALSE]
+    x <- x[max_mask_i, , drop = FALSE]
     if (nrow(x) == 1) break
   }
-  
-  x[1,, drop = FALSE]
+
+  x[1, , drop = FALSE]
 }
 
 
 
 #' Get the maximum of a vector of partial_time objects
-#' 
+#'
 #' @param ... partial_time objects
 #' @param na.rm whether \code{NA} should be removed when calculating max
 #' @param na.warn whether to raise a warning for \code{NA}
@@ -51,11 +51,11 @@ max.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
 
 
 #' Get the minimum of a vector of partial_time objects
-#' 
+#'
 #' @param ... partial_time objects
 #' @param na.rm whether \code{NA} should be removed when calculating min
 #' @param na.warn whether to raise a warning for \code{NA}
-#' 
+#'
 #' @export
 min.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
   min_max_handler(min, ..., na.rm = na.rm, na.warn = na.warn)
@@ -75,9 +75,9 @@ pmin_pmax_handler <- function(f, ..., na.rm = FALSE) {
   dots <- lapply(dots, rep, length.out = max_nrows)
 
   x <- lapply(dots, vctrs::field, "pttm_mat")
-  x <- if (length(x) == 1) x[[1]] 
+  x <- if (length(x) == 1) x[[1]]
   else pmin_pmax_parttime_matrix_list(f, x, na.rm = na.rm)
-  
+
   colnames(x) <- colnames(vctrs::field(dots[[1]], "pttm_mat"))
   out <- rep(parttime(NA), length.out = nrow(x))
   vctrs::field(out, "pttm_mat") <- x
@@ -99,26 +99,24 @@ pmin_pmax_parttime_matrix_list <- function(f, x, na.rm = FALSE) {
   max_mask <- array(TRUE, dim = dim(x)[c(1, 2)])
 
   for (i in seq_len(dim(x)[[3]])) {
-    x[,,i][!max_mask] <- NA
-    max_x_i <- x[,, i, drop = FALSE]
+    x[, ,i][!max_mask] <- NA
+    max_x_i <- x[, , i, drop = FALSE]
     if (sum(is.na(max_x_i)) == prod(dim(max_x_i))) break
-    max_x_i[rowSums(is.na(max_x_i)) == ncol(max_x_i),,1] <- 0
+    max_x_i[rowSums(is.na(max_x_i)) == ncol(max_x_i), , 1] <- 0
     max_x_i <- t(apply(max_x_i, 1, f_handler))
     max_mask <- max_mask & max_x_i
   }
 
   # coerce back into standard matrix in long form and subset based on mask
   x <- matrix(x, ncol = dim_in[[2]])
-  x <- x[seq_len(dim_in[[1]]) + dim_in[[1]] * (apply(max_mask, 1, Position, f = isTRUE) - 1),, drop = FALSE]
+  x <- x[seq_len(dim_in[[1]]) + dim_in[[1]] * (apply(max_mask, 1, Position, f = isTRUE) - 1), , drop = FALSE]
   colnames(x) <- colnames_in
-  # rownames(x) <- rownames_in
   x
 }
 
 
 
 #' @inherit base::pmax
-#' 
 #' @export
 pmax <- function(..., na.rm = FALSE) {
   UseMethod("pmax")
@@ -134,13 +132,13 @@ pmax.default <- function(..., na.rm = FALSE) {
 
 
 #' Get the elementwise maximum of vectors of partial_time objects
-#' 
-#' @inheritParams base::pmax
 #'
+#' @inheritParams base::pmax
 #' @examples
 #' pmax(
 #'   parttime(c("2019", "2018", "2019-02", "2018",    "2010")),
-#'   parttime(c("2020", NA,     "2019-03", "2018-01", "2010")))
+#'   parttime(c("2020", NA,     "2019-03", "2018-01", "2010"))
+#' )
 #'
 #' @export
 pmax.partial_time <- function(..., na.rm = FALSE) {
@@ -150,7 +148,6 @@ pmax.partial_time <- function(..., na.rm = FALSE) {
 
 
 #' @inherit base::pmin
-#' 
 #' @export
 pmin <- function(..., na.rm = FALSE) {
   UseMethod("pmin")
@@ -166,9 +163,8 @@ pmin.default <- function(..., na.rm = FALSE) {
 
 
 #' Get the elementwise minimum of vectors of partial_time objects
-#' 
+#'
 #' @inheritParams base::pmin
-#' 
 #' @export
 pmin.partial_time <- function(..., na.rm = FALSE) {
   pmin_pmax_handler(base::min, ..., na.rm = na.rm)

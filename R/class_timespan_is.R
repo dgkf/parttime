@@ -1,7 +1,7 @@
-#' Shorthand for checking timespan inheritance 
-#' 
+#' Shorthand for checking timespan inheritance
+#'
 #' @param x object to test
-#' 
+#'
 #' @export
 is_timespan <- function(x) {
   inherits(x, "timespan")
