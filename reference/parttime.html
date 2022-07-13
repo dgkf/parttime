@@ -47,44 +47,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">parttime</span><span class="op">(</span>
-  year <span class="op">=</span> <span class="cn">NA</span>,
-  month <span class="op">=</span> <span class="cn">NA</span>,
-  day <span class="op">=</span> <span class="cn">NA</span>,
-  hour <span class="op">=</span> <span class="cn">NA</span>,
-  min <span class="op">=</span> <span class="cn">NA</span>,
-  sec <span class="op">=</span> <span class="cn">NA</span>,
-  tzhour <span class="op">=</span> <span class="fu">interpret_tz</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"parttime.assume_tz_offset"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span><span class="fl">60</span>,
-  tzmin <span class="op">=</span> <span class="fu">interpret_tz</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"parttime.assume_tz_offset"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">60</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">parttime</span><span class="op">(</span></span>
+<span>  year <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  month <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  day <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  hour <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  min <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  sec <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  tzhour <span class="op">=</span> <span class="fu">interpret_tz</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"parttime.assume_tz_offset"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span><span class="fl">60</span>,</span>
+<span>  tzmin <span class="op">=</span> <span class="fu">interpret_tz</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"parttime.assume_tz_offset"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">60</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>year</dt>
 <dd><p>numeric vector to use for partial time year component</p></dd>
+
+
 <dt>month</dt>
 <dd><p>numeric vector to use for partial time month component</p></dd>
+
+
 <dt>day</dt>
 <dd><p>numeric vector to use for partial time day component</p></dd>
+
+
 <dt>hour</dt>
 <dd><p>numeric vector to use for partial time hour component</p></dd>
+
+
 <dt>min</dt>
 <dd><p>numeric vector to use for partial time min component</p></dd>
+
+
 <dt>sec</dt>
 <dd><p>numeric vector to use for partial time sec component</p></dd>
+
+
 <dt>tzhour</dt>
 <dd><p>numeric vector to use for partial time tzhour component</p></dd>
+
+
 <dt>tzmin</dt>
 <dd><p>numeric vector to use for partial time tzmin component</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">parttime</span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">parttime</span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partial_time&lt;Y<span style="color: #BB0000;">MDhms</span>Z&gt;[1]&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2019" </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -99,7 +114,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

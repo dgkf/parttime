@@ -57,25 +57,35 @@ pmax*() and pmin*() take one or more vectors as
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pmin</span><span class="op">(</span><span class="va">...</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pmin</span><span class="op">(</span><span class="va">...</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>numeric or character arguments (see Note).</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>a logical indicating whether missing values should be
     removed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>For <code>min</code> or <code>max</code>, a length-one vector.  For <code>pmin</code> or
-<code>pmax</code>, a vector of length the longest of the input vectors, or
-  length zero if one of the inputs had zero length.
-  The type of the result will be that of the highest of the inputs in
-  the hierarchy integer &lt; double &lt; character.
-  For <code>min</code> and <code>max</code> if there are only numeric inputs and all
+    
+
+<p>For <code>min</code> or <code>max</code>, a length-one vector.  For <code>pmin</code> or</p>
+<p></p>
+<p><code>pmax</code>, a vector of length the longest of the input vectors, or
+  length zero if one of the inputs had zero length.</p>
+
+
+<p>The type of the result will be that of the highest of the inputs in
+  the hierarchy integer &lt; double &lt; character.</p>
+
+
+<p>For <code>min</code> and <code>max</code> if there are only numeric inputs and all
   are empty (after possible removal of <code>NA</code>s), the result is double
   (<code>Inf</code> or <code>-Inf</code>).</p>
     </div>
@@ -128,6 +138,15 @@ pmax*() and pmin*() take one or more vectors as
   should be <code>""</code>, but there is no obvious candidate for the
   minimum.)</p>
     </div>
+    <div id="note">
+    <h2>Note</h2>
+    <p>‘Numeric’ arguments are vectors of type integer and numeric,
+  and logical (coerced to integer).  For historical reasons, <code>NULL</code>
+  is accepted as equivalent to <code>integer(0)</code>.<!-- % PR#1283 --></p>
+<p><code>pmax</code> and <code>pmin</code> will also work on classed S3 or S4 objects
+  with appropriate methods for comparison, <code>is.na</code> and <code>rep</code>
+  (if recycling of arguments is needed).</p>
+    </div>
     <div id="s-methods">
     <h2>S4 methods</h2>
     
@@ -152,32 +171,32 @@ pmax*() and pmin*() take one or more vectors as
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">graphics</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">)</span> <span class="co">#-&gt; one number</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">graphics</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">)</span> <span class="co">#-&gt; one number</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span class="fu">pmin</span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">)</span> <span class="co">#-&gt;  5  numbers</span></span>
+<span class="r-in"><span><span class="fu">pmin</span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">1</span>, <span class="va">pi</span><span class="op">)</span> <span class="co">#-&gt;  5  numbers</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.141593 3.141593 3.000000 2.000000 1.000000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span>;  <span class="va">cH</span> <span class="op">&lt;-</span> <span class="fl">1.35</span></span>
-<span class="r-in"><span class="fu">pmin</span><span class="op">(</span><span class="va">cH</span>, <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="co"># no names</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.21767609 -0.68913107 -0.04275235  0.74249115  1.35000000</span>
-<span class="r-in"><span class="fu">pmin</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">cH</span><span class="op">)</span> <span class="co"># has names</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span>;  <span class="va">cH</span> <span class="op">&lt;-</span> <span class="fl">1.35</span></span></span>
+<span class="r-in"><span><span class="fu">pmin</span><span class="op">(</span><span class="va">cH</span>, <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="co"># no names</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.87914121 -0.69629413 -0.06634791  0.65570753  1.35000000</span>
+<span class="r-in"><span><span class="fu">pmin</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">cH</span><span class="op">)</span> <span class="co"># has names</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          0%         25%         50%         75%        100% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -2.21767609 -0.68913107 -0.04275235  0.74249115  1.35000000 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">pmin</span><span class="op">(</span><span class="va">cH</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="op">-</span><span class="va">cH</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"b"</span>, main <span class="op">=</span>  <span class="st">"Huber's function"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -2.87914121 -0.69629413 -0.06634791  0.65570753  1.35000000 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">pmin</span><span class="op">(</span><span class="va">cH</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="op">-</span><span class="va">cH</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"b"</span>, main <span class="op">=</span>  <span class="st">"Huber's function"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pmin-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">cut01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="fu">pmin</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span>      <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1.4</span>, <span class="fl">1.5</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">cut01</span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, n <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cut01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="fu">pmin</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span>      <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1.4</span>, <span class="fl">1.5</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">cut01</span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, n <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pmin-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## pmax(), pmin() preserve attributes of *first* argument</span></span>
-<span class="r-in"><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span> ; <span class="va">n0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">D</span>,  <span class="fu">cut01</span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span class="r-in">          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu">cut01</span><span class="op">(</span><span class="va">n0</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu">cut01</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">1</span>, <span class="va">n0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## pmax(), pmin() preserve attributes of *first* argument</span></span></span>
+<span class="r-in"><span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span> ; <span class="va">n0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">D</span>,  <span class="fu">cut01</span><span class="op">(</span><span class="va">D</span><span class="op">)</span> <span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu">cut01</span><span class="op">(</span><span class="va">n0</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu">cut01</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">1</span>, <span class="va">n0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fu"><a href="pmax.html">pmax</a></span><span class="op">(</span><span class="va">n0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -192,7 +211,7 @@ pmax*() and pmin*() take one or more vectors as
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

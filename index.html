@@ -63,14 +63,13 @@
 <div class="page-header"><h1 id="parttime">parttime<a class="anchor" aria-label="anchor" href="#parttime"></a>
 </h1></div>
 <!-- badges: start -->
-
 <p>A package for a partial datetime class and generics</p>
 </div>
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dgkf/parttime"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dgkf/parttime"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -80,34 +79,34 @@
 </h2>
 <p>Parse ISO8601 timestampes using the <code>parsedate</code> package’s parser, but retains information about missingness in the timestamp format.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">iso8601_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="cn">NA</span>,
-  <span class="st">"2001"</span>,
-  <span class="st">"2002-01-01"</span>,
-  <span class="st">"2004-245"</span>, <span class="co"># yearday</span>
-  <span class="st">"2005-W13"</span>,  <span class="co"># yearweek</span>
-  <span class="st">"2006-W02-5"</span>,  <span class="co"># yearweek + weekday</span>
-  <span class="st">"2007-10-01T08"</span>,
-  <span class="st">"2008-09-20T08:35"</span>,
-  <span class="st">"2009-08-12T08:35.048"</span>,  <span class="co"># fractional minute</span>
-  <span class="st">"2010-07-22T08:35:32"</span>,
-  <span class="st">"2011-06-13T08:35:32.123"</span>,  <span class="co"># fractional second</span>
-  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span>
-  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span>
-  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span>
-  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span>
-  
-<span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span>
-
-<span class="co">#&gt; &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span>
-<span class="co">#&gt;  [1] NA                             "2001+0000"                   </span>
-<span class="co">#&gt;  [3] "2002-01-01+0000"              "2004-09-01+0000"             </span>
-<span class="co">#&gt;  [5] "2005+0000"                    "2006-01-13+0000"             </span>
-<span class="co">#&gt;  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       </span>
-<span class="co">#&gt;  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    </span>
-<span class="co">#&gt; [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"</span>
-<span class="co">#&gt; [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"</span>
-<span class="co">#&gt; [15] "2015-01-01 08:35:32.123+0530" </span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">iso8601_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="cn">NA</span>,</span>
+<span>  <span class="st">"2001"</span>,</span>
+<span>  <span class="st">"2002-01-01"</span>,</span>
+<span>  <span class="st">"2004-245"</span>, <span class="co"># yearday</span></span>
+<span>  <span class="st">"2005-W13"</span>,  <span class="co"># yearweek</span></span>
+<span>  <span class="st">"2006-W02-5"</span>,  <span class="co"># yearweek + weekday</span></span>
+<span>  <span class="st">"2007-10-01T08"</span>,</span>
+<span>  <span class="st">"2008-09-20T08:35"</span>,</span>
+<span>  <span class="st">"2009-08-12T08:35.048"</span>,  <span class="co"># fractional minute</span></span>
+<span>  <span class="st">"2010-07-22T08:35:32"</span>,</span>
+<span>  <span class="st">"2011-06-13T08:35:32.123"</span>,  <span class="co"># fractional second</span></span>
+<span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span></span>
+<span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span></span>
+<span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span></span>
+<span>  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span></span>
+<span>  </span>
+<span><span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#&gt; &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span></span>
+<span><span class="co">#&gt;  [1] NA                             "2001+0000"                   </span></span>
+<span><span class="co">#&gt;  [3] "2002-01-01+0000"              "2004-09-01+0000"             </span></span>
+<span><span class="co">#&gt;  [5] "2005+0000"                    "2006-01-13+0000"             </span></span>
+<span><span class="co">#&gt;  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       </span></span>
+<span><span class="co">#&gt;  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    </span></span>
+<span><span class="co">#&gt; [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"</span></span>
+<span><span class="co">#&gt; [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"</span></span>
+<span><span class="co">#&gt; [15] "2015-01-01 08:35:32.123+0530" </span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="imputing-timestamps">Imputing Timestamps<a class="anchor" aria-label="anchor" href="#imputing-timestamps"></a>
@@ -122,49 +121,49 @@
 </h2>
 <p>Partial timestamps include uncertainty, which means that there is often uncertainty when comparing between timestamps. To help resolve this uncertainty there are two helper functions, <code>possibly</code> and <code>definitely</code> resolving this uncertainty for when the windows of uncertainty overlap, or equal (to a given resolution).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># assume GMT</span>
-<span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span>
-<span class="co">#&gt; TRUE</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>  <span class="co"># don't assume a timezone</span>
-<span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span>
-<span class="co">#&gt; NA  # due to potentially different timezones, this can't be certain</span>
-
-<span class="fu"><a href="reference/possibly.html">possibly</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; TRUE </span>
-
-<span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; FALSE</span>
-
-<span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>
-<span class="co">#&gt; NA  # given uncertainty in timestamps, we can't be sure these are equal</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span>
-<span class="co">#&gt; TRUE  # but we know they're equal within the same year</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
-<span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span>
-<span class="co">#&gt; NA  # with an unknown timezone, these may not even be within the same year</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># assume GMT</span></span>
+<span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
+<span><span class="co">#&gt; TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>  <span class="co"># don't assume a timezone</span></span>
+<span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NA  # due to potentially different timezones, this can't be certain</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/possibly.html">possibly</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; TRUE </span></span>
+<span></span>
+<span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; FALSE</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NA  # given uncertainty in timestamps, we can't be sure these are equal</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; TRUE  # but we know they're equal within the same year</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NA  # with an unknown timezone, these may not even be within the same year</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="timespans">Timespans<a class="anchor" aria-label="anchor" href="#timespans"></a>
 </h2>
 <p>Cast a partial time’s missingness to a range of possible values</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/as.timespan.html">as.timespan</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;timespan[1]&gt;</span>
-<span class="co">#&gt; [1] [2019 — 2020) </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/as.timespan.html">as.timespan</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;timespan[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] [2019 — 2020) </span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tidyverse-compatible-coming-with-vctrs-support-in-dplyr-090">Tidyverse Compatible (coming with <code>vctrs</code> support in <code>dplyr</code> 0.9.0)<a class="anchor" aria-label="anchor" href="#tidyverse-compatible-coming-with-vctrs-support-in-dplyr-090"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Not yet working because `dplyr` doesn't yet support `vctrs_rcrd` classes</span>
-<span class="fu">tibble</span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>
-    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>, 
-    imputed_times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Not yet working because `dplyr` doesn't yet support `vctrs_rcrd` classes</span></span>
+<span><span class="fu">tibble</span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>, </span>
+<span>    imputed_times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></p>
 </div>
 </div>
@@ -412,7 +411,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

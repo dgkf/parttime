@@ -47,31 +47,36 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for partial_time_logical</span>
-<span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"pttm_lgl"</span><span class="op">)</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for partial_time_logical</span></span>
+<span><span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"pttm_lgl"</span><span class="op">)</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a partial_time_logical matrix for coersion</p></dd>
+
+
 <dt>by</dt>
 <dd><p>the resolution of assessment, a column or index</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments unused</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>,     <span class="st">"2019-02"</span>,    <span class="st">"2019-01-02"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2018"</span>, <span class="st">"2019-02-01"</span>, <span class="st">"2018"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span> <span class="op">!=</span> <span class="va">y</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>,     <span class="st">"2019-02"</span>,    <span class="st">"2019-01-02"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2018"</span>, <span class="st">"2019-02-01"</span>, <span class="st">"2018"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span> <span class="op">!=</span> <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE TRUE</span>
-<span class="r-in"><span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span> <span class="op">!=</span> <span class="va">y</span>, by <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="possibly.html">possibly</a></span><span class="op">(</span><span class="va">x</span> <span class="op">!=</span> <span class="va">y</span>, by <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE  TRUE</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -86,7 +91,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
