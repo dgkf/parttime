@@ -14,6 +14,9 @@ element(s).}
 details, see \link[base]{Extract}.}
 
 \item{...}{arguments unused}
+
+\item{value}{typically an array-like \R object of a similar class as
+    \code{x}.}
 }
 \description{
 Subsetting assignment of partial_time objects

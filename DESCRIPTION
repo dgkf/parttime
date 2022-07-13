@@ -18,7 +18,6 @@ Imports:
     crayon,
     lubridate,
     methods,
-    parsedate,
     pillar,
     utils,
     vctrs (>= 0.2.0)

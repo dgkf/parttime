@@ -4,6 +4,7 @@
 #'   element(s).
 #' @param i indicies specifying elements to extract or replace. For further
 #'   details, see \link[base]{Extract}.
+#' @inheritParams base::`[<-`
 #' @param ... arguments unused
 #'
 #' @examples
