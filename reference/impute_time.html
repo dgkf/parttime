@@ -47,7 +47,30 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, <span class="va">tz</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">impute_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, <span class="va">tz</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_date</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, <span class="va">...</span>, res <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_time_min</span><span class="op">(</span><span class="va">x</span>, tz <span class="op">=</span> <span class="st">"-1200"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_date_min</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, res <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_time_max</span><span class="op">(</span><span class="va">x</span>, tz <span class="op">=</span> <span class="st">"+1400"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_date_max</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, res <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_time_mid</span><span class="op">(</span><span class="va">x</span>, tz <span class="op">=</span> <span class="st">"GMT"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">impute_date_mid</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, res <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">impute_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, tz <span class="op">=</span> <span class="st">"GMT"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for POSIXt</span></span>
+<span><span class="fu">impute_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, tz <span class="op">=</span> <span class="st">"GMT"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">impute_time</span><span class="op">(</span><span class="va">x</span>, <span class="va">time</span>, tz <span class="op">=</span> <span class="st">"GMT"</span>, <span class="va">...</span>, res <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,19 +92,19 @@ as the timezone part of the datetime or an numeric minute offset.</p></dd>
 <dd><p>additional individual named fields to impute. Can be one of
 "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".</p></dd>
 
+
+<dt>res</dt>
+<dd><p>the highest resolution datetime field used for imputation. Either
+a character value represented the highest resolution field or <code>NULL</code>
+to impute all fields. For the <code>impute_date</code> family of functions,
+defaults to <code>"day"</code>, or <code>NULL</code> otherwise.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
 <p>a new partial_time with specified fields imputed</p>
-    </div>
-    <div id="see-also">
-    <h2>See also</h2>
-    <div class="dont-index"><p>Other impute_time: 
-<code><a href="impute_time_max.html">impute_time_max</a>()</code>,
-<code><a href="impute_time_mid.html">impute_time_mid</a>()</code>,
-<code><a href="impute_time_min.html">impute_time_min</a>()</code></p></div>
     </div>
 
   </div>
