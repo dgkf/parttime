@@ -2,9 +2,39 @@
 % Please edit documentation in R/impute_time.R
 \name{impute_time}
 \alias{impute_time}
+\alias{impute_date}
+\alias{impute_time_min}
+\alias{impute_date_min}
+\alias{impute_time_max}
+\alias{impute_date_max}
+\alias{impute_time_mid}
+\alias{impute_date_mid}
+\alias{impute_time.default}
+\alias{impute_time.POSIXt}
+\alias{impute_time.partial_time}
 \title{Impute a partial time object with a timestamp or specific fields}
 \usage{
 impute_time(x, time, tz, ...)
+
+impute_date(x, time, ..., res = "day")
+
+impute_time_min(x, tz = "-1200", ...)
+
+impute_date_min(x, ..., res = "day")
+
+impute_time_max(x, tz = "+1400", ...)
+
+impute_date_max(x, ..., res = "day")
+
+impute_time_mid(x, tz = "GMT", ...)
+
+impute_date_mid(x, ..., res = "day")
+
+\method{impute_time}{default}(x, time, tz = "GMT", ...)
+
+\method{impute_time}{POSIXt}(x, time, tz = "GMT", ...)
+
+\method{impute_time}{partial_time}(x, time, tz = "GMT", ..., res = NULL)
 }
 \arguments{
 \item{x}{a datetime-like object to impute}
@@ -16,6 +46,11 @@ as the timezone part of the datetime or an numeric minute offset.}
 
 \item{...}{additional individual named fields to impute. Can be one of
 "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".}
+
+\item{res}{the highest resolution datetime field used for imputation. Either
+a character value represented the highest resolution field or \code{NULL}
+to impute all fields. For the \code{impute_date} family of functions,
+defaults to \code{"day"}, or \code{NULL} otherwise.}
 }
 \value{
 a new partial_time with specified fields imputed
@@ -23,13 +58,3 @@ a new partial_time with specified fields imputed
 \description{
 Impute a partial time object with a timestamp or specific fields
 }
-\seealso{
-Other parttime_impute: 
-\code{\link{impute_date_max}()},
-\code{\link{impute_date_mid}()},
-\code{\link{impute_date_min}()},
-\code{\link{impute_time_max}()},
-\code{\link{impute_time_mid}()},
-\code{\link{impute_time_min}()}
-}
-\concept{parttime_impute}

@@ -9,7 +9,7 @@
 #'
 #' @return a new partial_time with specified fields imputed
 #'
-#' @family parttime_impute
+#' @rdname impute_time
 #'
 #' @export
 impute_time <- function(x, time, tz, ...) {
@@ -18,14 +18,16 @@ impute_time <- function(x, time, tz, ...) {
 
 
 
-#' Impute with the minimum possible timestamp
-#'
-#' @param x timestamp object to impute
-#' @param tz a timezone to use, defaults to +1400
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
+#' @export
+impute_date <- function(x, time, ..., res = "day") {
+  impute_time(x, time = time, ..., res = res)
+}
+
+
+
+
+#' @rdname impute_time
 #' @export
 impute_time_min <- function(x, tz = "-1200", ...) {
   impute_time(x, time = time_min(), tz = tz, ...)
@@ -33,13 +35,7 @@ impute_time_min <- function(x, tz = "-1200", ...) {
 
 
 
-#' Impute with the minimum possible date
-#'
-#' @param x timestamp object to impute
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
 #' @export
 impute_date_min <- function(x, ..., res = "day") {
   impute_time_min(x, ..., res = res)
@@ -47,14 +43,7 @@ impute_date_min <- function(x, ..., res = "day") {
 
 
 
-#' Impute with the maximum possible timestamp
-#'
-#' @param x timestamp object to impute
-#' @param tz a timezone to use, defaults to +1400
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
 #' @export
 impute_time_max <- function(x, tz = "+1400", ...) {
   impute_time(x, time = time_max(), tz = tz, ...)
@@ -62,13 +51,7 @@ impute_time_max <- function(x, tz = "+1400", ...) {
 
 
 
-#' Impute with the maximum possible date
-#'
-#' @param x timestamp object to impute
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
 #' @export
 impute_date_max <- function(x, ..., res = "day") {
   impute_time_max(x, ..., res = res)
@@ -76,14 +59,7 @@ impute_date_max <- function(x, ..., res = "day") {
 
 
 
-#' Impute with middle timestamp values
-#'
-#' @param x timestamp object to impute
-#' @param tz a timezone to use, defaults to +1400
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
 #' @export
 impute_time_mid <- function(x, tz = "GMT", ...) {
   impute_time(x, time = time_mid(), tz = tz, ...)
@@ -91,13 +67,7 @@ impute_time_mid <- function(x, tz = "GMT", ...) {
 
 
 
-#' Impute with the mid-point possible date
-#'
-#' @param x timestamp object to impute
-#' @inheritParams impute_time
-#'
-#' @family parttime_impute
-#'
+#' @rdname impute_time
 #' @export
 impute_date_mid <- function(x, ..., res = "day") {
   impute_time_mid(x, ..., res = res)
@@ -105,6 +75,7 @@ impute_date_mid <- function(x, ..., res = "day") {
 
 
 
+#' @rdname impute_time
 #' @export
 impute_time.default <- function(x, time, tz = "GMT", ...) {
   impute_time(as.parttime(x), time, tz = tz, ...)
@@ -112,6 +83,7 @@ impute_time.default <- function(x, time, tz = "GMT", ...) {
 
 
 
+#' @rdname impute_time
 #' @export
 impute_time.POSIXt <- function(x, time, tz = "GMT", ...) {
   impute_time(as.parttime(x), time, tz = tz, ...)
@@ -119,6 +91,12 @@ impute_time.POSIXt <- function(x, time, tz = "GMT", ...) {
 
 
 
+#' @param res the highest resolution datetime field used for imputation. Either
+#'   a character value represented the highest resolution field or \code{NULL}
+#'   to impute all fields. For the \code{impute_date} family of functions,
+#'   defaults to \code{"day"}, or \code{NULL} otherwise.
+#'
+#' @rdname impute_time
 #' @export
 impute_time.partial_time <- function(x, time, tz = "GMT", ..., res = NULL) {
   dots <- list(...)
