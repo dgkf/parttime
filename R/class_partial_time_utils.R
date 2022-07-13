@@ -5,12 +5,12 @@ minimally_increment <- function(x) {
 
 minimally_increment.partial_time <- function(x) {
   x_mat <- vctrs::field(x, "pttm_mat")
-  
+
   # increment last available time field
   col_tz <- colnames(x_mat) %in% c("tzhour", "tzmin")
   last_indx <- which(col(x_mat) == apply(x_mat, 1, Position, f = is.na) - 1)
-  x_mat[,!col_tz][last_indx] <- x_mat[,!col_tz][last_indx] + 1
-  
+  x_mat[, !col_tz][last_indx] <- x_mat[, !col_tz][last_indx] + 1
+
   vctrs::field(x, "pttm_mat") <- reflow_fields(x_mat)
   x
 }
@@ -21,8 +21,8 @@ minimally_increment.matrix <- function(x_mat) {
   col_inc <- colnames(x_mat) %in% "inclusive"
   col_tz <- colnames(x_mat) %in% c("tzhour", "tzmin")
   last_indx <- which(col(x_mat) == apply(x_mat, 1, Position, f = is.na) - 1)
-  x_mat[,!col_tz & !col_inc][last_indx] <- x_mat[,!col_tz & !col_inc][last_indx] + 1
-  x_mat[,!col_inc] <- reflow_fields(x_mat[,!col_inc,drop=FALSE])
+  x_mat[, !col_tz & !col_inc][last_indx] <- x_mat[, !col_tz & !col_inc][last_indx] + 1
+  x_mat[, !col_inc] <- reflow_fields(x_mat[, !col_inc, drop = FALSE])
   x_mat
 }
 

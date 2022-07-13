@@ -187,7 +187,7 @@ impute_time.matrix <- function(x, time, tz = "GMT", ...) {
   time[is.na(time[, "tzmin"]), "tzmin"] <- tz %% 60
 
   xna <- is.na(x[,datetime_parts])
-  x[,datetime_parts][xna] <- matrix(rep(time, nrow(x)), ncol = ncol(time), byrow = TRUE)[xna]
+  x[, datetime_parts][xna] <- matrix(rep(time, nrow(x)), ncol = ncol(time), byrow = TRUE)[xna]
 
   x
 }
@@ -204,9 +204,9 @@ impute_partial_time_to_chr <- function(x, time, ...) {
   }
 
   fields <- rbind(
-    attr(x,"field"),
+    attr(x, "field"),
     if (!missing(time)) time,
-    attr(x,"impute"),
+    attr(x, "impute"),
     match_iso8601_to_matrix("0000-01-01T01:00:00.000Z"))
 
   fields <- as.list(apply(fields, 2, Find, f = Negate(is.na)))

@@ -2,7 +2,17 @@
 
 
 
-datetime_parts <- c("year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin")
+datetime_parts <- c(
+  "year",
+  "month",
+  "day",
+  "hour",
+  "min",
+  "sec",
+  "secfrac",
+  "tzhour",
+  "tzmin"
+)
 
 
 
@@ -10,7 +20,7 @@ warn_partial <- function(x, ..., envir = parent.frame()) {
   fields <- c(...)
   if (!length(fields)) fields <- colnames(x)
 
-  if (any(is.na(attr(x, "fields")[,fields])))
+  if (any(is.na(attr(x, "fields")[, fields])))
     warning(
       call. = FALSE,
       "In ", eval(deparse(sys.call(which = -1L)), envir = envir), " :\n",
@@ -26,11 +36,11 @@ warn_partial <- function(x, ..., envir = parent.frame()) {
 
 
 spoken_list <- function(x, quote = FALSE, oxford = FALSE) {
-  if (identical(quote, FALSE)) quote <- ''
-  else if (isTRUE(quote)) quote <- '"'
+  if (identical(quote, FALSE)) quote <- ""
+  else if (isTRUE(quote)) quote <- "\""
 
   paste0(
-    if (length(x) > 1) paste0(quote, x[-length(x)], quote, collapse = ', '),
+    if (length(x) > 1) paste0(quote, x[-length(x)], quote, collapse = ", "),
     if (length(x) > 1 && oxford) ",",
     if (length(x) > 1) " and ",
     paste0(quote, x[length(x)], quote))
@@ -65,7 +75,7 @@ local_tz <- function() {
 format_vector <- function(x) {
   xtrunc <- utils::head(x, getOption("max.print"))
 
-  indxs <- paste0('[', seq_along(xtrunc), ']')
+  indxs <- paste0("[", seq_along(xtrunc), "]")
   max_indx_chr <- nchar(utils::tail(indxs, 1))
   x <- paste0(' ', x)
 
@@ -81,7 +91,7 @@ format_vector <- function(x) {
     indxs[first_in_row_indx],
     x[first_in_row_indx])
 
-  paste(x, collapse = '')
+  paste(x, collapse = "")
 }
 
 
@@ -99,17 +109,15 @@ extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
   args <- as.list(match.call())[-1]
   args <- args[names(args) == ""]
 
-  vals <- sapply(args, class) != "name"
-  length_dims <- sapply(args, length) * (as.character(args) != "")
-
-  if (is.logical(drop))
+  if (is.logical(drop)) {
     if (length(drop) == 1)
       return(do.call("[", append(append(list(x), args), list(drop = drop)), envir = envir))
     else if (length(drop) == length(dim(x)))
       drop <- which(drop)
+  }
 
   if (!is.numeric(drop))
-    stop('argument `drop` must be either logical of length 1 or numeric')
+    stop("argument `drop` must be either logical of length 1 or numeric")
 
   x <- do.call("[", append(append(list(x), args), list(drop = FALSE)), envir = envir)
   drop <- 1:length(dim(x)) %in% drop & dim(x) == 1

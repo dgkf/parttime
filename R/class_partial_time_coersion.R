@@ -80,8 +80,11 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #'
 #' @exportS3Method vec_cast.partial_time character
 vec_cast.partial_time.character <- function(x, to, ...) {
-  pttm_mat <- if (length(x)) match_iso8601_to_matrix(x)
-    else match_iso8601_to_matrix("")[0, , drop = FALSE]
+  pttm_mat <- if (length(x)) {
+    match_iso8601_to_matrix(x)
+  } else {
+    match_iso8601_to_matrix("")[NULL, , drop = FALSE]
+  }
 
   tzhour_na <- is.na(pttm_mat[, "tzhour"])
   all_na <- apply(is.na(pttm_mat), 1, all)

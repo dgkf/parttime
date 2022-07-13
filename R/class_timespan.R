@@ -18,7 +18,8 @@ timespan <- function(start, end, inclusive = c(TRUE, FALSE)) {
 
   inclusive <- t(matrix(
     rep_len(inclusive, common_size * 2),
-    nrow = 2))
+    nrow = 2)
+  )
 
   start <- as.parttime(start)
   start <- vctrs::vec_recycle(start, common_size)
