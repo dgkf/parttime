@@ -7,10 +7,13 @@
 \method{[}{partial_time}(x, i, ...) <- value
 }
 \arguments{
-\item{...}{arguments unused}
+\item{x}{an object from which to extract element(s) or in which to replace
+element(s).}
 
-\item{value}{typically an array-like \R object of a similar class as
-    \code{x}.}
+\item{i}{indicies specifying elements to extract or replace. For further
+details, see \link[base]{Extract}.}
+
+\item{...}{arguments unused}
 }
 \description{
 Subsetting assignment of partial_time objects

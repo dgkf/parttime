@@ -1,6 +1,9 @@
 #' Subsetting assignment of partial_time objects
 #'
-#' @inheritParams base::`[<-`
+#' @param x an object from which to extract element(s) or in which to replace
+#'   element(s).
+#' @param i indicies specifying elements to extract or replace. For further
+#'   details, see \link[base]{Extract}.
 #' @param ... arguments unused
 #'
 #' @examples
