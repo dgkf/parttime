@@ -9,6 +9,8 @@ as.parttime(x, ..., format = parse_iso8601)
 \arguments{
 \item{x}{an object for coersion}
 
+\item{...}{Additional arguments unused.}
+
 \item{format}{a \code{function} or \code{character} value. If a
 \code{function}, it should accept a character vector and return a matrix of
 parttime components. If a \code{character} it should provide a regular
@@ -30,9 +32,9 @@ as.parttime(c("1234", "5678"), format = "(?<year>\\\\d{4})")
 
 # format function that returns a matrix of components
 utf8_str <- function(x) intToUtf8(utf8ToInt(x) - 16)
-as.parttime("B@@", format = function(x) cbind(year = as.numeric(utf8_str(x))))
-# <partial_time<YMDhmsZ>[1]>
-# [1] "2000"
+as.parttime(c("B@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
+# <partial_time<YMDhmsZ>[2]>
+# [1] "2000" "2010"
 
 # format function that returns a parttime object by first pre-processing input
 as.parttime("B@BB", format = function(x) as.parttime(utf8_str(x)))

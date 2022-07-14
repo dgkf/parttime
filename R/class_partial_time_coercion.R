@@ -7,6 +7,7 @@
 #'   exprssion which contains capture groups for each of the parttime
 #'   components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
 #'   for more details.
+#' @param ... Additional arguments unused.
 #'
 #' @examples
 #' as.parttime(c("1985-10-18", "1991-08-23", "1996-09-26"))
@@ -69,6 +70,7 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' Coerce character date representations to parttime objects
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inheritParams as.parttime
 #'
 #' @examples
 #' dates <- c(
@@ -188,7 +190,8 @@ coerce_parital_time_to_POSIXlt <- function(x, tz = "GMT", ...,  warn = TRUE) {
       attr(x, "fields")[, "sec"]     %|NA|% 0,
       substring(sprintf("%.03f", attr(x, "fields")[, "secfrac"] %|NA|% 0), 3),
       attr(x, "fields")[, "tzhour"]  %|NA|% 0,
-      abs(attr(x, "fields")[, "tzmin"] %|NA|% 0)),
+      abs(attr(x, "fields")[, "tzmin"] %|NA|% 0)
+    ),
     format = "%Y-%m-%dT%H:%M:%OS%z",
     tz = tz,  # sets origin for tz offset - assumes "GMT" as per iso8601
     ...)
@@ -208,7 +211,8 @@ as.character.partial_time <- function(x, ...) {
     ifelse(is.na(xf[, "sec"]),      "", sprintf(":%02d", xf[, "sec"])),
     ifelse(is.na(xf[, "secfrac"]),  "", substring(sprintf("%.03f", xf[, "secfrac"]), 3)),
     ifelse(is.na(xf[, "tzhour"]),   "", sprintf(" %02d", xf[, "tzhour"])),
-    ifelse(is.na(xf[, "tzmin"]),    "", sprintf("%02d", abs(xf[, "tzmin"]))))
+    ifelse(is.na(xf[, "tzmin"]),    "", sprintf("%02d", abs(xf[, "tzmin"])))
+  )
 }
 
 
