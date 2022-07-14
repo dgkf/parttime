@@ -82,12 +82,6 @@
     <loc>/reference/is_timespan.html</loc>
   </url>
   <url>
-    <loc>/reference/iso_regex.html</loc>
-  </url>
-  <url>
-    <loc>/reference/match_iso8601_to_matrix.html</loc>
-  </url>
-  <url>
     <loc>/reference/max.partial_time.html</loc>
   </url>
   <url>
@@ -98,6 +92,9 @@
   </url>
   <url>
     <loc>/reference/normalize_month_day.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_parttime.html</loc>
   </url>
   <url>
     <loc>/reference/parttime.html</loc>
@@ -125,6 +122,9 @@
   </url>
   <url>
     <loc>/reference/propegate_na.html</loc>
+  </url>
+  <url>
+    <loc>/reference/re_iso8601.html</loc>
   </url>
   <url>
     <loc>/reference/reflow_fields.html</loc>

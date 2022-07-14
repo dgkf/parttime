@@ -48,7 +48,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for partial_time.character</span></span>
-<span><span class="fu">vec_cast</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">vec_cast</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span>, format <span class="op">=</span> <span class="va">parse_iso8601</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -65,6 +65,15 @@
 <dd><p>For <code>vec_cast_common()</code>, vectors to cast. For
 <code>vec_cast()</code>, <code>vec_cast_default()</code>, and <code>vec_restore()</code>, these
 dots are only for future extensions and should be empty.</p></dd>
+
+
+<dt>format</dt>
+<dd><p>a <code>function</code> or <code>character</code> value. If a
+<code>function</code>, it should accept a character vector and return a matrix of
+parttime components. If a <code>character</code> it should provide a regular
+exprssion which contains capture groups for each of the parttime
+components.  See <code><a href="parse_parttime.html">?parse_to_parttime_matrix</a></code>'s <code>regex</code> parameter
+for more details.</p></dd>
 
 </dl></div>
 
