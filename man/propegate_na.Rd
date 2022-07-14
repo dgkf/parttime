@@ -15,7 +15,7 @@ other fields are missing}
 }
 \value{
 a vector of parttime objects with missingness propegated to lower
-  resolution time fields
+resolution time fields
 }
 \description{
 Propegate field missingness from higher to lower resolution

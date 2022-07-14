@@ -27,3 +27,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

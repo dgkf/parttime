@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{extract}
 \alias{extract}
-\title{Similar to matrix and array `[` behavior, but allows for providing a numeric
+\title{Similar to matrix and array \code{[} behavior, but allows for providing a numeric
 vector of dimensions to drop}
 \usage{
 extract(x, ..., drop = TRUE, envir = parent.frame())
@@ -18,6 +18,6 @@ dimensions to drop}
 \item{envir}{environment in which to evaluate \code{[} call}
 }
 \description{
-Similar to matrix and array `[` behavior, but allows for providing a numeric
+Similar to matrix and array \code{[} behavior, but allows for providing a numeric
 vector of dimensions to drop
 }

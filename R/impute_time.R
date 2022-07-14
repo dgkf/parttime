@@ -176,7 +176,8 @@ impute_partial_time_to_chr <- function(x, time, ...) {
   if (!"partial_time" %in% class(x)) x <- as.parttime(x)
 
   if (!missing(time)) {
-    time <- match_iso8601_to_matrix(time)
+    if (is.character(time))
+      time <- parse_iso8601(time)
     if (any(is.na(time)))
       stop("time parameter with must specify a complete timestamp.")
   }
@@ -185,7 +186,8 @@ impute_partial_time_to_chr <- function(x, time, ...) {
     attr(x, "field"),
     if (!missing(time)) time,
     attr(x, "impute"),
-    match_iso8601_to_matrix("0000-01-01T01:00:00.000Z"))
+    parse_iso8601("0000-01-01T01:00:00.000Z")
+  )
 
   fields <- as.list(apply(fields, 2, Find, f = Negate(is.na)))
 

@@ -1,12 +1,44 @@
 #' Coerce an object to a parttime object
 #'
 #' @param x an object for coersion
+#' @param format a \code{function} or \code{character} value. If a
+#'   \code{function}, it should accept a character vector and return a matrix of
+#'   parttime components. If a \code{character} it should provide a regular
+#'   exprssion which contains capture groups for each of the parttime
+#'   components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+#'   for more details.
+#' @param ... Additional arguments unused.
+#'
+#' @examples
+#' as.parttime(c("1985-10-18", "1991-08-23", "1996-09-26"))
+#' # <partial_time<YMDhmsZ>[3]>
+#' # [1] "1985-10-18" "1991-08-23" "1996-09-26"
+#'
+#' as.parttime(c("1234", "5678"), format = "(?<year>\\d{4})")
+#' # <partial_time<YMDhmsZ>[2]>
+#' # [1] "1234" "5678"
+#'
+#' # format function that returns a matrix of components
+#' utf8_str <- function(x) intToUtf8(utf8ToInt(x) - 16)
+#' as.parttime(c("B@@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
+#' # <partial_time<YMDhmsZ>[2]>
+#' # [1] "2000" "2010"
+#'
+#' # format function that returns a parttime object by first pre-processing input
+#' as.parttime("B@BB", format = function(x) as.parttime(utf8_str(x)))
+#' # <partial_time<YMDhmsZ>[1]>
+#' # [1] "2022"
+#'
+#' # format function that returns a parttime object by manual construction
+#' as.parttime("AIII", format = function(x) parttime(year = as.numeric(utf8_str(x))))
+#' # <partial_time<YMDhmsZ>[1]>
+#' # [1] "1999"
 #'
 #' @export
-as.parttime <- function(x) {
+as.parttime <- function(x, ..., format = parse_iso8601) {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
-  vec_cast.partial_time(x, structure(0L, class = "partial_time"))
+  vec_cast.partial_time(x, structure(0L, class = "partial_time"), ..., format = format)
 }
 
 
@@ -38,6 +70,7 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' Coerce character date representations to parttime objects
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inheritParams as.parttime
 #'
 #' @examples
 #' dates <- c(
@@ -79,13 +112,24 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' }
 #'
 #' @exportS3Method vec_cast.partial_time character
-vec_cast.partial_time.character <- function(x, to, ...) {
-  pttm_mat <- if (length(x)) {
-    match_iso8601_to_matrix(x)
+vec_cast.partial_time.character <- function(x, to, ..., format = parse_iso8601) {
+  pttm_mat <- if (length(x) > 0L) {
+    if (is.function(format)) format(x)
+    else parse_to_parttime_matrix(x, regex = format)
   } else {
-    match_iso8601_to_matrix("")[NULL, , drop = FALSE]
+    # parsing function is irrelevant if input has no length, just use default
+    parse_to_parttime_matrix("")[NULL, , drop = FALSE]
   }
 
+  if (is.parttime(pttm_mat)) {
+    return(pttm_mat)
+  }
+
+  if (!all(datetime_parts %in% colnames(pttm_mat))) {
+    pttm_mat <- complete_parsed_parttime_matrix(pttm_mat)
+  }
+
+  storage.mode(pttm_mat) <- "numeric"
   tzhour_na <- is.na(pttm_mat[, "tzhour"])
   all_na <- apply(is.na(pttm_mat), 1, all)
 
@@ -146,7 +190,8 @@ coerce_parital_time_to_POSIXlt <- function(x, tz = "GMT", ...,  warn = TRUE) {
       attr(x, "fields")[, "sec"]     %|NA|% 0,
       substring(sprintf("%.03f", attr(x, "fields")[, "secfrac"] %|NA|% 0), 3),
       attr(x, "fields")[, "tzhour"]  %|NA|% 0,
-      abs(attr(x, "fields")[, "tzmin"] %|NA|% 0)),
+      abs(attr(x, "fields")[, "tzmin"] %|NA|% 0)
+    ),
     format = "%Y-%m-%dT%H:%M:%OS%z",
     tz = tz,  # sets origin for tz offset - assumes "GMT" as per iso8601
     ...)
@@ -166,7 +211,8 @@ as.character.partial_time <- function(x, ...) {
     ifelse(is.na(xf[, "sec"]),      "", sprintf(":%02d", xf[, "sec"])),
     ifelse(is.na(xf[, "secfrac"]),  "", substring(sprintf("%.03f", xf[, "secfrac"]), 3)),
     ifelse(is.na(xf[, "tzhour"]),   "", sprintf(" %02d", xf[, "tzhour"])),
-    ifelse(is.na(xf[, "tzmin"]),    "", sprintf("%02d", abs(xf[, "tzmin"]))))
+    ifelse(is.na(xf[, "tzmin"]),    "", sprintf("%02d", abs(xf[, "tzmin"])))
+  )
 }
 
 
