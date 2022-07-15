@@ -94,27 +94,26 @@
 <span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span></span>
 <span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span></span>
 <span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span></span>
-<span>  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span></span>
-<span>  </span>
-<span><span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span></span>
+<span>  <span class="st">"20150101T08:35:32.123+05:30"</span>  <span class="co"># condensed form</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#&gt; &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span></span>
-<span><span class="co">#&gt;  [1] NA                             "2001+0000"                   </span></span>
-<span><span class="co">#&gt;  [3] "2002-01-01+0000"              "2004-09-01+0000"             </span></span>
-<span><span class="co">#&gt;  [5] "2005+0000"                    "2006-01-13+0000"             </span></span>
-<span><span class="co">#&gt;  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       </span></span>
-<span><span class="co">#&gt;  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    </span></span>
-<span><span class="co">#&gt; [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"</span></span>
-<span><span class="co">#&gt; [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"</span></span>
-<span><span class="co">#&gt; [15] "2015-01-01 08:35:32.123+0530" </span></span></code></pre></div>
+<span><span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span></span>
+<span><span class="co">##  [1] NA                             "2001+0000"                   </span></span>
+<span><span class="co">##  [3] "2002-01-01+0000"              "2004-09-01+0000"             </span></span>
+<span><span class="co">##  [5] "2005+0000"                    "2006-01-13+0000"             </span></span>
+<span><span class="co">##  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       </span></span>
+<span><span class="co">##  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    </span></span>
+<span><span class="co">## [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"</span></span>
+<span><span class="co">## [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"</span></span>
+<span><span class="co">## [15] "2015-01-01 08:35:32.123+0530" </span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="imputing-timestamps">Imputing Timestamps<a class="anchor" aria-label="anchor" href="#imputing-timestamps"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;</span><span class="st">  </span><span class="kw">impute_time</span>(<span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+0730"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; [1] "2019-01-02 03:04:05.006" </span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## [1] "2019-01-02 03:04:05.006"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="datetime-comparisons">Datetime Comparisons<a class="anchor" aria-label="anchor" href="#datetime-comparisons"></a>
@@ -123,28 +122,28 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># assume GMT</span></span>
 <span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
-<span><span class="co">#&gt; TRUE</span></span>
+<span><span class="co">## TRUE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>  <span class="co"># don't assume a timezone</span></span>
 <span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NA  # due to potentially different timezones, this can't be certain</span></span>
+<span><span class="co">## NA  # due to potentially different timezones, this can't be certain</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/possibly.html">possibly</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; TRUE </span></span>
+<span><span class="co">## TRUE </span></span>
 <span></span>
 <span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; FALSE</span></span>
+<span><span class="co">## FALSE</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NA  # given uncertainty in timestamps, we can't be sure these are equal</span></span>
+<span><span class="co">## NA  # given uncertainty in timestamps, we can't be sure these are equal</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; TRUE  # but we know they're equal within the same year</span></span>
+<span><span class="co">## TRUE  # but we know they're equal within the same year</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; NA  # with an unknown timezone, these may not even be within the same year</span></span></code></pre></div>
+<span><span class="co">## NA  # with an unknown timezone, these may not even be within the same year</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="timespans">Timespans<a class="anchor" aria-label="anchor" href="#timespans"></a>
@@ -152,15 +151,15 @@
 <p>Cast a partial time’s missingness to a range of possible values</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/as.timespan.html">as.timespan</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;timespan[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] [2019 — 2020) </span></span></code></pre></div>
+<span><span class="co">## &lt;timespan[1]&gt;</span></span>
+<span><span class="co">## [1] [2019 — 2020) </span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="tidyverse-compatible-coming-with-vctrs-support-in-dplyr-090">Tidyverse Compatible (coming with <code>vctrs</code> support in <code>dplyr</code> 0.9.0)<a class="anchor" aria-label="anchor" href="#tidyverse-compatible-coming-with-vctrs-support-in-dplyr-090"></a>
+<h2 id="tidyverse-compatible-vctrs">Tidyverse Compatible <code>vctrs</code>
+<a class="anchor" aria-label="anchor" href="#tidyverse-compatible-vctrs"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Not yet working because `dplyr` doesn't yet support `vctrs_rcrd` classes</span></span>
-<span><span class="fu">tibble</span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>, </span>
 <span>    imputed_times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

@@ -100,7 +100,16 @@
     <loc>/reference/parttime.html</loc>
   </url>
   <url>
+    <loc>/reference/parttime_access_and_assign.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parttime_extract.html</loc>
+  </url>
+  <url>
     <loc>/reference/parttime_logical.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plus-partial_time-Period-method.html</loc>
   </url>
   <url>
     <loc>/reference/pmax.html</loc>
@@ -128,9 +137,6 @@
   </url>
   <url>
     <loc>/reference/reflow_fields.html</loc>
-  </url>
-  <url>
-    <loc>/reference/subset-.partial_time.html</loc>
   </url>
   <url>
     <loc>/reference/timespan.html</loc>
