@@ -69,6 +69,11 @@
 #'   element(s).
 #' @param i indicies specifying elements to extract or replace. For further
 #'   details, see \link[base]{Extract}.
+#' @param reflow a \code{logical} indicating whether modified data fields should
+#'   be reflowed, cascading range overflow. Setting to \code{FALSE} permits
+#'   invalid dates, but saves on compute. Generally, it should only be disabled
+#'   when multiple calculations are performed back-to-back and the dates only
+#'   need to be reflowed once at the end of the calculation.
 #' @inheritParams base::`[<-`
 #' @param ... arguments unused
 #'
@@ -87,11 +92,14 @@
 #'
 #' @rdname parttime_extract
 #' @export
-`[<-.partial_time` <- function(x, i, j, ..., value) {
+`[<-.partial_time` <- function(x, i, j, ..., reflow = TRUE, value) {
   # handle case where field(s) are assigned to directly
   if (!missing(j)) {
     if (missing(i)) i <- TRUE
     vctrs::field(x, "pttm_mat")[i, j, ...] <- value
+    if (reflow) {
+      vctrs::field(x, "pttm_mat")[i,] <- reflow_fields(vctrs::field(x, "pttm_mat")[i, , drop = FALSE])
+    }
     return(x)
   }
 
@@ -116,6 +124,6 @@
 #' @rdname parttime_extract
 #' @export
 `[[<-.partial_time` <- function(x, i, ..., value) {
-  x[i] <- value
+  x[i, ...] <- value
   x
 }

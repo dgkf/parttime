@@ -22,7 +22,7 @@ obj_print_header.partial_time <- function(x, ...) {
   perc_complete <- perc_complete[datetime_parts]
 
   # get singular timezone if consistent across entire vector
-  tzs <- all_tz(vctrs::field(x, "pttm_mat"))
+  tzs <- tz_consensus(vctrs::field(x, "pttm_mat"))
 
   names(perc_complete) <- sapply(names(perc_complete), switch,
     "year"    = "Y",
@@ -32,7 +32,7 @@ obj_print_header.partial_time <- function(x, ...) {
     "min"     = "m",
     "sec"     = "s",
     "tzhour"  =
-      if (is.na(tzs)) "+tz"
+      if (identical(tzs, FALSE)) "+tz"  # no consensus timezone
       else if (tzs == 0) "Z"
       else if (tzs %% 100 == 0) sprintf("%+d", tzs / 100)
       else sprintf("%+05d", tzs),
@@ -83,8 +83,10 @@ obj_print_footer.partial_time <- function(x, ...) {
 
 
 
-all_tz <- function(xmat) {
-  if (!all(c("tzhour", "tzmin") %in% colnames(xmat))) return(NA)
+tz_consensus <- function(xmat) {
+  if (nrow(xmat) < 1 || !all(c("tzhour", "tzmin") %in% colnames(xmat)))
+    return(FALSE)
+
   tzs <- xmat[, c("tzhour", "tzmin"), drop = FALSE] %*% c(100,  1)
-  if (isTRUE(all(tzs == tzs[1]))) tzs[1] else NA
+  if (isTRUE(all(tzs == tzs[1]))) tzs[[1]] else FALSE
 }
