@@ -1,5 +1,9 @@
 context("parttime dplyr::mutate integration tests")
 
+# When this package was first kicking off, vctrs wasn't yet released and dplyr
+# compatibility was still incomplete. This test is a hold-over from that time
+# and can probably be deleted.
+
 library(dplyr)
 
 test_that("parttime works when used in the context of a dplyr::mutate following dplyr 0.9.0", {

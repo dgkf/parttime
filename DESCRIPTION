@@ -23,6 +23,7 @@ Imports:
     vctrs (>= 0.2.0)
 Suggests:
     dplyr,
+    withr,
     testthat,
     knitr,
     rmarkdown

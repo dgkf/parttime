@@ -37,28 +37,27 @@ iso8601_dates <- c(
   "2012-05-23T08:35:32.123Z",  # Zulu time
   "2013-04-14T08:35:32.123+05",  # time offset from GMT
   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-  "20150101T08:35:32.123+05:30")  # condensed form
-  
-as.parttime(iso8601_dates)
+  "20150101T08:35:32.123+05:30"  # condensed form
+)
 
-#> <partial_time<YMDhms+tz>[15]> 
-#>  [1] NA                             "2001+0000"                   
-#>  [3] "2002-01-01+0000"              "2004-09-01+0000"             
-#>  [5] "2005+0000"                    "2006-01-13+0000"             
-#>  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       
-#>  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    
-#> [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"
-#> [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"
-#> [15] "2015-01-01 08:35:32.123+0530" 
+as.parttime(iso8601_dates)
+## <partial_time<YMDhms+tz>[15]> 
+##  [1] NA                             "2001+0000"                   
+##  [3] "2002-01-01+0000"              "2004-09-01+0000"             
+##  [5] "2005+0000"                    "2006-01-13+0000"             
+##  [7] "2007-10-01 08+0000"           "2008-09-20 08:35+0000"       
+##  [9] "2009-08-12 08:35:02.880+0000" "2010-07-22 08:35:32+0000"    
+## [11] "2011-06-13 08:35:32.123+0000" "2012-05-23 08:35:32.123+0000"
+## [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"
+## [15] "2015-01-01 08:35:32.123+0530" 
 ```
 
 ## Imputing Timestamps
 
 ```r
 >  impute_time("2019", "2000-01-02T03:04:05.006+0730")
-
-#> <partial_time<YMDhms+tz>[1]> 
-#> [1] "2019-01-02 03:04:05.006" 
+## <partial_time<YMDhms+tz>[1]>
+## [1] "2019-01-02 03:04:05.006"
 ```
 
 ## Datetime Comparisons
@@ -70,28 +69,28 @@ there are two helper functions, `possibly` and `definitely` resolving this uncer
 ```r
 options(parttime.assume_tz_offset = 0)  # assume GMT
 parttime(2019) < parttime(2020)
-#> TRUE
+## TRUE
 
 options(parttime.assume_tz_offset = NA)  # don't assume a timezone
 parttime(2019) < parttime(2020)
-#> NA  # due to potentially different timezones, this can't be certain
+## NA  # due to potentially different timezones, this can't be certain
 
 possibly(parttime(2019) < parttime(2020))
-#> TRUE 
+## TRUE 
 
 definitely(parttime(2019) < parttime(2020))
-#> FALSE
+## FALSE
 
 parttime(2019) == parttime(2019)
-#> NA  # given uncertainty in timestamps, we can't be sure these are equal
+## NA  # given uncertainty in timestamps, we can't be sure these are equal
 
 options(parttime.assume_tz_offset = 0)
 definitely(parttime(2019) == parttime(2019), by = "year")
-#> TRUE  # but we know they're equal within the same year
+## TRUE  # but we know they're equal within the same year
 
 options(parttime.assume_tz_offset = NA)
 definitely(parttime(2019) == parttime(2019), by = "year")
-#> NA  # with an unknown timezone, these may not even be within the same year
+## NA  # with an unknown timezone, these may not even be within the same year
 ```
 
 ## Timespans
@@ -100,14 +99,13 @@ Cast a partial time's missingness to a range of possible values
 
 ```r
 as.timespan(parttime(2019))
-#> <timespan[1]>
-#> [1] [2019 — 2020) 
+## <timespan[1]>
+## [1] [2019 — 2020) 
 ```
 
-## Tidyverse Compatible (coming with `vctrs` support in `dplyr` 0.9.0)
+## Tidyverse Compatible `vctrs`
 
 ```r
-# Not yet working because `dplyr` doesn't yet support `vctrs_rcrd` classes
 tibble(dates = iso8601_dates) %>%
   mutate(
     parttimes = as.parttime(dates), 

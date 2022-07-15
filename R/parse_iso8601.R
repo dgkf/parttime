@@ -83,6 +83,10 @@ parse_iso8601 <- function(dates) {
     match_m[i, "day"] <- dates$mday
   }
 
+  # fill secfrac when sec is provided
+  i <- is.na(match_m[, "secfrac"]) & !is.na(match_m[, "sec"])
+  match_m[i, "secfrac"] <- 0
+
   # fill frac (minfrac) when sec and secfrac are provided
   i <- !apply(is.na(match_m[, c("sec", "secfrac"), drop = FALSE]), 1, any)
   if (any(i)) {
