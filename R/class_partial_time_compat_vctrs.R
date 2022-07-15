@@ -1,17 +1,17 @@
 #' @importFrom vctrs vec_ptype_full
-#' @export
+#' @exportS3Method vctrs::vec_ptype_full partial_time
 vec_ptype_full.partial_time <- function(x) "partial_time"
 
 
 
 #' @importFrom vctrs vec_ptype_abbr
-#' @export
+#' @exportS3Method vctrs::vec_ptype_abbr partial_time
 vec_ptype_abbr.partial_time <- function(x) "pttm"
 
 
 
 #' @importFrom vctrs obj_print_header
-#' @export
+#' @exportS3Method vctrs::obj_print_header partial_time
 obj_print_header.partial_time <- function(x, ...) {
   perc_complete <- apply(!is.na(vctrs::field(x, "pttm_mat")), 2, mean)
 
@@ -31,10 +31,11 @@ obj_print_header.partial_time <- function(x, ...) {
     "hour"    = "h",
     "min"     = "m",
     "sec"     = "s",
-    "tzhour"  = if (is.na(tzs)) "+tz"
-        else if (tzs == 0) "Z"
-        else if (tzs %% 100 == 0) sprintf("%+d", tzs / 100)
-        else sprintf("%+05d", tzs),
+    "tzhour"  =
+      if (is.na(tzs)) "+tz"
+      else if (tzs == 0) "Z"
+      else if (tzs %% 100 == 0) sprintf("%+d", tzs / 100)
+      else sprintf("%+05d", tzs),
     "")
 
   # filter out any unusable fields - when length is 0
@@ -60,7 +61,7 @@ obj_print_header.partial_time <- function(x, ...) {
 
 
 #' @importFrom vctrs obj_print_data
-#' @export
+#' @exportS3Method vctrs::obj_print_data partial_time
 obj_print_data.partial_time <- function(x, ...) {
   if (!length(x)) return(invisible(x))
   cat(format_vector(format(x, ...)), "\n")
@@ -70,7 +71,7 @@ obj_print_data.partial_time <- function(x, ...) {
 
 
 #' @importFrom vctrs obj_print_footer
-#' @export
+#' @exportS3Method vctrs::obj_print_footer partial_time
 obj_print_footer.partial_time <- function(x, ...) {
   l <- length(x) - getOption("max.print")
   if (l > 0) {

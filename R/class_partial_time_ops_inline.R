@@ -4,12 +4,6 @@
 
 
 
-`%--%.default` <- function(start, end) {
-  lubridate::`%--%`(start, end)
-}
-
-
-
 `%--%.partial_time` <- function(start, end) {
   UseMethod("%--%.partial_time", end)
 }

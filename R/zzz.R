@@ -1,31 +1,21 @@
-apply_default_tz_offset <- function(verbose = FALSE) {
+apply_default_tz_offset <- function() {
   if (is.null(getOption("parttime.assume_tz_offset", NULL))) {
-    options("parttime.assume_tz_offset" = 0)
-    if (!verbose) return()
+    options("parttime.assume_tz_offset" = 0L)
 
-    msg <- paste(
-      strwrap(sprintf(
-        paste0(
-          "Initializing `options(\"parttime.assume_tz_offset\")` with `%s`, ",
-          "which will assume a timezone offset when timezone parts are ",
-          "missing.\n"
-        ),
-        getOption("parttime.assume_tz_offset")
-      )),
-      collapse = "\n"
+    msg <- paste0(
+      paste0(collapse = "\n", strwrap(paste0(
+        "Initializing default timezone offset, which is assumed when ",
+        "timezone parts are missing."
+      ))),
+      sprintf(
+        "\n\n    options(\"parttime.assume_tz_offset\" = %s)\n",
+        deparse(getOption("parttime.assume_tz_offset"))
+      )
     )
 
     packageStartupMessage(msg)
   }
 }
-
-
-
-.onAttach <- function(libname, pkgname) {
-  apply_default_tz_offset(TRUE)
-}
-
-
 
 .onLoad <- function(libname, pkgname) {
   apply_default_tz_offset()
