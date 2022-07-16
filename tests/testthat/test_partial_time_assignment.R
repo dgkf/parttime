@@ -31,3 +31,25 @@ test_that("partial_time assignment helpers mutate field data", {
   expect_silent(tz(pttms) <- 1:15 * 20)
   expect_equal(unname(pttms[, "tzhour"] * 60 + pttms[, "tzmin"]), 1:15 * 20)
 })
+
+test_that("partial_time assignment with out-of-range values reflows fields", {
+  pttm <- parttime(year = 2003, month = 4, day = 5)
+  expect_equal(pttm[[1, "year"]], 2003)
+  expect_equal(pttm[[1, "month"]], 4)
+  expect_silent(pttm[[1, "month"]] <- 13)
+  expect_equal(pttm[[1, "year"]], 2004)
+
+  # expect that reflowing for leap days rolls into leap day
+  pttm <- parttime(year = 2004, month = 2, day = 28, hour = 23)
+  expect_true(lubridate::leap_year(pttm[[1, "year"]]))
+  expect_silent(pttm[[1, "hour"]] <- 25)
+  expect_equal(pttm[[1, "month"]], 2)
+  expect_equal(pttm[[1, "day"]], 29)
+
+  # expect that reflowing for non-leap days does not roll into a leap day
+  pttm <- parttime(year = 2003, month = 2, day = 28, hour = 23)
+  expect_false(lubridate::leap_year(pttm[[1, "year"]]))
+  expect_silent(pttm[[1, "hour"]] <- 25)
+  expect_equal(pttm[[1, "month"]], 3)
+  expect_equal(pttm[[1, "day"]], 1)
+})

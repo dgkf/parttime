@@ -26,7 +26,7 @@
 reflow_fields <- function(fmat, days) {
   # account for leap day (1/4 of a day per year) prior to reflowing
   if (!missing(days) && isTRUE(days))
-    fmat[,"hour"] <- fmat[,"hour"] + fmat[,"year"] * 6
+    fmat[, "hour"] <- fmat[, "hour"] + fmat[, "year"] * 6
 
   # flow decimal places down to subsequent fields
   fmat[, "hour"] <- fmat[, "hour"] + fmat[, "day"] %% 1 * 24

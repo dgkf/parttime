@@ -12,7 +12,7 @@
 
 \method{[[}{partial_time}(x, i, j, ..., value)
 
-\method{[}{partial_time}(x, i, j, ...) <- value
+\method{[}{partial_time}(x, i, j, ..., reflow = TRUE) <- value
 
 \method{[[}{partial_time}(x, i, ...) <- value
 }
@@ -30,6 +30,12 @@ further details, see \link[base]{Extract}.}
 
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
+
+\item{reflow}{a \code{logical} indicating whether modified data fields should
+be reflowed, cascading range overflow. Setting to \code{FALSE} permits
+invalid dates, but saves on compute. Generally, it should only be disabled
+when multiple calculations are performed back-to-back and the dates only
+need to be reflowed once at the end of the calculation.}
 }
 \description{
 Indexing operators repurpose matrix indexing for indexing into parttime
