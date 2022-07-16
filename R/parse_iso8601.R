@@ -58,17 +58,8 @@ parse_iso8601 <- function(dates) {
   match_m <- match_m[, fields, drop = FALSE]
   storage.mode(match_m) <- "numeric"
 
-  # when year, month, day available calculate week, weekday, yearday
-  i <- !apply(is.na(match_m[, c("year", "month", "day"), drop = FALSE]), 1, any)
-  if (any(i)) {
-    dates <- strptime(apply(match_m[i, c("year", "month", "day"), drop = FALSE], 1, paste, collapse = "-"), format = "%Y-%m-%d")
-    match_m[i, "week"] <- dates$yday %/% 7 + 1
-    match_m[i, "weekday"] <- dates$yday %% 7 + 1
-    match_m[i, "yearday"] <- dates$yday + 1
-  }
-
   # add month, day when week, weekday available
-  i <- !apply(is.na(match_m[, c("year", "week", "weekday"), drop = FALSE]), 1, any)
+  i <- apply(!is.na(match_m[, c("year", "week", "weekday"), drop = FALSE]), 1, all)
   if (any(i)) {
     dates <- strptime(apply(match_m[i, c("year", "week", "weekday"), drop = FALSE], 1, paste, collapse = "-"), format = "%Y-%U-%u")
     match_m[i, "month"] <- dates$mon + 1
@@ -76,7 +67,7 @@ parse_iso8601 <- function(dates) {
   }
 
   # add month, day when yearday available
-  i <- !apply(is.na(match_m[, c("year", "yearday"), drop = FALSE]), 1, any)
+  i <- apply(!is.na(match_m[, c("year", "yearday"), drop = FALSE]), 1, all)
   if (any(i)) {
     dates <- strptime(apply(match_m[i, c("year", "yearday"), drop = FALSE], 1, paste, collapse = "-"), format = "%Y-%j")
     match_m[i, "month"] <- dates$mon + 1
