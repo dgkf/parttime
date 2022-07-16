@@ -60,7 +60,7 @@ internal matrix.</p>
 [[(x, i, j, ..., value)
 
 # S3 method for partial_time
-[(x, i, j, ...) &lt;- value
+[(x, i, j, ..., reflow = TRUE) &lt;- value
 
 # S3 method for partial_time
 [[(x, i, ...) &lt;- value</code></pre></div>
@@ -90,6 +90,14 @@ further details, see <a href="https://rdrr.io/r/base/Extract.html" class="extern
 <dt>value</dt>
 <dd><p>typically an array-like <span style="R">R</span> object of a similar class as
     <code>x</code>.</p></dd>
+
+
+<dt>reflow</dt>
+<dd><p>a <code>logical</code> indicating whether modified data fields should
+be reflowed, cascading range overflow. Setting to <code>FALSE</code> permits
+invalid dates, but saves on compute. Generally, it should only be disabled
+when multiple calculations are performed back-to-back and the dates only
+need to be reflowed once at the end of the calculation.</p></dd>
 
 </dl></div>
 
@@ -151,7 +159,7 @@ further details, see <a href="https://rdrr.io/r/base/Extract.html" class="extern
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
