@@ -36,10 +36,7 @@ immediately imputed with a known date. Instead, its uncertainty is
 preserved as a central part of the `partial_time` class.
 
 ``` r
-list(pttms <- as.parttime(c("2022", "2022-02")))
-## [[1]]
-## <partial_time<YMDhms+tz>[2]> 
-## [1] "2022"    "2022-02"
+pttms <- as.parttime(c("2022", "2022-02"))
 ```
 
 We can access the components of each datetime as though the
@@ -63,17 +60,17 @@ year(pttms[1])
 
 month(pttms[2]) <- 3
 pttms
-## <partial_time<YMDhms+tz>[2]> 
+## <partial_time<YMDhmsZ>[2]> 
 ## [1] "2022"    "2022-03"
 
 month(pttms[1]) <- 3
 pttms
-## <partial_time<YMDhms+tz>[2]> 
+## <partial_time<YMDhmsZ>[2]> 
 ## [1] "2022-03" "2022-03"
 
 month(pttms) <- NA
 pttms
-## <partial_time<YMDhms+tz>[2]> 
+## <partial_time<YMDhmsZ>[2]> 
 ## [1] "2022" "2022"
 ```
 
@@ -83,10 +80,7 @@ dates from above we see that it is unclear whether one is greater-than
 the other.
 
 ``` r
-list(pttms <- as.parttime(c("2022", "2022-02")))
-## [[1]]
-## <partial_time<YMDhms+tz>[2]> 
-## [1] "2022"    "2022-02"
+pttms <- as.parttime(c("2022", "2022-02"))
 ```
 
 ``` r
@@ -175,7 +169,7 @@ as.parttime(iso8601_dates)
 ##  [5] "2005"                         "2006-01-13"                  
 ##  [7] "2007-10-01 08"                "2008-09-20 08:35"            
 ##  [9] "2009-08-12 08:35:02.880"      "2010-07-22 08:35:32.000"     
-## [11] "2011-06-13 08:35:32.123"      "2012-05-23 08:35:32.123+0000"
+## [11] "2011-06-13 08:35:32.123"      "2012-05-23 08:35:32.123"     
 ## [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"
 ## [15] "2015-01-01 08:35:32.123+0530"
 ```
@@ -184,7 +178,7 @@ as.parttime(iso8601_dates)
 
 ``` r
 impute_time("2019", "2000-01-02T03:04:05.006+0730")
-## <partial_time<YMDhms+0730>[1]> 
+## <partial_time<YMDhmsZ>[1]> 
 ## [1] "2019-01-02 03:04:05.006"
 ```
 
@@ -245,6 +239,14 @@ as.timespan(parttime(2019))
 
 ``` r
 library(dplyr)
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 
 tibble(dates = iso8601_dates) %>%
   mutate(

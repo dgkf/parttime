@@ -47,7 +47,7 @@ part of the `partial_time` class.
 ```{r, include = FALSE}
 curyear <- substring(Sys.Date(), 1, 4)
 dates <- paste0(curyear, c("", "-02"))
-code <- bquote(pttms <- as.parttime(.(dates)))
+code <- deparse(bquote(pttms <- as.parttime(.(dates))))
 ```
 
 ```{r, code = code}
