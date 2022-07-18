@@ -5,6 +5,8 @@ output: github_document
 ```{r, include = FALSE}
 options(crayon.enabled = FALSE, width = 80)
 library(parttime)
+
+knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 # parttime
@@ -55,7 +57,7 @@ We can access the components of each datetime as though the `partial_time` is a
 matrix of datetime fields, or using `lubridate`-style accessors and assignment
 functions.
 
-```{r, access_and_assign, collapse = TRUE}
+```{r, access_and_assign}
 pttms[, "year"]
 
 pttms[[1, "year"]]
@@ -81,7 +83,7 @@ above we see that it is unclear whether one is greater-than the other.
 ```{r, code = code}
 ```
 
-```{r, comparison, collapse = TRUE}
+```{r, comparison}
 pttms[1] > pttms[2]
 
 pttms[2] > pttms[1]
@@ -93,7 +95,7 @@ outside the calendar year if the timezone is unknown!, see
 modes of comparison - to determine whether a `partial_time` _possibly_ or
 _definitely_ satisfies a criteria.
 
-```{r, comparison-resolver, collapse = TRUE}
+```{r, comparison-resolver}
 definitely(pttms[1] > pttms[2])
 
 possibly(pttms[2] > pttms[1])
@@ -103,7 +105,7 @@ As well, a few helper functions are provided to perform imputation. All
 imputation functions are wrappers around `impute_time` with varying defaults for
 default timestamp and resolution to which imputation is performed. 
 
-```{r, imputation, collapse = TRUE}
+```{r, imputation}
 impute_date_max(pttms[2])  # resolve date fields with maximum value
 
 impute_time(pttms[1], "1999-06-05T04:03:02")  # arbitrary imputation
@@ -171,18 +173,12 @@ resolution).
 ```{r}
 options(parttime.assume_tz_offset = 0)  # assume GMT
 parttime(2019) < parttime(2020)
-```
 
-```{r}
 options(parttime.assume_tz_offset = NA)  # don't assume a timezone
 parttime(2019) < parttime(2020)
-```
 
-```{r}
 possibly(parttime(2019) < parttime(2020))
-```
 
-```{r}
 definitely(parttime(2019) < parttime(2020))
 ```
 
@@ -191,14 +187,10 @@ situation, `==` will return `NA`.
 
 ```{r}
 parttime(2019) == parttime(2019)
-```
 
-```{r}
 options(parttime.assume_tz_offset = 0)
 definitely(parttime(2019) == parttime(2019), by = "year")
-```
 
-```{r}
 options(parttime.assume_tz_offset = NA)
 definitely(parttime(2019) == parttime(2019), by = "year")
 ```
