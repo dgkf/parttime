@@ -145,8 +145,8 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ..., res = NULL) {
   # normalize improper days back to month max
   x <- normalize_month_day(x)
 
-  # propegate uncertainty back into imputed fields where necessary
-  x <- propegate_na(x)
+  # propagate uncertainty back into imputed fields where necessary
+  x <- propagate_na(x)
 
   x
 }

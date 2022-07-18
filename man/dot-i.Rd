@@ -16,3 +16,4 @@
 \description{
 shorthand for converting dimnames to indices, for easier column subtraction
 }
+\keyword{internal}

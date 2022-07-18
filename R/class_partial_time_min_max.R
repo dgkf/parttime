@@ -81,7 +81,7 @@ pmin_pmax_handler <- function(f, ..., na.rm = FALSE) {
   colnames(x) <- colnames(vctrs::field(dots[[1]], "pttm_mat"))
   out <- rep(parttime(NA), length.out = nrow(x))
   vctrs::field(out, "pttm_mat") <- x
-  out <- propegate_na(out, keep_tz = TRUE)
+  out <- propagate_na(out, keep_tz = TRUE)
   out
 }
 

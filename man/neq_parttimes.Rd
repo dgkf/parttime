@@ -23,3 +23,4 @@ y <- as.parttime(c("2019", "2018-01-03", NA, "2010-01"))
 x != y
 
 }
+\keyword{internal}

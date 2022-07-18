@@ -13,4 +13,4 @@ re_iso8601
 \description{
 slightly modified from parsedate - added 'secfrac' capture group
 }
-\keyword{datasets}
+\keyword{internal}

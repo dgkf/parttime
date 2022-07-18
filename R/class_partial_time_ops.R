@@ -74,11 +74,13 @@ gt_lt_gte_lte_timespans <- function(generic, e1, e2) {
 #'
 #' x != y
 #'
+#' @keywords internal
+#'
 neq_parttimes <- function(generic, e1, e2) {
   na <- is.na(e1) | is.na(e2)
 
-  e1 <- propegate_na(e1)
-  e2 <- propegate_na(e2)
+  e1 <- propagate_na(e1)
+  e2 <- propagate_na(e2)
 
   x <- vctrs::field(e1, "pttm_mat") != vctrs::field(e2, "pttm_mat")
   x <- t(apply(x, 1, cumsum)) > 0
@@ -102,11 +104,13 @@ neq_parttimes <- function(generic, e1, e2) {
 #'
 #' x == y
 #'
+#' @keywords internal
+#'
 eq_parttimes <- function(generic, e1, e2) {
   na <- is.na(e1) | is.na(e2)
 
-  e1 <- propegate_na(e1)
-  e2 <- propegate_na(e2)
+  e1 <- propagate_na(e1)
+  e2 <- propagate_na(e2)
 
   x <- vctrs::field(e1, "pttm_mat") == vctrs::field(e2, "pttm_mat")
   x_nall <- which(apply(!x, 1, any))

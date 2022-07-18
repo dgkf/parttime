@@ -21,3 +21,4 @@ dimensions to drop}
 Similar to matrix and array \code{[} behavior, but allows for providing a numeric
 vector of dimensions to drop
 }
+\keyword{internal}
