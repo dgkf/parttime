@@ -178,41 +178,45 @@ vec_cast.logical.partial_time <- function(x, to, ...) {
 
 coerce_parital_time_to_POSIXlt <- function(x, tz = "GMT", ...,  warn = TRUE) {
   if (warn) warn_partial(x)
-
   strptime(
     sprintf(
       "%04.f-%02.f-%02.fT%02.f:%02.f:%02.f.%s+%02.f%02.f",
-      attr(x, "fields")[, "year"]    %|NA|% 0,
-      attr(x, "fields")[, "month"]   %|NA|% 0,
-      attr(x, "fields")[, "day"]     %|NA|% 0,
-      attr(x, "fields")[, "hour"]    %|NA|% 0,
-      attr(x, "fields")[, "min"]     %|NA|% 0,
-      attr(x, "fields")[, "sec"]     %|NA|% 0,
-      substring(sprintf("%.03f", attr(x, "fields")[, "secfrac"] %|NA|% 0), 3),
-      attr(x, "fields")[, "tzhour"]  %|NA|% 0,
-      abs(attr(x, "fields")[, "tzmin"] %|NA|% 0)
+      x[, "year"]  %|NA|% 0,
+      x[, "month"] %|NA|% 0,
+      x[, "day"]   %|NA|% 0,
+      x[, "hour"]  %|NA|% 0,
+      x[, "min"]   %|NA|% 0,
+      x[, "sec"]   %|NA|% 0,
+      substring(sprintf("%.03f", x[, "secfrac"] %|NA|% 0), 3),
+      x[, "tzhour"] %|NA|% 0,
+      abs(x[, "tzmin"] %|NA|% 0)
     ),
     format = "%Y-%m-%dT%H:%M:%OS%z",
     tz = tz,  # sets origin for tz offset - assumes "GMT" as per iso8601
-    ...)
+    ...
+  )
 }
 
 
 
 #' @export
 as.character.partial_time <- function(x, ...) {
-  xf <- attr(x, "fields")
-  paste0(
-    ifelse(is.na(xf[, "year"]),     "", sprintf("%04d",  xf[, "year"])),
-    ifelse(is.na(xf[, "month"]),    "", sprintf("-%02d", xf[, "month"])),
-    ifelse(is.na(xf[, "day"]),      "", sprintf("-%02d", xf[, "day"])),
-    ifelse(is.na(xf[, "hour"]),     "", sprintf(" %02d", xf[, "hour"])),
-    ifelse(is.na(xf[, "min"]),      "", sprintf(":%02d", xf[, "min"])),
-    ifelse(is.na(xf[, "sec"]),      "", sprintf(":%02d", xf[, "sec"])),
-    ifelse(is.na(xf[, "secfrac"]),  "", substring(sprintf("%.03f", xf[, "secfrac"]), 3)),
-    ifelse(is.na(xf[, "tzhour"]),   "", sprintf(" %02d", xf[, "tzhour"])),
-    ifelse(is.na(xf[, "tzmin"]),    "", sprintf("%02d", abs(xf[, "tzmin"])))
+  nna <- !is.na(x)
+  out <- rep_len(NA_character_, length(x))
+
+  out[nna] <- paste0(
+    ifelse(is.na(x[nna, "year"]),    "", sprintf("%04d",  x[nna, "year"])),
+    ifelse(is.na(x[nna, "month"]),   "", sprintf("-%02d", x[nna, "month"])),
+    ifelse(is.na(x[nna, "day"]),     "", sprintf("-%02d", x[nna, "day"])),
+    ifelse(is.na(x[nna, "hour"]),    "", sprintf(" %02d", x[nna, "hour"])),
+    ifelse(is.na(x[nna, "min"]),     "", sprintf(":%02d", x[nna, "min"])),
+    ifelse(is.na(x[nna, "sec"]),     "", sprintf(":%02d", x[nna, "sec"])),
+    ifelse(is.na(x[nna, "secfrac"]), "", substring(sprintf("%.03f", x[nna, "secfrac"]), 2)),
+    ifelse(is.na(x[nna, "tzhour"]),  "", sprintf(" %02d", x[nna, "tzhour"])),
+    ifelse(is.na(x[nna, "tzmin"]),   "", sprintf("%02d", abs(x[nna, "tzmin"])))
   )
+
+  out
 }
 
 
