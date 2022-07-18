@@ -84,8 +84,8 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022"</span>, <span class="st">"2022-02"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## [[1]]</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">## &lt;partial_time&lt;Y[38;5;246mM[39m[31mD[39m[31mh[39m[31mm[39m[31ms[39mZ&gt;[2]&gt; </span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## [1] "2022"    "2022[38;5;246m-[39m[38;5;246m0[39m2"</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## [1] "2022"    "2022-02"</span></span></code></pre></div>
 <p>We can access the components of each datetime as though the <code>partial_time</code> is a matrix of datetime fields, or using <code>lubridate</code>-style accessors and assignment functions.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pttms</span><span class="op">[</span>, <span class="st">"year"</span><span class="op">]</span></span>
@@ -95,7 +95,7 @@
 <span><span class="va">pttms</span><span class="op">[[</span><span class="fl">1</span>, <span class="st">"year"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">## [1] 2022</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/parttime_access_and_assign.html">year</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/parttime_access_and_assign.html">year</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">)</span>  <span class="co"># the first row are names of elements in a named numeric vector</span></span>
 <span><span class="co">##    2022 2022-02 </span></span>
 <span><span class="co">##    2022    2022</span></span>
 <span></span>
@@ -104,24 +104,24 @@
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">pttms</span></span>
-<span><span class="co">## &lt;partial_time&lt;Y[38;5;246mM[39m[31mD[39m[31mh[39m[31mm[39m[31ms[39mZ&gt;[2]&gt; </span></span>
-<span><span class="co">## [1] "2022"    "2022[38;5;246m-[39m[38;5;246m0[39m3"</span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
+<span><span class="co">## [1] "2022"    "2022-03"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">pttms</span></span>
-<span><span class="co">## &lt;partial_time&lt;YM[31mD[39m[31mh[39m[31mm[39m[31ms[39mZ&gt;[2]&gt; </span></span>
-<span><span class="co">## [1] "2022[38;5;246m-[39m[38;5;246m0[39m3" "2022[38;5;246m-[39m[38;5;246m0[39m3"</span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
+<span><span class="co">## [1] "2022-03" "2022-03"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="va">pttms</span></span>
-<span><span class="co">## &lt;partial_time&lt;Y[31mM[39m[31mD[39m[31mh[39m[31mm[39m[31ms[39mZ&gt;[2]&gt; </span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
 <span><span class="co">## [1] "2022" "2022"</span></span></code></pre></div>
 <p>Because <code>partial_time</code> objects may have uncertainty, comparison between times conveys this uncertainty. As a brief example, if we compare our dates from above we see that it is unclear whether one is greater-than the other.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022"</span>, <span class="st">"2022-02"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## [[1]]</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">## &lt;partial_time&lt;Y[38;5;246mM[39m[31mD[39m[31mh[39m[31mm[39m[31ms[39mZ&gt;[2]&gt; </span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">## [1] "2022"    "2022[38;5;246m-[39m[38;5;246m0[39m2"</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">## [1] "2022"    "2022-02"</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">## [1] NA</span></span>
@@ -138,13 +138,12 @@
 <p>As well, a few helper functions are provided to perform imputation. All imputation functions are wrappers around <code>impute_time</code> with varying defaults for default timestamp and resolution to which imputation is performed.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_date_max</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>  <span class="co"># resolve date fields with maximum value</span></span>
-<span><span class="co">## Warning in strptime(apply(match_m[i, c("year", "week", "weekday"), drop = FALSE], : (0-based) yday 367 in year 9999 is invalid</span></span>
-<span><span class="co">## &lt;partial_time&lt;YMD[31mh[39m[31mm[39m[31ms[39m[31m+tz[39m&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2022[38;5;246m-[39m[38;5;246m0[39m2[38;5;246m-[39m28"</span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
+<span><span class="co">## [1] "2022-02-28"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"1999-06-05T04:03:02"</span><span class="op">)</span>  <span class="co"># arbitrary imputation</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhmsZ&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2022[38;5;246m-[39m[38;5;246m0[39m6[38;5;246m-[39m[38;5;246m0[39m5 [38;5;246m0[39m4[38;5;246m:[39m03[38;5;246m:[39m02[38;5;246m.[39m000"</span></span></code></pre></div>
+<span><span class="co">## [1] "2022-06-05 04:03:02.000"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-partial_time-class">The <code>partial_time</code> class<a class="anchor" aria-label="anchor" href="#the-partial_time-class"></a>
@@ -184,262 +183,296 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## &lt;partial_time&lt;[38;5;246mY[39m[38;5;246mM[39m[38;5;246mD[39m[38;5;246mh[39m[38;5;246mm[39m[38;5;246ms[39m[38;5;246m+tz[39m&gt;[15]&gt; </span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">##  [1] [31mNA[39m                             "2001"                         "2002[38;5;246m-[39m[38;5;246m0[39m1[38;5;246m-[39m[38;5;246m0[39m1"                  </span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##  [4] "2004[38;5;246m-[39m[38;5;246m0[39m9[38;5;246m-[39m[38;5;246m0[39m1"                   "2005"                         "2006[38;5;246m-[39m[38;5;246m0[39m1[38;5;246m-[39m13"                  </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">##  [7] "2007[38;5;246m-[39m10[38;5;246m-[39m[38;5;246m0[39m1 [38;5;246m0[39m8"                "2008[38;5;246m-[39m[38;5;246m0[39m9[38;5;246m-[39m20 [38;5;246m0[39m8[38;5;246m:[39m35"             "2009[38;5;246m-[39m[38;5;246m0[39m8[38;5;246m-[39m12 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m02[38;5;246m.[39m880"     </span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">## [10] "2010[38;5;246m-[39m[38;5;246m0[39m7[38;5;246m-[39m22 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m000"      "2011[38;5;246m-[39m[38;5;246m0[39m6[38;5;246m-[39m13 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m123"      "2012[38;5;246m-[39m[38;5;246m0[39m5[38;5;246m-[39m23 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m123"     </span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">## [13] "2013[38;5;246m-[39m[38;5;246m0[39m4[38;5;246m-[39m14 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m123+0500" "2014[38;5;246m-[39m[38;5;246m0[39m3[38;5;246m-[39m24 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m123+0530" "2015[38;5;246m-[39m[38;5;246m0[39m1[38;5;246m-[39m[38;5;246m0[39m1 [38;5;246m0[39m8[38;5;246m:[39m35[38;5;246m:[39m32[38;5;246m.[39m123+0530"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">##  [1] NA                             "2001"                        </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##  [3] "2002-01-01"                   "2004-09-01"                  </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">##  [5] "2005"                         "2006-01-13"                  </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">##  [7] "2007-10-01 08"                "2008-09-20 08:35"            </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">##  [9] "2009-08-12 08:35:02.880"      "2010-07-22 08:35:32.000"     </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">## [11] "2011-06-13 08:35:32.123"      "2012-05-23 08:35:32.123+0000"</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">## [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">## [15] "2015-01-01 08:35:32.123+0530"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="imputing-timestamps">Imputing Timestamps<a class="anchor" aria-label="anchor" href="#imputing-timestamps"></a>
 </h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="op">&gt;</span><span class="st">  </span><span class="kw">impute_time</span>(<span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+0730"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">## [1] "2019-01-02 03:04:05.006"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+0730"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## &lt;partial_time&lt;YMDhms+0730&gt;[1]&gt; </span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">## [1] "2019-01-02 03:04:05.006"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="partial-datetime-comparisons">Partial Datetime Comparisons<a class="anchor" aria-label="anchor" href="#partial-datetime-comparisons"></a>
 </h2>
 <p>Partial timestamps include uncertainty, which means that there is often uncertainty when comparing between timestamps. To help resolve this uncertainty there are two helper functions, <code>possibly</code> and <code>definitely</code> resolving this uncertainty for when the windows of uncertainty overlap, or equal (to a given resolution).</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># assume GMT</span></span>
 <span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>  <span class="co"># don't assume a timezone</span></span>
 <span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">## [1] NA</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">## [1] NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/possibly.html">possibly</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">## [1] FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">## [1] FALSE</span></span></code></pre></div>
 <p>Given uncertainty in timestamps, we can’t be sure these are equal. In this situation, <code>==</code> will return <code>NA</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">## [1] NA</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">## [1] NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>parttime.assume_tz_offset <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/definitely.html">definitely</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">## [1] FALSE</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="true--but-we-know-theyre-equal-within-the-same-year">TRUE # but we know they’re equal within the same year<a class="anchor" aria-label="anchor" href="#true--but-we-know-theyre-equal-within-the-same-year"></a>
+<h2 id="timespans">Timespans<a class="anchor" aria-label="anchor" href="#timespans"></a>
 </h2>
-<p>options(parttime.assume_tz_offset = NA) definitely(parttime(2019) == parttime(2019), by = “year”) ## NA # with an unknown timezone, these may not even be within the same year</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co">## Timespans</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a>Cast a partial time<span class="st">'s missingness to a range of possible values</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="st">```r</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="st">as.timespan(parttime(2019))</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="st">## &lt;timespan[1]&gt;</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="st">## [1] [2019 — 2020) </span></span></code></pre></div>
+<p>Cast a partial time’s missingness to a range of possible values</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/as.timespan.html">as.timespan</a></span><span class="op">(</span><span class="fu"><a href="reference/parttime.html">parttime</a></span><span class="op">(</span><span class="fl">2019</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co">## &lt;timespan[1]&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="co">## [1] [2019 — 2020)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tidyverse-compatible-vctrs">Tidyverse Compatible <code>vctrs</code>
 <a class="anchor" aria-label="anchor" href="#tidyverse-compatible-vctrs"></a>
 </h2>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>, </span>
-<span>    imputed_times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></p>
+<p><code>tibble</code>-style formatting makes it easy to see which components of each <code>partial_time</code> are missing.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>dates <span class="op">=</span> <span class="va">iso8601_dates</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>,</span>
+<span>    imputed_times <span class="op">=</span> <span class="fu"><a href="reference/impute_time.html">impute_time_min</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">## # A tibble: 15 × 3</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="co">##    dates               parttimes                    imputed_times               </span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co">##    &lt;chr&gt;               &lt;pttm&gt;                       &lt;pttm&gt;                      </span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co">##  1 &lt;NA&gt;                NA                           NA                          </span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="co">##  2 2001                2001                         2001-01-01 00:00:00.000-1200</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="co">##  3 2002-01-01          2002-01-01                   2002-01-01 00:00:00.000-1200</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="co">##  4 2004-245            2004-09-01                   2004-09-01 00:00:00.000-1200</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="co">##  5 2005-W13            2005                         2005-01-01 00:00:00.000-1200</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a><span class="co">##  6 2006-W02-5          2006-01-13                   2006-01-13 00:00:00.000-1200</span></span>
+<span id="cb31-10"><a href="#cb31-10"></a><span class="co">##  7 2007-10-01T08       2007-10-01 08                2007-10-01 08:00:00.000-1200</span></span>
+<span id="cb31-11"><a href="#cb31-11"></a><span class="co">##  8 2008-09-20T08:35    2008-09-20 08:35             2008-09-20 08:35:00.000-1200</span></span>
+<span id="cb31-12"><a href="#cb31-12"></a><span class="co">##  9 2009-08-12T08:35.0… 2009-08-12 08:35:02.880      2009-08-12 08:35:02.880-1200</span></span>
+<span id="cb31-13"><a href="#cb31-13"></a><span class="co">## 10 2010-07-22T08:35:32 2010-07-22 08:35:32.000      2010-07-22 08:35:32.000-1200</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a><span class="co">## 11 2011-06-13T08:35:3… 2011-06-13 08:35:32.123      2011-06-13 08:35:32.123-1200</span></span>
+<span id="cb31-15"><a href="#cb31-15"></a><span class="co">## 12 2012-05-23T08:35:3… 2012-05-23 08:35:32.123+0000 2012-05-23 08:35:32.123+0000</span></span>
+<span id="cb31-16"><a href="#cb31-16"></a><span class="co">## 13 2013-04-14T08:35:3… 2013-04-14 08:35:32.123+0500 2013-04-14 08:35:32.123+0500</span></span>
+<span id="cb31-17"><a href="#cb31-17"></a><span class="co">## 14 2014-03-24T08:35:3… 2014-03-24 08:35:32.123+0530 2014-03-24 08:35:32.123+0530</span></span>
+<span id="cb31-18"><a href="#cb31-18"></a><span class="co">## 15 20150101T08:35:32.… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
 <h1 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a>
 </h1>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>The <code>partial_time</code> class is pretty complete. The <code>timespan</code> and <code>partial_difftime</code> classes are still under construction!</p>
+</div>
+<div class="section level2">
+<h2 id="in-development-">In-development <span class="emoji" data-emoji="construction">🚧</span>
+<a class="anchor" aria-label="anchor" href="#in-development-"></a>
+</h2>
 <table class="table">
 <thead><tr class="header">
+<th>status</th>
 <th>class</th>
 <th>function/op</th>
 <th>description</th>
-<th>status</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>parttime</code></td>
 <td>create <code>partial_time</code>
 </td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>as.parttime</code></td>
 <td>cast to <code>partial_time</code>
 </td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td>
 <code>&gt;</code>,<code>&lt;</code>,<code>&lt;=</code>,<code>&gt;=</code>
 </td>
 <td>comparison operators</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td>
 <code>possibly</code>,<code>definitely</code>
 </td>
 <td>uncertainty resolvers</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td>
 <code>==</code>,<code>!=</code>
 </td>
 <td>equivalence operators</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td>
 <code>min</code>,<code>max</code>,<code>pmin</code>,<code>pmax</code>
 </td>
 <td>partial time extremes</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>impute_time</code></td>
 <td>imputing partial time</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>to_gmt</code></td>
 <td>convert to gmt timezone</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>print</code></td>
 <td>printing</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>format</code></td>
 <td>format as character</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>&lt;vctrs&gt;</code></td>
 <td>misc <code>vctrs</code> functions</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="ballot_box_with_check">☑️</span></td>
 <td><code>partial_time</code></td>
 <td><code>&lt;pillar&gt;</code></td>
 <td>misc <code>pillar</code> functions</td>
-<td>✔︎*︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>difftime</code></td>
 <td>create <code>partial_difftime</code>
 </td>
-<td>︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>as.difftime</code></td>
 <td>cast to <code>partial_difftime</code>
 </td>
-<td>︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td>
 <code>&gt;</code>,<code>&lt;</code>,<code>&lt;=</code>,<code>&gt;=</code>
 </td>
 <td>comparison operators</td>
-<td>︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td>
 <code>possibly</code>,<code>definitely</code>
 </td>
 <td>uncertainty resolvers</td>
-<td>︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td>
 <code>==</code>,<code>!=</code>
 </td>
 <td>equivalence operators</td>
-<td>︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td>
 <code>min</code>,<code>max</code>,<code>pmin</code>,<code>pmax</code>
 </td>
 <td>partial difftime extremes</td>
-<td>︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>print</code></td>
 <td>printing</td>
-<td></td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>format</code></td>
 <td>format as character</td>
-<td></td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>&lt;vctrs&gt;</code></td>
 <td>misc <code>vctrs</code> functions</td>
-<td></td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td><code>partial_difftime</code></td>
 <td><code>&lt;pillar&gt;</code></td>
 <td>misc <code>pillar</code> functions</td>
-<td></td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td></td>
 <td><code>`-`(partial_time, partial_difftime)</code></td>
 <td>subraction</td>
-<td>︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td></td>
 <td><code>`-`(partial_time, partial_time)</code></td>
 <td>subraction</td>
-<td>︎</td>
 </tr>
 <tr class="odd">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td></td>
 <td><code>`-`(partial_difftime, partial_difftime)</code></td>
 <td>subraction</td>
-<td>︎</td>
 </tr>
 <tr class="even">
+<td><span class="emoji" data-emoji="black_square_button">🔲</span></td>
 <td></td>
 <td><code>`-`(partial_difftime, partial_difftime)</code></td>
 <td>addition</td>
-<td>︎</td>
 </tr>
 </tbody>
 </table>
-<p>*<a href="https://github.com/dgkf/parttime/issues/5" class="external-link">Debating internal representation of class</a>, which would require tweaking existing implementations</p>
+</div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
