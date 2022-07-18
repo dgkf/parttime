@@ -5,17 +5,17 @@
 #' @param keep_tz logical indicating whether to retain timezone fields, even if
 #'   other fields are missing
 #'
-#' @return a vector of parttime objects with missingness propegated to lower
+#' @return a vector of parttime objects with missingness propagated to lower
 #'   resolution time fields
 #'
 #' @examples
 #' x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31",
 #'   "2016-01-05", "2020-01-01 03:04:05.1234"))
 #' vctrs::field(x, "pttm_mat")[,"min"] <- 23
-#' parttime:::propegate_na(x)
+#' parttime:::propagate_na(x)
 #'
-propegate_na <- function(x, keep_tz = FALSE) {
-  vctrs::field(x, "pttm_mat") <- propegate_na_matrix(
+propagate_na <- function(x, keep_tz = FALSE) {
+  vctrs::field(x, "pttm_mat") <- propagate_na_matrix(
     vctrs::field(x, "pttm_mat"),
     keep_tz = keep_tz)
 
@@ -24,10 +24,10 @@ propegate_na <- function(x, keep_tz = FALSE) {
 
 
 
-propegate_na_matrix <- function(x, keep_tz = FALSE) {
+propagate_na_matrix <- function(x, keep_tz = FALSE) {
   cols <- grepl("^tz", colnames(x))
 
-  # if not keeping tz fixed, propegate tz uncertainty back up through values
+  # if not keeping tz fixed, propagate tz uncertainty back up through values
   x_pos_na <- apply(x, 1, Position, f = is.na)
   subset_of_na <- col(x) >= x_pos_na
   if (keep_tz) {
@@ -37,7 +37,7 @@ propegate_na_matrix <- function(x, keep_tz = FALSE) {
     subset_of_na[tz_na, ] <- col(x[tz_na, , drop = FALSE]) + 1 >= x_pos_na
   }
 
-  # only propegate to tz fields if tz
+  # only propagate to tz fields if tz
   x[subset_of_na] <- NA
   x
 }

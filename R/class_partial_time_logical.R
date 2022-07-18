@@ -4,6 +4,8 @@
 #' @param x create a parttime logical to store logical matrix following parttime
 #'   comparison operations
 #'
+#' @keywords internal
+#'
 parttime_logical <- function(x) {
   structure(unname(x[, ncol(x)]),
     pttm_lgl = x,

@@ -1,4 +1,6 @@
 #' slightly modified from parsedate - added 'secfrac' capture group
+#'
+#' @keywords internal
 re_iso8601 <- paste0(
   "^\\s*",
   "(?<year>[\\+-]?\\d{4}(?!\\d{2}\\b))",
@@ -32,6 +34,7 @@ re_iso8601 <- paste0(
 )
 
 
+#' @keywords internal
 #' @rdname parse_parttime
 parse_iso8601 <- function(dates) {
   match_m <- parse_to_parttime_matrix(dates, regex = re_iso8601)

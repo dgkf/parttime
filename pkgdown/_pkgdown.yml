@@ -1,0 +1,61 @@
+url: ~
+
+template:
+  bootstrap: 5
+
+reference:
+- title: Class Constructors
+  contents:
+  - parttime
+  - timespan
+  - as.parttime
+  - as.timespan
+- title: Class Helpers
+  contents:
+  - starts_with("has_partial")
+  - starts_with("is.na")
+  - starts_with("is_")
+- title: Generic methods
+  contents:
+  - matches("^max\\b")
+  - matches("^min\\b")
+  - matches("^pmax\\b")
+  - matches("^pmin\\b")
+- title: Operators
+  contents:
+  - starts_with("Ops\\.")
+  - starts_with("\\+\\.")
+  - starts_with("\\+,")
+  - starts_with("definitely")
+  - starts_with("possibly")
+- title: Imputation
+  contents:
+  - starts_with("impute")
+- title: Utilities
+  contents:
+  - starts_with("includes") 
+  - normalize_month_day
+  - propagate_na
+  - reflow_fields
+  - to_gmt
+  - trim
+- title: Indexing and indexed assignment
+  desc: |
+    Base-R-style vector indexing and assignment as a vector, or accessors to the
+    underlying matrix.
+  contents:
+  - "[.partial_time"
+  - "[[.partial_time"
+  - "[<-.partial_time"
+  - "[[<-.partial_time"
+- title: "lubridate-style accessors & assignment"
+  desc: |
+    `lubridate` interoperability with available generics (such as `year` and
+    `year<-`)
+  contents:
+  - parttime_access_and_assign
+  - starts_with("as.interval")
+  - is.timespan
+- title: "vctrs interoperability"
+  contents:
+  - starts_with("vec_")

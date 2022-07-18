@@ -105,6 +105,8 @@ format_vector <- function(x) {
 #'   dimensions to drop
 #' @param envir environment in which to evaluate \code{[} call
 #'
+#' @keywords internal
+#'
 extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
   args <- as.list(match.call())[-1]
   args <- args[names(args) == ""]
@@ -134,6 +136,8 @@ extract <- function(x, ..., drop = TRUE, envir = parent.frame()) {
 #' @param x an object with dimnames<- defined
 #' @param dim the dimension to index
 #' @param ... names selected by which
+#'
+#' @keywords internal
 #'
 .i <- function(x, dim, ...) {
   which(dimnames(x)[[dim]] %in% c(...))

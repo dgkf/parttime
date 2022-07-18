@@ -15,3 +15,4 @@ comparison operations}
 This class is purely for retaining logical information for immediate
 truncation as to not overccomplicate coersion needs with another vctr class
 }
+\keyword{internal}
