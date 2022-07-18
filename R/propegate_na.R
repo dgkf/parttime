@@ -28,13 +28,14 @@ propagate_na_matrix <- function(x, keep_tz = FALSE) {
   cols <- grepl("^tz", colnames(x))
 
   # if not keeping tz fixed, propagate tz uncertainty back up through values
-  x_pos_na <- apply(x, 1, Position, f = is.na)
+  x_pos_na <- apply(x, 1, Position, f = is.na, nomatch = ncol(x) + 1L)
+
   subset_of_na <- col(x) >= x_pos_na
   if (keep_tz) {
     subset_of_na[, cols] <- FALSE
   } else {
     tz_na <- apply(is.na(x[, cols, drop = FALSE]), 1, any)
-    subset_of_na[tz_na, ] <- col(x[tz_na, , drop = FALSE]) + 1 >= x_pos_na
+    subset_of_na[tz_na, ] <- (col(x[tz_na, , drop = FALSE]) + 1) >= x_pos_na[tz_na]
   }
 
   # only propagate to tz fields if tz

@@ -35,3 +35,6 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 docs
+
+# ignore README preview
+README.html
