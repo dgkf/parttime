@@ -3,9 +3,8 @@ output: github_document
 ---
 
 ```{r, include = FALSE}
+options(crayon.enabled = FALSE, width = 80)
 library(parttime)
-
-knitr::knit_hooks$set(output = function(x, options) crayon::strip_style(x))
 ```
 
 # parttime
@@ -217,7 +216,7 @@ as.timespan(parttime(2019))
 `tibble`-style formatting makes it easy to see which components of each
 `partial_time` are missing.
 
-```{r, results = "hide"}
+```{r}
 library(dplyr)
 
 tibble(dates = iso8601_dates) %>%
@@ -226,8 +225,6 @@ tibble(dates = iso8601_dates) %>%
     imputed_times = impute_time_min(parttimes)
   )
 ```
-
-<img src="https://user-images.githubusercontent.com/18220321/64467475-b086ad00-d0cd-11e9-8e39-9a6e7e84a44e.png" width="75%"></img>
 
 # Roadmap
 
