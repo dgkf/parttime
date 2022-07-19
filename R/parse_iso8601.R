@@ -61,10 +61,25 @@ parse_iso8601 <- function(dates) {
   match_m <- match_m[, fields, drop = FALSE]
   storage.mode(match_m) <- "numeric"
 
+  # warn when week is specified without weekday, leading to loss of information
+  i <- !is.na(match_m[, "week"]) & is.na(match_m[, "weekday"])
+  if (any(i)) {
+    warning(call. = FALSE, paste0(collapse = "\n", strwrap(paste0(
+      "Date strings using a week field, but lacking weekday will produce ",
+      "missing months. To avoid loss of datetime resolution, such partial ",
+      "dates are best represented as timespans. See `?timespan`."
+    ))))
+  }
+
   # add month, day when week, weekday available
   i <- apply(!is.na(match_m[, c("year", "week", "weekday"), drop = FALSE]), 1, all)
   if (any(i)) {
-    dates <- strptime(apply(match_m[i, c("year", "week", "weekday"), drop = FALSE], 1, paste, collapse = "-"), format = "%Y-%U-%u")
+    fields <- c("year", "week", "weekday")
+    dates <- strptime(
+      apply(match_m[i, fields, drop = FALSE], 1, paste, collapse = "-"),
+      format = "%Y-%U-%u"
+    )
+
     match_m[i, "month"] <- dates$mon + 1
     match_m[i, "day"] <- dates$mday
   }
@@ -72,7 +87,12 @@ parse_iso8601 <- function(dates) {
   # add month, day when yearday available
   i <- apply(!is.na(match_m[, c("year", "yearday"), drop = FALSE]), 1, all)
   if (any(i)) {
-    dates <- strptime(apply(match_m[i, c("year", "yearday"), drop = FALSE], 1, paste, collapse = "-"), format = "%Y-%j")
+    fields <- c("year", "yearday")
+    dates <- strptime(
+      apply(match_m[i, fields, drop = FALSE], 1, paste, collapse = "-"),
+      format = "%Y-%j"
+    )
+
     match_m[i, "month"] <- dates$mon + 1
     match_m[i, "day"] <- dates$mday
   }
@@ -84,7 +104,7 @@ parse_iso8601 <- function(dates) {
   # fill frac (minfrac) when sec and secfrac are provided
   i <- !apply(is.na(match_m[, c("sec", "secfrac"), drop = FALSE]), 1, any)
   if (any(i)) {
-    match_m[i, "frac"] <- (match_m[i, c("sec"), drop = FALSE] + match_m[i, c("secfrac"), drop = FALSE]) / 60
+    match_m[i, "frac"] <- (match_m[i, "sec", drop = FALSE] + match_m[i, "secfrac", drop = FALSE]) / 60
   }
 
   # fill sec and secfrac when frac (minfrac) is provided
