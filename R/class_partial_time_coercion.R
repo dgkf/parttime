@@ -7,8 +7,8 @@
 #'   exprssion which contains capture groups for each of the parttime
 #'   components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
 #'   for more details.
-#' @param warn Whether to warn when information is lost upon coercion.
-#' @param ... Additional arguments unused.
+#' @param ... Additional arguments passed to \code{format} when a function is
+#'   provided.
 #'
 #' @examples
 #' as.parttime(c("1985-10-18", "1991-08-23", "1996-09-26"))
@@ -36,15 +36,14 @@
 #' # [1] "1999"
 #'
 #' @export
-as.parttime <- function(x, ..., format = parse_iso8601, warn = TRUE) {
+as.parttime <- function(x, ..., format = parse_iso8601) {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
   vec_cast.partial_time(
     x,
     structure(0L, class = "partial_time"),
     ...,
-    format = format,
-    warn = warn
+    format = format
   )
 }
 
