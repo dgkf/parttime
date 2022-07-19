@@ -36,7 +36,7 @@ re_iso8601 <- paste0(
 
 #' @keywords internal
 #' @rdname parse_parttime
-parse_iso8601 <- function(dates) {
+parse_iso8601 <- function(dates, warn = TRUE) {
   match_m <- parse_to_parttime_matrix(dates, regex = re_iso8601)
 
   # fix missing tzhour, tzmin when tz is available
@@ -63,7 +63,7 @@ parse_iso8601 <- function(dates) {
 
   # warn when week is specified without weekday, leading to loss of information
   i <- !is.na(match_m[, "week"]) & is.na(match_m[, "weekday"])
-  if (any(i)) {
+  if (warn && any(i)) {
     warning(call. = FALSE, paste0(collapse = "\n", strwrap(paste0(
       "Date strings using a week field, but lacking weekday will produce ",
       "missing months. To avoid loss of datetime resolution, such partial ",

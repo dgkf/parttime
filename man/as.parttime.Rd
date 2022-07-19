@@ -4,7 +4,7 @@
 \alias{as.parttime}
 \title{Coerce an object to a parttime object}
 \usage{
-as.parttime(x, ..., format = parse_iso8601)
+as.parttime(x, ..., format = parse_iso8601, warn = TRUE)
 }
 \arguments{
 \item{x}{an object for coersion}
@@ -17,6 +17,8 @@ parttime components. If a \code{character} it should provide a regular
 exprssion which contains capture groups for each of the parttime
 components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
+
+\item{warn}{Whether to warn when information is lost upon coercion.}
 }
 \description{
 Coerce an object to a parttime object

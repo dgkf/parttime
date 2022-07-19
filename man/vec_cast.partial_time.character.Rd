@@ -11,9 +11,8 @@
 
 \item{to}{Type to cast to. If \code{NULL}, \code{x} will be returned as is.}
 
-\item{...}{For \code{vec_cast_common()}, vectors to cast. For
-\code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
-dots are only for future extensions and should be empty.}
+\item{...}{Additional arguments passed to \code{format} if a function is
+provided.}
 
 \item{format}{a \code{function} or \code{character} value. If a
 \code{function}, it should accept a character vector and return a matrix of

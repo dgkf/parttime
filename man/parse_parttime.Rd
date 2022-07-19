@@ -5,7 +5,7 @@
 \alias{parse_to_parttime_matrix}
 \title{Parse a character vector to create a matrix of datetime fields}
 \usage{
-parse_iso8601(dates)
+parse_iso8601(dates, warn = TRUE)
 
 parse_to_parttime_matrix(dates, regex = re_iso8601)
 }
