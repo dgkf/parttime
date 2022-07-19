@@ -4,12 +4,13 @@
 \alias{as.parttime}
 \title{Coerce an object to a parttime object}
 \usage{
-as.parttime(x, ..., format = parse_iso8601, warn = TRUE)
+as.parttime(x, ..., format = parse_iso8601)
 }
 \arguments{
 \item{x}{an object for coersion}
 
-\item{...}{Additional arguments unused.}
+\item{...}{Additional arguments passed to \code{format} when a function is
+provided.}
 
 \item{format}{a \code{function} or \code{character} value. If a
 \code{function}, it should accept a character vector and return a matrix of
@@ -17,8 +18,6 @@ parttime components. If a \code{character} it should provide a regular
 exprssion which contains capture groups for each of the parttime
 components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
-
-\item{warn}{Whether to warn when information is lost upon coercion.}
 }
 \description{
 Coerce an object to a parttime object
