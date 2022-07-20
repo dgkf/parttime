@@ -1,6 +1,6 @@
 test_that("partial_time accessor functions extract field data", {
   expect_silent(withr::with_options(list(parttime.assume_tz_offset = 0), {
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
   }))
 
   # year
@@ -37,7 +37,7 @@ test_that("partial_time accessor functions extract field data", {
 
   # tz after interpretting without assumptive timezone
   expect_silent(withr::with_options(list(parttime.assume_tz_offset = NULL), {
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
   }))
 
   expect_equal(names(tz(pttms)), as.character(iso8601_dates))
@@ -45,7 +45,7 @@ test_that("partial_time accessor functions extract field data", {
 
   # tz after interpretting with non-0 assumptive timezone
   expect_silent(withr::with_options(list(parttime.assume_tz_offset = 120), {
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
   }))
 
   expect_equal(names(tz(pttms)), as.character(iso8601_dates))

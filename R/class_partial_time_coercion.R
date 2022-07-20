@@ -7,7 +7,8 @@
 #'   exprssion which contains capture groups for each of the parttime
 #'   components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
 #'   for more details.
-#' @param ... Additional arguments unused.
+#' @param ... Additional arguments passed to \code{format} when a function is
+#'   provided.
 #'
 #' @examples
 #' as.parttime(c("1985-10-18", "1991-08-23", "1996-09-26"))
@@ -38,7 +39,12 @@
 as.parttime <- function(x, ..., format = parse_iso8601) {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
-  vec_cast.partial_time(x, structure(0L, class = "partial_time"), ..., format = format)
+  vec_cast.partial_time(
+    x,
+    structure(0L, class = "partial_time"),
+    ...,
+    format = format
+  )
 }
 
 
@@ -69,6 +75,8 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 
 #' Coerce character date representations to parttime objects
 #'
+#' @param ... Additional arguments passed to \code{format} if a function is
+#'   provided.
 #' @inheritParams vctrs::vec_cast
 #' @inheritParams as.parttime
 #'
@@ -114,7 +122,7 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' @exportS3Method vec_cast.partial_time character
 vec_cast.partial_time.character <- function(x, to, ..., format = parse_iso8601) {
   pttm_mat <- if (length(x) > 0L) {
-    if (is.function(format)) format(x)
+    if (is.function(format)) format(x, ...)
     else parse_to_parttime_matrix(x, regex = format)
   } else {
     # parsing function is irrelevant if input has no length, just use default

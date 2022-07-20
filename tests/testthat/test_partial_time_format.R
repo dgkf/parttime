@@ -1,6 +1,6 @@
 test_that("parttime formats to iso8601-style as character", {
   expect_silent(withr::with_options(list(parttime.assume_tz_offset = 0), {
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
   }))
 
   lapply(pttms, function(pttm) {

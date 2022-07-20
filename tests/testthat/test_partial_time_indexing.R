@@ -2,7 +2,7 @@ test_that("parttime indexing works with base indexing operators", {
   expect_silent(withr::with_options(list(parttime.assume_tz_offset = 0), {
     pttms_1 <- as.parttime(iso8601_dates[[1]])
     pttms_1_3 <- as.parttime(iso8601_dates[1:3])
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
   }))
 
   # rownames are kept when indexing

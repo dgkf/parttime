@@ -3,7 +3,7 @@ iso8601_dates <- c(
   "2001",
   "2002-03-04",
   "2003-095", # yearday
-  "2004-W13",  # yearweek (will preoduce unknown month)
+  "2004-W13",  # yearweek (will produce warnings unless as.parttime warn = FALSE)
   "2005-W23-2",  # yearweek and weekday
   "2006-07-08T09",
   "2007-08-09T10:11",

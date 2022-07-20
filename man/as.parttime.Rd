@@ -9,7 +9,8 @@ as.parttime(x, ..., format = parse_iso8601)
 \arguments{
 \item{x}{an object for coersion}
 
-\item{...}{Additional arguments unused.}
+\item{...}{Additional arguments passed to \code{format} when a function is
+provided.}
 
 \item{format}{a \code{function} or \code{character} value. If a
 \code{function}, it should accept a character vector and return a matrix of

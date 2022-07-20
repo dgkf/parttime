@@ -1,6 +1,6 @@
 test_that("as.character can convert partial_time to represenative string format", {
   expect_silent({
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
     pttms_chars <- as.character(pttms)
   })
 
@@ -34,7 +34,7 @@ test_that("as.character can convert partial_time to represenative string format"
 
 test_that("as.POSIXct can convert partial_time to representative posix time", {
   expect_silent({
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
     pttms_ct <- as.POSIXct(pttms)
   })
 
@@ -47,7 +47,7 @@ test_that("as.POSIXct can convert partial_time to representative posix time", {
 
 test_that("as.POSIXct can convert partial_time to representative posix time", {
   expect_silent({
-    pttms <- as.parttime(iso8601_dates)
+    pttms <- as.parttime(iso8601_dates, warn = FALSE)
     pttms_ct <- as.POSIXlt(pttms)
   })
 
