@@ -60,9 +60,8 @@
 
 
 <dt>...</dt>
-<dd><p>For <code>vec_cast_common()</code>, vectors to cast. For
-<code>vec_cast()</code>, <code>vec_cast_default()</code>, and <code>vec_restore()</code>, these
-dots are only for future extensions and should be empty.</p></dd>
+<dd><p>Additional arguments passed to <code>format</code> if a function is
+provided.</p></dd>
 
 
 <dt>format</dt>
@@ -95,6 +94,9 @@ for more details.</p></dd>
 <span class="r-in"><span>  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Date strings using a week field, but lacking weekday will produce</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> missing months. To avoid loss of datetime resolution, such partial</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> dates are best represented as timespans. See `?timespan`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partial_time&lt;<span style="color: #949494;">YMDhms+tz</span>&gt;[15]&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] <span style="color: #BB0000;">NA</span>                             "2001"                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2002<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1"                   "2004<span style="color: #949494;">-0</span>9<span style="color: #949494;">-0</span>1"                  </span>
