@@ -27,8 +27,13 @@ apply_default_tz_offset <- function() {
 #'
 #' @keywords internal
 #'
+#' @importFrom utils packageName
+#'
 register_unknown_s3_generics <- function(fns) {
-  namespaceExport(getNamespace(packageName()), setdiff(fns, .knownS3Generics))
+  namespaceExport(
+    getNamespace(utils::packageName()),
+    setdiff(fns, .knownS3Generics)
+  )
 }
 
 .onLoad <- function(libname, pkgname) {

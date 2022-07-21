@@ -14,6 +14,13 @@
 \item{...}{For \code{vec_cast_common()}, vectors to cast. For
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
+
+\item{format}{a \code{function} or \code{character} value. If a
+\code{function}, it should accept a character vector and return a matrix of
+parttime components. If a \code{character} it should provide a regular
+exprssion which contains capture groups for each of the parttime
+components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+for more details.}
 }
 \description{
 Cast partial time to timespan, representing uncertainty as a range

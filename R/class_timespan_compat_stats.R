@@ -1,3 +1,10 @@
+#' start S3 generic
+#'
+#' A generic method to retrieve the start of an object
+#'
+#' @param x An object to retrieve the start from
+#' @param ... Additional arguments passed to methods
+#'
 start <- function(x, ...) {
   UseMethod("start")
 }
@@ -15,6 +22,13 @@ start.timespan <- function(x, ...) {
   ))
 }
 
+#' end S3 generic
+#'
+#' A generic method to retrieve the end of an object
+#'
+#' @param x An object to retrieve the end from
+#' @param ... Additional arguments passed to methods
+#'
 end <- function(x, ...) {
   UseMethod("end")
 }

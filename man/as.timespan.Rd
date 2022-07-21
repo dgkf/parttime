@@ -4,10 +4,20 @@
 \alias{as.timespan}
 \title{Cast an object to a timespan}
 \usage{
-as.timespan(x)
+as.timespan(x, ..., format = parse_iso8601_as_timespan)
 }
 \arguments{
 \item{x}{an object to cast}
+
+\item{...}{Additional arguments passed to \code{format} when a function is
+provided.}
+
+\item{format}{a \code{function} or \code{character} value. If a
+\code{function}, it should accept a character vector and return a matrix of
+parttime components. If a \code{character} it should provide a regular
+exprssion which contains capture groups for each of the parttime
+components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+for more details.}
 }
 \description{
 Cast an object to a timespan
