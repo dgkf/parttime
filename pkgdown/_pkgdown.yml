@@ -13,14 +13,27 @@ reference:
 - title: Class Helpers
   contents:
   - starts_with("has_partial")
-  - starts_with("is.na")
   - starts_with("is_")
-- title: Generic methods
+- title: Generics 
+- subtitle: "base generics"
   contents:
+  - starts_with("is.na")
   - matches("^max\\b")
   - matches("^min\\b")
   - matches("^pmax\\b")
   - matches("^pmin\\b")
+- subtitle: "stats-style timeseries accessors"
+  contents:
+  - start
+  - end
+- subtitle: "lubridate-style accessors & assignment"
+  desc: >
+    `lubridate` interoperability with available generics (such as `year` and
+    `year<-`)
+  contents:
+  - parttime_access_and_assign
+  - starts_with("as.interval")
+  - is.timespan
 - title: Operators
   contents:
   - starts_with("Ops\\.")
@@ -40,7 +53,7 @@ reference:
   - to_gmt
   - trim
 - title: Indexing and indexed assignment
-  desc: |
+  desc: >
     Base-R-style vector indexing and assignment as a vector, or accessors to the
     underlying matrix.
   contents:
@@ -48,14 +61,6 @@ reference:
   - "[[.partial_time"
   - "[<-.partial_time"
   - "[[<-.partial_time"
-- title: "lubridate-style accessors & assignment"
-  desc: |
-    `lubridate` interoperability with available generics (such as `year` and
-    `year<-`)
-  contents:
-  - parttime_access_and_assign
-  - starts_with("as.interval")
-  - is.timespan
 - title: "vctrs interoperability"
   contents:
   - starts_with("vec_")
