@@ -27,7 +27,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/dgkf/parttime/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -35,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Datetime component access and assignment functions</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/dgkf/parttime/blob/HEAD/R/class_partial_time_compat_lubridate.R" class="external-link"><code>R/class_partial_time_compat_lubridate.R</code></a></small>
       <div class="d-none name"><code>parttime_access_and_assign.Rd</code></div>
     </div>
 
@@ -45,90 +51,97 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre><code>year(x)
-
-year(x) &lt;- value
-
-month(x)
-
-month(x) &lt;- value
-
-mday(x)
-
-mday(x) &lt;- value
-
-day(x)
-
-day(x) &lt;- value
-
-hour(x)
-
-hour(x) &lt;- value
-
-minute(x)
-
-minute(x) &lt;- value
-
-second(x)
-
-second(x) &lt;- value
-
-tz(x)
-
-tz(x) &lt;- value
-
-# S3 method for partial_time
-year(x)
-
-\method{year}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-year(x) &lt;- value
-
-# S3 method for partial_time
-month(x)
-
-\method{month}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-month(x) &lt;- value
-
-# S3 method for partial_time
-mday(x)
-
-\method{day}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-day(x) &lt;- value
-
-# S3 method for partial_time
-hour(x)
-
-\method{hour}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-hour(x) &lt;- value
-
-# S3 method for partial_time
-minute(x)
-
-\method{minute}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-minute(x) &lt;- value
-
-# S3 method for partial_time
-second(x)
-
-\method{second}{partial_time}(x) &lt;- value
-
-# S4 method for partial_time
-second(x) &lt;- value
-
-# S3 method for partial_time
-tz(x)
-
-\method{tz}{partial_time}(x) &lt;- value</code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">hour</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">hour</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">tz</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">tz</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">year</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">month</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">day</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">hour</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">hour</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">hour</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">minute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S4 method for partial_time</span></span>
+<span><span class="fu">second</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">tz</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for partial_time</span></span>
+<span><span class="fu">tz</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
     </div>
 
     <div class="section level2">

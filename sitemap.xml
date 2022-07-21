@@ -46,6 +46,9 @@
     <loc>/reference/dot-i.html</loc>
   </url>
   <url>
+    <loc>/reference/end.html</loc>
+  </url>
+  <url>
     <loc>/reference/eq_parttimes.html</loc>
   </url>
   <url>
@@ -82,6 +85,9 @@
     <loc>/reference/is.na.partial_time.html</loc>
   </url>
   <url>
+    <loc>/reference/is.na.timespan.html</loc>
+  </url>
+  <url>
     <loc>/reference/is.timespan.html</loc>
   </url>
   <url>
@@ -103,7 +109,16 @@
     <loc>/reference/normalize_month_day.html</loc>
   </url>
   <url>
+    <loc>/reference/parse_iso8601_helpers.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_iso8601_matrix.html</loc>
+  </url>
+  <url>
     <loc>/reference/parse_parttime.html</loc>
+  </url>
+  <url>
+    <loc>/reference/parse_timespan.html</loc>
   </url>
   <url>
     <loc>/reference/parttime.html</loc>
@@ -148,6 +163,12 @@
     <loc>/reference/reflow_fields.html</loc>
   </url>
   <url>
+    <loc>/reference/register_unknown_s3_generics.html</loc>
+  </url>
+  <url>
+    <loc>/reference/start.html</loc>
+  </url>
+  <url>
     <loc>/reference/timespan.html</loc>
   </url>
   <url>
@@ -170,6 +191,9 @@
   </url>
   <url>
     <loc>/reference/vec_cast.partial_time.matrix.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vec_cast.timespan.character.html</loc>
   </url>
   <url>
     <loc>/reference/vec_cast.timespan.default.html</loc>

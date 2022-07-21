@@ -27,7 +27,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/dgkf/parttime/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -35,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Coerce character date representations to parttime objects</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/dgkf/parttime/blob/HEAD/R/class_partial_time_coercion.R" class="external-link"><code>R/class_partial_time_coercion.R</code></a></small>
       <div class="d-none name"><code>vec_cast.partial_time.character.Rd</code></div>
     </div>
 
@@ -94,13 +100,13 @@ for more details.</p></dd>
 <span class="r-in"><span>  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Date strings using a week field, but lacking weekday will produce</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> missing months. To avoid loss of datetime resolution, such partial</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> dates are best represented as timespans. See `?timespan`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>  Date strings including week and excluding weekday can not be fully</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> represented. To avoid loss of datetime resolution, such partial dates</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> are best represented as timespans. See `?timespan`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partial_time&lt;<span style="color: #949494;">YMDhms+tz</span>&gt;[15]&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] <span style="color: #BB0000;">NA</span>                             "2001"                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2002<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1"                   "2004<span style="color: #949494;">-0</span>9<span style="color: #949494;">-0</span>1"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2005"                         "2006<span style="color: #949494;">-0</span>1<span style="color: #949494;">-</span>13"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2005"                         "2006<span style="color: #949494;">-0</span>1<span style="color: #949494;">-</span>12"                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2007<span style="color: #949494;">-</span>10<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8"                "2008<span style="color: #949494;">-0</span>9<span style="color: #949494;">-</span>20 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35"            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2009<span style="color: #949494;">-0</span>8<span style="color: #949494;">-</span>12 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>02<span style="color: #949494;">.</span>880"      "2010<span style="color: #949494;">-0</span>7<span style="color: #949494;">-</span>22 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>000"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2011<span style="color: #949494;">-0</span>6<span style="color: #949494;">-</span>13 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"      "2012<span style="color: #949494;">-0</span>5<span style="color: #949494;">-</span>23 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"     </span>
