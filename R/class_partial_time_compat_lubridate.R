@@ -136,7 +136,7 @@ tz <- function(x) UseMethod("tz")
 year.partial_time <- gen_get_field_fn("year")
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{year}{partial_time}(x) <- value
+#' @usage \method{year}{partial_time}(x) <- value
 #' @export
 `year<-.partial_time` <- gen_set_field_fn("year")
 
@@ -157,7 +157,7 @@ methods::setMethod(
 month.partial_time <- gen_get_field_fn("month")
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{month}{partial_time}(x) <- value
+#' @usage \method{month}{partial_time}(x) <- value
 #' @export
 `month<-.partial_time` <- gen_set_field_fn("month")
 
@@ -178,7 +178,7 @@ methods::setMethod(
 mday.partial_time <- gen_get_field_fn("day")
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{day}{partial_time}(x) <- value
+#' @usage \method{day}{partial_time}(x) <- value
 #' @export
 `day<-.partial_time` <- gen_set_field_fn("day")
 
@@ -199,7 +199,7 @@ methods::setMethod(
 hour.partial_time <- gen_get_field_fn("hour")
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{hour}{partial_time}(x) <- value
+#' @usage \method{hour}{partial_time}(x) <- value
 #' @export
 `hour<-.partial_time` <- gen_set_field_fn("hour")
 
@@ -220,7 +220,7 @@ methods::setMethod(
 minute.partial_time <- gen_get_field_fn("min")
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{minute}{partial_time}(x) <- value
+#' @usage \method{minute}{partial_time}(x) <- value
 #' @export
 `minute<-.partial_time` <- gen_set_field_fn("min")
 
@@ -243,7 +243,7 @@ second.partial_time <- function(x) {
 }
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{second}{partial_time}(x) <- value
+#' @usage \method{second}{partial_time}(x) <- value
 #' @export
 `second<-.partial_time` <- function(x, value) {
   sec <- trunc(value)
@@ -272,7 +272,7 @@ tz.partial_time <- function(x) {
 }
 
 #' @rdname parttime_access_and_assign
-#' @usage \\method{tz}{partial_time}(x) <- value
+#' @usage \method{tz}{partial_time}(x) <- value
 #' @export
 `tz<-.partial_time` <- function(x, value) {
   set_field(x, c("tzhour", "tzmin"), cbind(tzhour = value %/% 60, tzmin = value %% 60))

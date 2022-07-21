@@ -33,4 +33,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://dgkf.github.io/parttime
+URL: https://dgkf.github.io/parttime/, https://github.com/dgkf/parttime

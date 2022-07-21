@@ -74,43 +74,43 @@ tz(x) <- value
 
 \method{year}{partial_time}(x)
 
-\\method{year}{partial_time}(x) <- value
+\method{year}{partial_time}(x) <- value
 
 \S4method{year}{partial_time}(x) <- value
 
 \method{month}{partial_time}(x)
 
-\\method{month}{partial_time}(x) <- value
+\method{month}{partial_time}(x) <- value
 
 \S4method{month}{partial_time}(x) <- value
 
 \method{mday}{partial_time}(x)
 
-\\method{day}{partial_time}(x) <- value
+\method{day}{partial_time}(x) <- value
 
 \S4method{day}{partial_time}(x) <- value
 
 \method{hour}{partial_time}(x)
 
-\\method{hour}{partial_time}(x) <- value
+\method{hour}{partial_time}(x) <- value
 
 \S4method{hour}{partial_time}(x) <- value
 
 \method{minute}{partial_time}(x)
 
-\\method{minute}{partial_time}(x) <- value
+\method{minute}{partial_time}(x) <- value
 
 \S4method{minute}{partial_time}(x) <- value
 
 \method{second}{partial_time}(x)
 
-\\method{second}{partial_time}(x) <- value
+\method{second}{partial_time}(x) <- value
 
 \S4method{second}{partial_time}(x) <- value
 
 \method{tz}{partial_time}(x)
 
-\\method{tz}{partial_time}(x) <- value
+\method{tz}{partial_time}(x) <- value
 }
 \arguments{
 \item{x}{A time-like object to access or assign to}
