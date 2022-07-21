@@ -3,9 +3,9 @@
 
 <!-- badges: start -->
 
-[![status](https://img.shields.io/static/v1?label=status&message=experimental&color=red)]()
+[![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)]()
 [![R-CMD-check](https://github.com/dgkf/parttime/workflows/R-CMD-check/badge.svg)](https://github.com/dgkf/parttime/actions)
-[![Coverage](https://codecov.io/gh/dgkf/parttime/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=master)
+[![Coverage](https://codecov.io/gh/dgkf/parttime/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=main)
 <!-- badges: end -->
 
 A package for a partial datetime class and generics
@@ -163,10 +163,13 @@ iso8601_dates <- c(
 )
 
 as.parttime(iso8601_dates)
+## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully
+## represented. To avoid loss of datetime resolution, such partial dates
+## are best represented as timespans. See `?timespan`.
 ## <partial_time<YMDhms+tz>[15]> 
 ##  [1] NA                             "2001"                        
 ##  [3] "2002-01-01"                   "2004-09-01"                  
-##  [5] "2005"                         "2006-01-13"                  
+##  [5] "2005"                         "2006-01-12"                  
 ##  [7] "2007-10-01 08"                "2008-09-20 08:35"            
 ##  [9] "2009-08-12 08:35:02.880"      "2010-07-22 08:35:32.000"     
 ## [11] "2011-06-13 08:35:32.123"      "2012-05-23 08:35:32.123"     
@@ -253,6 +256,9 @@ tibble(dates = iso8601_dates) %>%
     parttimes = as.parttime(dates),
     imputed_times = impute_time_min(parttimes)
   )
+## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully
+## represented. To avoid loss of datetime resolution, such partial dates
+## are best represented as timespans. See `?timespan`.
 ## # A tibble: 15 × 3
 ##    dates               parttimes                    imputed_times               
 ##    <chr>               <pttm>                       <pttm>                      
@@ -261,7 +267,7 @@ tibble(dates = iso8601_dates) %>%
 ##  3 2002-01-01          2002-01-01                   2002-01-01 00:00:00.000-1200
 ##  4 2004-245            2004-09-01                   2004-09-01 00:00:00.000-1200
 ##  5 2005-W13            2005                         2005-01-01 00:00:00.000-1200
-##  6 2006-W02-5          2006-01-13                   2006-01-13 00:00:00.000-1200
+##  6 2006-W02-5          2006-01-12                   2006-01-12 00:00:00.000-1200
 ##  7 2007-10-01T08       2007-10-01 08                2007-10-01 08:00:00.000-1200
 ##  8 2008-09-20T08:35    2008-09-20 08:35             2008-09-20 08:35:00.000-1200
 ##  9 2009-08-12T08:35.0… 2009-08-12 08:35:02.880      2009-08-12 08:35:02.880-1200

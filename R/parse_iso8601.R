@@ -1,6 +1,7 @@
 #' slightly modified from parsedate - added 'secfrac' capture group
 #'
 #' @keywords internal
+#'
 re_iso8601 <- paste0(
   "^\\s*",
   "(?<year>[\\+-]?\\d{4}(?!\\d{2}\\b))",
@@ -74,6 +75,16 @@ parse_iso8601 <- function(x, warn = TRUE, ...) {
 }
 
 
+
+#' Parse iso8601 datetime strings as timespan array
+#'
+#' @note A timespan array is an internal data structure used as the backend
+#' representation of timespan objects. It consists of two parttime-like matrices
+#' (with the addition of an "inclusive" column), one for the lower- and
+#' upper-bounds of the timespan. Collectively, this amounts to a three
+#' dimensional array.
+#'
+#' @inheritParams parse_iso8601
 #'
 #' @keywords internal
 #' @rdname parse_timespan
@@ -144,40 +155,80 @@ parse_iso8601_matrix <- function(dates) {
   match_m
 }
 
+
+
+#' Inspecting and manipulating intermediate iso8601 matrices
+#'
+#' An "iso8601 matrix" is a matrix of the various capture groups extraced from a
+#' an iso8601 datetime string. These groups represent a superset of the fields
+#' used by partial time objects, including representation for less common
+#' datetime formats like yeardays, yearweeks or weekdays. Because the standard
+#' provides a number of different combinations of fields that represent valid
+#' strings, these functions serves to provide convenience functions for testing
+#' or manipulating these less canonical representations.
+#'
+#' @param x A \code{numeric} matrix of possible iso8601 fields
+#' @param fields A \code{character} vector of fields
+#'
+#' @section is_iso8601_* functions:
+#' Test whether rows of the matrix represent a specific form, as evident by
+#' non-missing values in specific fields.
+#'
+#' @keywords internal
+#'
+#' @name parse_iso8601_helpers
+#' @rdname parse_iso8601_helpers
+#'
 is_iso8601_form <- function(x, fields) {
   apply(!is.na(x[, fields, drop = FALSE]), 1, all)
 }
 
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
 is_iso8601_weekday <- function(x) {
   is_iso8601_form(x, c("year", "week", "weekday"))
 }
 
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
 is_iso8601_yearday <- function(x) {
   is_iso8601_form(x, c("year", "yearday"))
 }
 
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
 is_iso8601_minfrac <- function(x) {
   is_iso8601_form(x, "frac")
 }
 
+#' @section recalc_* functions:
+#' Calculate canonical datetime fields from alternative representations
+#'
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
+#'
 recalc_md_from_weekday <- function(x) {
   dates <- strptime(
-    paste(x[,"year"], x[,"week"], x[,"weekday"] - 1L, sep = "-"),
+    paste(x[, "year"], x[, "week"], x[, "weekday"] - 1L, sep = "-"),
     format = "%Y-%U-%w"
   )
 
   cbind(month = dates$mon + 1L, day = dates$mday)
 }
 
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
 recalc_md_from_yearday <- function(x) {
   dates <- strptime(
-    paste(x[,"year"], x[,"yearday"], sep = "-"),
+    paste(x[, "year"], x[, "yearday"], sep = "-"),
     format = "%Y-%j"
   )
 
   cbind(month = dates$mon + 1L, day = dates$mday)
 }
 
+#' @keywords internal
+#' @rdname parse_iso8601_helpers
 recalc_sec_from_minfrac <- function(x) {
   cbind(sec = (x[, "frac"] * 60) %/% 1, secfrac = (x[, "frac"] * 60) %% 1)
 }
