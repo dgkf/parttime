@@ -21,10 +21,7 @@ to_gmt.matrix <- function(x) {
 
 #' @export
 to_gmt.array <- function(x) {
-  x[, "hour", ] <- x[, "hour", ] + x[, "tzhour", ]
-  x[, "min", ]  <- x[, "min", ]  + x[, "tzmin", ]
-  x[, c("tzhour", "tzmin"), ] <- 0
-  array(apply(x, 3, reflow_fields), dim = dim(x), dimnames = dimnames(x))
+  array(apply(x, 3, to_gmt), dim = dim(x), dimnames = dimnames(x))
 }
 
 

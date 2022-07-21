@@ -1,16 +1,18 @@
 #' Cast an object to a timespan
 #'
 #' @param x an object to cast
+#' @inheritParams as.parttime
+#'
 #' @export
-as.timespan <- function(x) {
+as.timespan <- function(x, ..., format = parse_iso8601_as_timespan) {
   UseMethod("as.timespan")
 }
 
 
 
 #' @export
-as.timespan.default <- function(x) {
-  vctrs::vec_cast(x, structure(0L, class = "timespan"))
+as.timespan.default <- function(x, ...) {
+  vctrs::vec_cast(x, structure(0L, class = "timespan"), ...)
 }
 
 
@@ -18,8 +20,10 @@ as.timespan.default <- function(x) {
 #' Cast to timespan object
 #'
 #' @inheritParams vctrs::vec_cast
+#'
 #' @importFrom vctrs vec_cast
 #' @exportS3Method vec_cast timespan
+#'
 vec_cast.timespan <- function(x, to, ...) {
   if (is.timespan(x)) return(x)
   UseMethod("vec_cast.timespan")
@@ -30,12 +34,31 @@ vec_cast.timespan <- function(x, to, ...) {
 #' Default handler for casting to a timespan
 #'
 #' @inheritParams vctrs::vec_cast
+#'
 #' @importFrom vctrs stop_incompatible_cast vec_recycle
 #' @exportS3Method vec_cast.timespan default
+#'
 vec_cast.timespan.default <- function(x, to, ...) {
   if (!all(is.na(x) | is.null(x))) vctrs::stop_incompatible_cast(x, to)
   vctrs::vec_recycle(timespan(NA), size = length(x))
 }
+
+
+
+#' Cast partial time to timespan, representing uncertainty as a range
+#'
+#' @inheritParams vctrs::vec_cast
+#' @inheritParams as.timespan
+#'
+#' @exportS3Method vec_cast.timespan character
+#'
+vec_cast.timespan.character <- function(
+  x, to, ...,
+  format = parse_iso8601_as_timespan
+) {
+  as.timespan(format(x, ...))
+}
+
 
 
 

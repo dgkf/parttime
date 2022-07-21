@@ -3,13 +3,20 @@
 \name{parse_iso8601}
 \alias{parse_iso8601}
 \alias{parse_to_parttime_matrix}
-\title{Parse a character vector to create a matrix of datetime fields}
+\title{Parse iso8601 datetime strings as parttime matrix}
 \usage{
-parse_iso8601(dates, warn = TRUE)
+parse_iso8601(x, warn = TRUE, ...)
 
 parse_to_parttime_matrix(dates, regex = re_iso8601)
 }
 \arguments{
+\item{x}{A \code{character} vector of iso8601 datetime strings}
+
+\item{warn}{A \code{logical} indicating whether to warn when information
+would be loss when coercing to a \code{parttime} matrix.}
+
+\item{...}{Additional arguments unused}
+
 \item{dates}{character vector of dates to parse for iso8601 components}
 
 \item{regex}{A regular expression used for parsing parttime strings. Defaults
@@ -17,6 +24,8 @@ to a parser for the ISO8601 standard. Should include named capture groups
 for each datetime field. See Details for more information.}
 }
 \description{
+Parse iso8601 datetime strings as parttime matrix
+
 Parse a character vector to create a matrix of datetime fields
 }
 \details{

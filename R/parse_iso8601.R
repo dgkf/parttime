@@ -34,9 +34,89 @@ re_iso8601 <- paste0(
 )
 
 
+
+#' Parse iso8601 datetime strings as parttime matrix
+#'
+#' @param x A \code{character} vector of iso8601 datetime strings
+#' @param warn A \code{logical} indicating whether to warn when information
+#'   would be loss when coercing to a \code{parttime} matrix.
+#' @param ... Additional arguments unused
+#'
 #' @keywords internal
 #' @rdname parse_parttime
-parse_iso8601 <- function(dates, warn = TRUE) {
+#'
+parse_iso8601 <- function(x, warn = TRUE, ...) {
+  if (is.character(x)) {
+    x <- parse_iso8601_matrix(x)
+  }
+
+  # warn when week is specified without weekday, leading to loss of information
+  if (warn) warn_repr_data_loss(x, includes = "week", excludes = "weekday")
+
+  # add month, day when week, weekday available
+  i <- is_iso8601_weekday(x)
+  x[i, c("month", "day")] <- recalc_md_from_weekday(x[i, , drop = FALSE])
+
+  # add month, day when yearday available
+  i <- is_iso8601_yearday(x)
+  x[i, c("month", "day")] <- recalc_md_from_yearday(x[i, , drop = FALSE])
+
+  # add sec, secfrac when frac (minfrac) is available
+  i <- is_iso8601_minfrac(x)
+  x[i, c("sec", "secfrac")] <- recalc_sec_from_minfrac(x[i, , drop = FALSE])
+
+  # fill secfrac when sec is provided
+  i <- is.na(x[, "secfrac"]) & !is.na(x[, "sec"])
+  x[i, "secfrac"] <- 0
+
+  # drop iso8601-specific columns
+  x[, datetime_parts, drop = FALSE]
+}
+
+
+#'
+#' @keywords internal
+#' @rdname parse_timespan
+#'
+parse_iso8601_as_timespan <- function(x, ...) {
+  tmspn_arr <- array(
+    NA_real_,
+    dim = c(length(x), length(datetime_parts) + 1L, 2L),
+    dimnames = list(x, c(datetime_parts, "inclusive"), c("lb", "ub"))
+  )
+
+  m <- parse_iso8601_matrix(x)
+
+  # user parttime handler where possible, uniquely handle yearweek format
+  i <- matrix_field_cond(m, includes = "week", excludes = "weekday")
+  m[!i, datetime_parts] <- parse_iso8601(m[!i, , drop = FALSE])
+
+  # impute yearweek + weekday with first day of the week for start
+  m[i, datetime_parts] <- parse_iso8601(paste0(x[i], "-1"))
+  tmspn_arr[, datetime_parts, "lb"] <- clean_parsed_parttime_matrix(m)
+  tmspn_arr[, "inclusive", "lb"] <- 1
+
+  # impute yearweek + weekday with last day of the week for end
+  m[i, datetime_parts] <- parse_iso8601(paste0(x[i], "-7"))
+  tmspn_arr[, datetime_parts, "ub"] <- minimally_increment(clean_parsed_parttime_matrix(m))
+  tmspn_arr[, "inclusive", "ub"] <- 0
+
+  tmspn_arr
+}
+
+
+
+#' Parse an iso8601 datetime to a parttime-like matrix
+#'
+#' @note In addition to parttime matrix fields, the returned matrix has
+#' additional columns for alternative iso8601 formats such as \code{yearday},
+#' \code{yearweek} and code{weakday}.
+#'
+#' @inheritParams parse_iso8601
+#'
+#' @keywords internal
+#'
+parse_iso8601_matrix <- function(dates) {
   match_m <- parse_to_parttime_matrix(dates, regex = re_iso8601)
 
   # fix missing tzhour, tzmin when tz is available
@@ -61,61 +141,43 @@ parse_iso8601 <- function(dates, warn = TRUE) {
   match_m <- match_m[, fields, drop = FALSE]
   storage.mode(match_m) <- "numeric"
 
-  # warn when week is specified without weekday, leading to loss of information
-  i <- !is.na(match_m[, "week"]) & is.na(match_m[, "weekday"])
-  if (warn && any(i)) {
-    warning(call. = FALSE, paste0(collapse = "\n", strwrap(paste0(
-      "Date strings using a week field, but lacking weekday will produce ",
-      "missing months. To avoid loss of datetime resolution, such partial ",
-      "dates are best represented as timespans. See `?timespan`."
-    ))))
-  }
+  match_m
+}
 
-  # add month, day when week, weekday available
-  i <- apply(!is.na(match_m[, c("year", "week", "weekday"), drop = FALSE]), 1, all)
-  if (any(i)) {
-    fields <- c("year", "week", "weekday")
-    dates <- strptime(
-      apply(match_m[i, fields, drop = FALSE], 1, paste, collapse = "-"),
-      format = "%Y-%U-%u"
-    )
+is_iso8601_form <- function(x, fields) {
+  apply(!is.na(x[, fields, drop = FALSE]), 1, all)
+}
 
-    match_m[i, "month"] <- dates$mon + 1
-    match_m[i, "day"] <- dates$mday
-  }
+is_iso8601_weekday <- function(x) {
+  is_iso8601_form(x, c("year", "week", "weekday"))
+}
 
-  # add month, day when yearday available
-  i <- apply(!is.na(match_m[, c("year", "yearday"), drop = FALSE]), 1, all)
-  if (any(i)) {
-    fields <- c("year", "yearday")
-    dates <- strptime(
-      apply(match_m[i, fields, drop = FALSE], 1, paste, collapse = "-"),
-      format = "%Y-%j"
-    )
+is_iso8601_yearday <- function(x) {
+  is_iso8601_form(x, c("year", "yearday"))
+}
 
-    match_m[i, "month"] <- dates$mon + 1
-    match_m[i, "day"] <- dates$mday
-  }
+is_iso8601_minfrac <- function(x) {
+  is_iso8601_form(x, "frac")
+}
 
-  # fill secfrac when sec is provided
-  i <- is.na(match_m[, "secfrac"]) & !is.na(match_m[, "sec"])
-  match_m[i, "secfrac"] <- 0
+recalc_md_from_weekday <- function(x) {
+  dates <- strptime(
+    paste(x[,"year"], x[,"week"], x[,"weekday"] - 1L, sep = "-"),
+    format = "%Y-%U-%w"
+  )
 
-  # fill frac (minfrac) when sec and secfrac are provided
-  i <- !apply(is.na(match_m[, c("sec", "secfrac"), drop = FALSE]), 1, any)
-  if (any(i)) {
-    match_m[i, "frac"] <- (match_m[i, "sec", drop = FALSE] + match_m[i, "secfrac", drop = FALSE]) / 60
-  }
+  cbind(month = dates$mon + 1L, day = dates$mday)
+}
 
-  # fill sec and secfrac when frac (minfrac) is provided
-  i <- !apply(is.na(match_m[, c("frac"), drop = FALSE]), 1, any)
-  if (any(i)) {
-    match_m[i, "sec"] <- (match_m[i, c("frac"), drop = FALSE] * 60) %/% 1
-    match_m[i, "secfrac"] <- (match_m[i, c("frac"), drop = FALSE] * 60) %% 1
-  }
+recalc_md_from_yearday <- function(x) {
+  dates <- strptime(
+    paste(x[,"year"], x[,"yearday"], sep = "-"),
+    format = "%Y-%j"
+  )
 
-  # reduce to minimum set of columns
-  # order of fields should be in decreasing resolution. the order is used for
-  # matrix operations when handling operator behaviors
-  match_m[, datetime_parts, drop = FALSE]
+  cbind(month = dates$mon + 1L, day = dates$mday)
+}
+
+recalc_sec_from_minfrac <- function(x) {
+  cbind(sec = (x[, "frac"] * 60) %/% 1, secfrac = (x[, "frac"] * 60) %% 1)
 }

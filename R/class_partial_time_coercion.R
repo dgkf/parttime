@@ -129,27 +129,7 @@ vec_cast.partial_time.character <- function(x, to, ..., format = parse_iso8601) 
     parse_to_parttime_matrix("")[NULL, , drop = FALSE]
   }
 
-  if (is.parttime(pttm_mat)) {
-    return(pttm_mat)
-  }
-
-  if (!all(datetime_parts %in% colnames(pttm_mat))) {
-    pttm_mat <- complete_parsed_parttime_matrix(pttm_mat)
-  }
-
-  storage.mode(pttm_mat) <- "numeric"
-  tzhour_na <- is.na(pttm_mat[, "tzhour"])
-  all_na <- apply(is.na(pttm_mat), 1, all)
-
-  if (any(tzhour_na)) {
-    gmt_offset <- interpret_tz(getOption("parttime.assume_tz_offset", NA))
-    pttm_mat[!all_na & tzhour_na, "tzhour"] <- gmt_offset %/% 60
-    pttm_mat[!all_na & tzhour_na, "tzmin"]  <- gmt_offset %%  60
-  }
-
-  # when tzhour is available
-  pttm_mat[!tzhour_na & is.na(pttm_mat[, "tzmin"]), "tzmin"] <- 0
-
+  pttm_mat <- clean_parsed_parttime_matrix(pttm_mat)
   as.parttime(pttm_mat)
 }
 

@@ -15,7 +15,6 @@ methods::setClass("timespan")
 timespan <- function(start, end, inclusive = c(TRUE, FALSE)) {
   common_size <- vctrs::vec_size_common(start, end)
 
-
   inclusive <- t(matrix(
     rep_len(inclusive, common_size * 2),
     nrow = 2)
