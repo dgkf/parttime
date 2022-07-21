@@ -29,6 +29,32 @@ parse_to_parttime_matrix <- function(dates, regex = re_iso8601) {
 
 
 
+clean_parsed_parttime_matrix <- function(m) {
+  if (is.parttime(m)) {
+    return(m)
+  }
+
+  if (!all(datetime_parts %in% colnames(m))) {
+    m <- complete_parsed_parttime_matrix(m)
+  }
+
+  storage.mode(m) <- "numeric"
+  tzhour_na <- is.na(m[, "tzhour"])
+  all_na <- apply(is.na(m), 1, all)
+
+  if (any(tzhour_na)) {
+    gmt_offset <- interpret_tz(getOption("parttime.assume_tz_offset", NA))
+    m[!all_na & tzhour_na, "tzhour"] <- gmt_offset %/% 60
+    m[!all_na & tzhour_na, "tzmin"]  <- gmt_offset %%  60
+  }
+
+  # when tzhour is available
+  m[!tzhour_na & is.na(m[, "tzmin"]), "tzmin"] <- 0
+  m[, datetime_parts, drop = FALSE]
+}
+
+
+
 complete_parsed_parttime_matrix <- function(match_m) {
   # add in any missing columns if needed
   needs_cols <- setdiff(datetime_parts, colnames(match_m))

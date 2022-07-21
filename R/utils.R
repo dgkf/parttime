@@ -16,6 +16,38 @@ datetime_parts <- c(
 
 
 
+wrap <- function(..., .strwrap = list()) {
+  paste0(collapse = "\n", strwrap(indent = 2, paste0(...)))
+}
+
+
+
+matrix_field_cond <- function(x, includes, excludes) {
+  inc <- apply(!is.na(x[, includes, drop = FALSE]), 1L, all)
+  exc <- apply(is.na(x[, excludes, drop = FALSE]), 1L, all)
+  inc & exc
+}
+
+
+
+warn_repr_data_loss <- function(x, includes, excludes) {
+  inc <- apply(!is.na(x[, includes, drop = FALSE]), 1L, all)
+  exc <- apply(is.na(x[, excludes, drop = FALSE]), 1L, all)
+  if (!any(inc & exc)) return()
+
+  warning(wrap(
+    "Date strings ",
+    if (length(includes)) paste0("including ", spoken_list(includes), " "),
+    if (length(includes) && length(excludes)) "and ",
+    if (length(excludes)) paste0("excluding ", spoken_list(excludes), " "),
+    "can not be fully represented. ",
+    "To avoid loss of datetime resolution, such partial ",
+    "dates are best represented as timespans. See `?timespan`."
+  ))
+}
+
+
+
 warn_partial <- function(x, ..., envir = parent.frame()) {
   fields <- c(...)
   if (!length(fields)) fields <- colnames(x)
@@ -23,14 +55,15 @@ warn_partial <- function(x, ..., envir = parent.frame()) {
   if (any(is.na(attr(x, "fields")[, fields])))
     warning(
       call. = FALSE,
-      "In ", eval(deparse(sys.call(which = -1L)), envir = envir), " :\n",
-      paste0(strwrap(indent = 2, paste0(
+      "In ", format(deparse(sys.call(which = -1L)), envir = envir), " :\n",
+      wrap(
         "Coercing partial_time, which will assume an imputation method. ",
         "To avoid warnings, explicitly apply imputations with `impute_time()` ",
         "prior to coersion, specifying datetime fields ",
         spoken_list(fields, quote = TRUE),
         "."
-        )), collapse = "\n"))
+      )
+    )
 }
 
 

@@ -42,6 +42,20 @@ vec_cast.timespan.default <- function(x, to, ...) {
 #' Cast partial time to timespan, representing uncertainty as a range
 #'
 #' @inheritParams vctrs::vec_cast
+#' @exportS3Method vec_cast.timespan character
+vec_cast.timespan.character <- function(
+  x, to, ...,
+  format = parse_iso8601_as_timespan
+) {
+  as.timespan(format(x, ...))
+}
+
+
+
+
+#' Cast partial time to timespan, representing uncertainty as a range
+#'
+#' @inheritParams vctrs::vec_cast
 #' @exportS3Method vec_cast.timespan partial_time
 vec_cast.timespan.partial_time <- function(x, to, ...) {
   timespan(

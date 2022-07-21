@@ -17,6 +17,21 @@ apply_default_tz_offset <- function() {
   }
 }
 
+#' Export S3 generics only if as-of-yet unknown
+#'
+#' S3 generics are often (unfortunately) tethered to specific packages. In order
+#' to provide a functional generic that can dispatch on parttime classes, while
+#' also preventing our generics from masking generics in other packages on
+#' attach, we want to only export our generics if there is no generic with that
+#' name.
+#'
+#' @keywords internal
+#'
+register_unknown_s3_generics <- function(fns) {
+  namespaceExport(getNamespace(packageName()), setdiff(fns, .knownS3Generics))
+}
+
 .onLoad <- function(libname, pkgname) {
   apply_default_tz_offset()
+  register_unknown_s3_generics(c("start", "end"))
 }
