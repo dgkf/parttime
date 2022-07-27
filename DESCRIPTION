@@ -1,7 +1,7 @@
 Package: parttime
 Type: Package
 Title: A package for partial datetime format handling
-Version: 0.0.1.28
+Version: 0.0.1.29
 Authors@R: c(
       person(
         given = "Doug", 
@@ -15,7 +15,7 @@ Description: A package for partial datetime format handling.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 BugReports: https://www.github.com/dgkf/parttime/issues
 Depends:
     R (>= 3.6)

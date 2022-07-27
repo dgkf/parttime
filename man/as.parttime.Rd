@@ -4,7 +4,7 @@
 \alias{as.parttime}
 \title{Coerce an object to a parttime object}
 \usage{
-as.parttime(x, ..., format = parse_iso8601)
+as.parttime(x, ..., format = parse_iso8601, on.na = "warning")
 }
 \arguments{
 \item{x}{an object for coersion}
@@ -16,8 +16,12 @@ provided.}
 \code{function}, it should accept a character vector and return a matrix of
 parttime components. If a \code{character} it should provide a regular
 exprssion which contains capture groups for each of the parttime
-components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+components.  See \link{parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
+
+\item{on.na}{a \code{function} used to signal a condition for new \code{NA} values
+introduced by coercion, a \code{character} value among \code{"error"}, \code{"warning"} or
+\code{"suppress"} (for silencing messages) or \code{NULL} equivalent to \code{"suppress"}.}
 }
 \description{
 Coerce an object to a parttime object

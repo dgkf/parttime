@@ -21,7 +21,8 @@ parse_to_parttime_matrix <- function(dates, regex = re_iso8601) {
     substring(
       dates,
       s <- attr(match, "capture.start"),
-      s + attr(match, "capture.length") - 1),
+      s + attr(match, "capture.length") - 1
+    ),
     nrow = length(dates),
     dimnames = list(dates, colnames(s))
   )
@@ -51,6 +52,76 @@ clean_parsed_parttime_matrix <- function(m) {
   # when tzhour is available
   m[!tzhour_na & is.na(m[, "tzmin"]), "tzmin"] <- 0
   m[, datetime_parts, drop = FALSE]
+}
+
+
+
+#' Format a message communicating parse failure information
+#'
+#' @param input The input provided to the parser
+#' @param output The parttimes returned by the parser
+#' @return A message communicating failure modes for NAs introduced into output
+#'   that were not present in the input
+#'
+#' @keywords internal
+#'
+parse_failure_message <- function(input, output) {
+  mask_fail <- is.na(output) & !is.na(input)
+  styles <- sample_date_string_styles(input[mask_fail])
+
+  n <- sum(mask_fail)
+  perc <- n / length(input) * 100
+
+  paste0(
+    wrap(
+      "Values could not be parsed ",
+      sprintf("(%.f of %.f (%.1f%%)). ", n, length(input), perc),
+      "Examples of unique failing formats:"
+    ),
+    "\n\n",
+    wrap_vec(indent = 4L, c(
+      paste0("'", head(input[mask_fail][styles], 10), "'"),
+      if (length(styles) > 10) "..."
+    )),
+    "\n"
+  )
+}
+
+
+
+#' Find unique forms of inputs
+#'
+#' @param x A `character` vector of datetime strings
+#' @return The indices of the first instance of unique datatime formats
+#'
+#' @examples
+#' x <- c("2022", "T02:01", "2023", "Y1970", "2021-01", "2024-12")
+#' x[parttime:::sample_date_string_styles(x)]
+#'
+#' @keywords internal
+#'
+sample_date_string_styles <- function(x) {
+  fingerprints <- gsub("\\d", " ", trimws(x))
+  which(!duplicated(fingerprints))
+}
+
+
+
+#' Find unique forms of missingness
+#'
+#' @param x A `partial_time` vector
+#' @return The indices of the first instance of unique forms of missingness
+#'
+#' @examples
+#' x <- as.parttime(c("2022", "2023", "2021-01", "2024-12"))
+#' x[parttime:::sample_partial_styles(x)]
+#'
+#' @keywords internal
+#'
+sample_partial_styles <- function(x) {
+  weights <- 2 ^ seq(0, ncol(vctrs::field(x, "pttm_mat")) - 1)
+  fingerprints <- is.na(vctrs::field(x, "pttm_mat")) %*% weights
+  which(!duplicated(fingerprints))
 }
 
 
