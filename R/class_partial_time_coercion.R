@@ -129,7 +129,7 @@ vec_cast.partial_time.character <- function(x, to, ...,
   pttm_mat <- clean_parsed_parttime_matrix(pttm_mat)
   res <- as.parttime(pttm_mat)
 
-  # if NAs are introduced during coercsion, emit on.na callback
+  # if NAs are introduced during coercion, emit on.na callback
   if (any(is.na(res) & !is.na(x))) {
     on.na(parse_failure_message(x, res))
   }

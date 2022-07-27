@@ -17,7 +17,7 @@ Find unique forms of missingness
 }
 \examples{
 x <- as.parttime(c("2022", "2023", "2021-01", "2024-12"))
-x[sample_partial_styles(x)]
+x[parttime:::sample_partial_styles(x)]
 
 }
 \keyword{internal}

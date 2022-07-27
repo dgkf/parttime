@@ -17,7 +17,7 @@ Find unique forms of inputs
 }
 \examples{
 x <- c("2022", "T02:01", "2023", "Y1970", "2021-01", "2024-12")
-x[sample_date_string_styles(x)]
+x[parttime:::sample_date_string_styles(x)]
 
 }
 \keyword{internal}

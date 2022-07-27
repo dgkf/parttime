@@ -96,7 +96,7 @@ parse_failure_message <- function(input, output) {
 #'
 #' @examples
 #' x <- c("2022", "T02:01", "2023", "Y1970", "2021-01", "2024-12")
-#' x[sample_date_string_styles(x)]
+#' x[parttime:::sample_date_string_styles(x)]
 #'
 #' @keywords internal
 #'
@@ -114,7 +114,7 @@ sample_date_string_styles <- function(x) {
 #'
 #' @examples
 #' x <- as.parttime(c("2022", "2023", "2021-01", "2024-12"))
-#' x[sample_partial_styles(x)]
+#' x[parttime:::sample_partial_styles(x)]
 #'
 #' @keywords internal
 #'
