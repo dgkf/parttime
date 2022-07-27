@@ -40,7 +40,7 @@ cdisc_intervals <- c(
 
 # From the SDTMIG version 3.4, Page 40: missing middle parts
 cdisc_missing_in_middle <- c(
-  "2003-12-15T13:15:17", # December 15, 2003 13:15:17; Date/time to the nearest secon
+  "2003-12-15T13:15:17", # December 15, 2003 13:15:17; Date/time to the nearest second
   "2003-12-15T-:15", # December 15, 2003 ??:15 Unknown hour with known minutes
   "2003-12-15T13:-:17", # December 15, 2003 13:??:17 Unknown minutes with known date, hours, and seconds
   "2003---15", # The 15th of some month in 2003, time not collected Unknown month and time with known year and day
