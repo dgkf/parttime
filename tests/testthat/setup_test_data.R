@@ -45,7 +45,22 @@ cdisc_missing_in_middle <- c(
   "2003-12-15T13:-:17", # December 15, 2003 13:??:17 Unknown minutes with known date, hours, and seconds
   "2003---15", # The 15th of some month in 2003, time not collected Unknown month and time with known year and day
   "--12-15", # December 15, but can't remember the year, time not collected; Unknown year with known month and day
-  "-----T07:15" # 7:15 of some unknown date Unknown date with known hour and minute
+  "-----T07:15", # 7:15 of some unknown date Unknown date with known hour and minute
+  
+  # All single variants of missingness (in addition to those in the SDTMIG
+  "--12-15T13:15:17", # missing year
+  "2003---15T13:15:17", # missing month
+  "2003-12--T13:15:17", # missing day
+  "2003-12-15T-:15:17", # missing hour
+  "2003-12-15T13:-:17", # missing minute
+  "2003-12-15T13:15", # missing second (is just truncation)
+  
+  # Testing pairs of missingness with year and one other part
+  "----15T13:15:17", # missing year, month
+  "--12--T13:15:17", # missing year, day
+  "--12-15T-:15:17", # missing year, hour
+  "--12-15T13:-:17", # missing year, minute
+  "--12-15T13:15" # missing year, second (second is truncation not a dash)
 )
 
 # A general list of invalid datetimes
@@ -79,5 +94,7 @@ invalid_datetime_cdisc <- c(
   "20220101T010101", # year, month, day, hour, minute, second in non-extended format
   # From the top of page 39 in the SDTMIG version 3.4:
   # comma separator for fractions is not allowed by CDISC
-  "2022-01-01T01:01:01,0"
+  "2022-01-01T01:01:01,0",
+  # Missing second should not be coded in this way; it should be truncated
+  "2003-12-15T13:15:-"
 )
