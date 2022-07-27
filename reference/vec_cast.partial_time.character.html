@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.29</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for partial_time.character</span></span>
-<span><span class="fu">vec_cast</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span>, format <span class="op">=</span> <span class="va">parse_iso8601</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">vec_cast</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span>, <span class="va">...</span>, format <span class="op">=</span> <span class="va">parse_iso8601</span>, on.na <span class="op">=</span> <span class="va">warning</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -75,8 +75,14 @@ provided.</p></dd>
 <code>function</code>, it should accept a character vector and return a matrix of
 parttime components. If a <code>character</code> it should provide a regular
 exprssion which contains capture groups for each of the parttime
-components.  See <code><a href="parse_parttime.html">?parse_to_parttime_matrix</a></code>'s <code>regex</code> parameter
+components.  See <a href="parse_parttime.html">parse_to_parttime_matrix</a>'s <code>regex</code> parameter
 for more details.</p></dd>
+
+
+<dt>on.na</dt>
+<dd><p>a <code>function</code> used to signal a condition for new <code>NA</code> values
+introduced by coercion, a <code>character</code> value among <code>"error"</code>, <code>"warning"</code> or
+<code>"suppress"</code> (for silencing messages) or <code>NULL</code> equivalent to <code>"suppress"</code>.</p></dd>
 
 </dl></div>
 
@@ -97,10 +103,11 @@ for more details.</p></dd>
 <span class="r-in"><span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span></span></span>
 <span class="r-in"><span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span></span></span>
 <span class="r-in"><span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span></span></span>
-<span class="r-in"><span>  <span class="st">"20150101T08:35:32.123+05:30"</span><span class="op">)</span>  <span class="co"># condensed form</span></span></span>
+<span class="r-in"><span>  <span class="st">"20150101T08:35:32.123+05:30"</span>  <span class="co"># condensed form</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>  Date strings including week and excluding weekday can not be fully</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Date strings including week and excluding weekday can not be fully</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> represented. To avoid loss of datetime resolution, such partial dates</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> are best represented as timespans. See `?timespan`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partial_time&lt;<span style="color: #949494;">YMDhms+tz</span>&gt;[15]&gt; </span>
@@ -112,25 +119,6 @@ for more details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2011<span style="color: #949494;">-0</span>6<span style="color: #949494;">-</span>13 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"      "2012<span style="color: #949494;">-0</span>5<span style="color: #949494;">-</span>23 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2013<span style="color: #949494;">-0</span>4<span style="color: #949494;">-</span>14 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0500" "2014<span style="color: #949494;">-0</span>3<span style="color: #949494;">-</span>24 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0530"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2015<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0530" </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">### vctrs experiments informing design of parttime ###</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># using a rcrd (record) style vector</span></span></span>
-<span class="r-in"><span><span class="va">rcrd_test</span> <span class="op">&lt;-</span> <span class="fu">vctrs</span><span class="fu">::</span><span class="fu"><a href="https://vctrs.r-lib.org/reference/new_rcrd.html" class="external-link">new_rcrd</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, y <span class="op">=</span> <span class="va">rcrd_test</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># okay</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">rcrd_test</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Error: Column `y` must be length 3 (the number of rows) or one, not 2</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="op">{</span> <span class="va">.</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">rcrd_test</span>; <span class="va">.</span> <span class="op">}</span></span></span>
-<span class="r-in"><span><span class="co"># okay (stand-in for mutate until dplyr v0.9.0)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

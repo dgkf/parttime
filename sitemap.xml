@@ -109,6 +109,9 @@
     <loc>/reference/normalize_month_day.html</loc>
   </url>
   <url>
+    <loc>/reference/parse_failure_message.html</loc>
+  </url>
+  <url>
     <loc>/reference/parse_iso8601_helpers.html</loc>
   </url>
   <url>
@@ -164,6 +167,12 @@
   </url>
   <url>
     <loc>/reference/register_unknown_s3_generics.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sample_date_string_styles.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sample_partial_styles.html</loc>
   </url>
   <url>
     <loc>/reference/start.html</loc>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.29</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,19 +46,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.2" id="parttime-002-dev">parttime 0.0.2 (dev)<a class="anchor" aria-label="anchor" href="#parttime-002-dev"></a></h2>
-<ul><li><p>extends <code>lubridate</code>-style accessor and assignment helpers, such as <code><a href="../reference/parttime_access_and_assign.html">year()</a></code> and <code>year()&lt;-</code>. Unfortuntely, many are provided as S4 generics, and may be masked by other packages that extend these generics. Some generic-like functions are provided only as non-generic forms in <code>lubridate</code> and will always be masked, such as <code><a href="../reference/parttime_access_and_assign.html">tz()</a></code> (<a href="https://github.com/dgkf" class="external-link">@dgkf</a>, <a href="https://github.com/dgkf/parttime/issues/14" class="external-link">#14</a>).</p></li>
+<ul><li><p><code>as.parttime</code> will now, by default, show warnings when some strings fail to parse into the provided format. Behavior can be configured using the new <code>on.na</code> parameter.</p></li>
+<li><p>extends <code>lubridate</code>-style accessor and assignment helpers, such as <code><a href="../reference/parttime_access_and_assign.html">year()</a></code> and <code>year()&lt;-</code>. Unfortuntely, many are provided as S4 generics, and may be masked by other packages that extend these generics. Some generic-like functions are provided only as non-generic forms in <code>lubridate</code> and will always be masked, such as <code><a href="../reference/parttime_access_and_assign.html">tz()</a></code> (<a href="https://github.com/dgkf" class="external-link">@dgkf</a>, <a href="https://github.com/dgkf/parttime/issues/14" class="external-link">#14</a>).</p></li>
 <li><p>added <code>format</code> parameter to <code>as.parttime</code>, allowing for custom regular expressions or functions to be used to parse non-iso formats. If other established standards are regularly needeed, they could be included with the package (<a href="https://github.com/dgkf" class="external-link">@dgkf</a>, <a href="https://github.com/dgkf/parttime/issues/13" class="external-link">#13</a>).</p></li>
 <li><p>added <code>res</code> (“resolution”) parameter to the <code>impute_*</code> family of functions, allowing for only some field up until the provided resolution to be imputed. With this, also added <code>impute_date_*</code> alternatives which default to imputing to a <code>"day"</code> resolution (<a href="https://github.com/dgkf" class="external-link">@dgkf</a>, <a href="https://github.com/dgkf/parttime/issues/12" class="external-link">#12</a>).</p></li>
 <li><p>rename <code>is_partial_*</code> to <code>has_partial_*</code> to avoid ambiguity with class checks</p></li>
 <li><p>removed some deprecated <code>pillar</code> interfaces</p></li>
 <li><p>bring package up-to-speed with <code>vctrs</code> package changes from last few years</p></li>
+<li><p>fixed subset assignment operators [&lt;- and [[&lt;-</p></li>
+<li><p>improved imputation as to not introduce dates that aren’t viable for the given month</p></li>
 </ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.1.2" id="parttime-0012">parttime 0.0.1.2<a class="anchor" aria-label="anchor" href="#parttime-0012"></a></h2>
-<ul><li>fixed subset assignment operators [&lt;- and [[&lt;-</li></ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.1.1" id="parttime-0011">parttime 0.0.1.1<a class="anchor" aria-label="anchor" href="#parttime-0011"></a></h2>
-<ul><li>improved imputation as to not introduce dates that aren’t viable for the given month</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1" id="parttime-001">parttime 0.0.1<a class="anchor" aria-label="anchor" href="#parttime-001"></a></h2>
 <ul><li><p>initial release including loose parsing of ISO 8601 datetime formats using parsedate</p></li>
