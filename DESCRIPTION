@@ -8,7 +8,8 @@ Authors@R: c(
         family = "Kelkhoff", 
         email = "doug.kelkhoff@gmail.com",
         role = c("aut", "cre")
-      )
+      ),
+      person("Bill", "Denney", email="wdenney@humanpredictions.com", role="ctb", comment=c(ORCID="0000-0002-5759-428X"))
     )
 Description: A package for partial datetime format handling.
 License: MIT + file LICENSE
