@@ -1,13 +1,16 @@
 #' Coerce an object to a parttime object
 #'
 #' @param x an object for coersion
-#' @param format a \code{function} or \code{character} value. If a
-#'   \code{function}, it should accept a character vector and return a matrix of
-#'   parttime components. If a \code{character} it should provide a regular
+#' @param format a `function` or `character` value. If a
+#'   `function`, it should accept a character vector and return a matrix of
+#'   parttime components. If a `character` it should provide a regular
 #'   exprssion which contains capture groups for each of the parttime
-#'   components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+#'   components.  See [parse_to_parttime_matrix]'s `regex` parameter
 #'   for more details.
-#' @param ... Additional arguments passed to \code{format} when a function is
+#' @param on.na a `function` used to signal a condition for new `NA` values
+#'   introduced by coercion, a `character` value among `"error"`, `"warning"` or
+#'   `"suppress"` (for silencing messages) or `NULL` equivalent to `"suppress"`.
+#' @param ... Additional arguments passed to `format` when a function is
 #'   provided.
 #'
 #' @examples
@@ -36,15 +39,11 @@
 #' # [1] "1999"
 #'
 #' @export
-as.parttime <- function(x, ..., format = parse_iso8601) {
+as.parttime <- function(x, ..., format = parse_iso8601, on.na = "warning") {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
-  vec_cast.partial_time(
-    x,
-    structure(0L, class = "partial_time"),
-    ...,
-    format = format
-  )
+  pttm <- structure(0L, class = "partial_time")
+  vec_cast.partial_time(x, pttm, ..., format = format, on.na = on.na)
 }
 
 
@@ -96,41 +95,46 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #'   "2012-05-23T08:35:32.123Z",  # Zulu time
 #'   "2013-04-14T08:35:32.123+05",  # time offset from GMT
 #'   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-#'   "20150101T08:35:32.123+05:30")  # condensed form
+#'   "20150101T08:35:32.123+05:30"  # condensed form
+#' )
 #'
 #' as.parttime(dates)
 #'
-#' \dontrun{
-#' ### vctrs experiments informing design of parttime ###
-#'
-#' # using a rcrd (record) style vector
-#' rcrd_test <- vctrs::new_rcrd(
-#'   fields = list(a = 1:3, b = 4:6),
-#'   class = numeric())
-#'
-#' tibble(x = 1:3, y = rcrd_test)
-#' # okay
-#'
-#' tibble(x = 1:3) %>% mutate(y = rcrd_test)
-#' # Error: Column `y` must be length 3 (the number of rows) or one, not 2
-#'
-#' tibble(x = 1:3) %>% { .$y <- rcrd_test; . }
-#' # okay (stand-in for mutate until dplyr v0.9.0)
-#'
-#' }
-#'
 #' @exportS3Method vec_cast.partial_time character
-vec_cast.partial_time.character <- function(x, to, ..., format = parse_iso8601) {
+vec_cast.partial_time.character <- function(x, to, ...,
+    format = parse_iso8601,
+    on.na = warning) {
+
+  if (is.null(on.na)) {
+    on.na <- "suppress"
+  }
+
+  if (is.character(on.na)) {
+    on.na <- switch(on.na,
+      warning = warning,
+      error = stop,
+      suppress = identity,
+      stop("Invalid argument passed to `on.na`. See ?as.parttime for details.")
+    )
+  }
+
   pttm_mat <- if (length(x) > 0L) {
     if (is.function(format)) format(x, ...)
     else parse_to_parttime_matrix(x, regex = format)
   } else {
     # parsing function is irrelevant if input has no length, just use default
-    parse_to_parttime_matrix("")[NULL, , drop = FALSE]
+    parse_to_parttime_matrix(NA_character_)[NULL, , drop = FALSE]
   }
 
   pttm_mat <- clean_parsed_parttime_matrix(pttm_mat)
-  as.parttime(pttm_mat)
+  res <- as.parttime(pttm_mat)
+
+  # if NAs are introduced during coercsion, emit on.na callback
+  if (any(is.na(res) & !is.na(x))) {
+    on.na(parse_failure_message(x, res))
+  }
+
+  res
 }
 
 

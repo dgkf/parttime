@@ -4,7 +4,7 @@
 \alias{vec_cast.partial_time.character}
 \title{Coerce character date representations to parttime objects}
 \usage{
-\method{vec_cast}{partial_time.character}(x, to, ..., format = parse_iso8601)
+\method{vec_cast}{partial_time.character}(x, to, ..., format = parse_iso8601, on.na = warning)
 }
 \arguments{
 \item{x}{Vectors to cast.}
@@ -18,8 +18,12 @@ provided.}
 \code{function}, it should accept a character vector and return a matrix of
 parttime components. If a \code{character} it should provide a regular
 exprssion which contains capture groups for each of the parttime
-components.  See \code{?parse_to_parttime_matrix}'s \code{regex} parameter
+components.  See \link{parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
+
+\item{on.na}{a \code{function} used to signal a condition for new \code{NA} values
+introduced by coercion, a \code{character} value among \code{"error"}, \code{"warning"} or
+\code{"suppress"} (for silencing messages) or \code{NULL} equivalent to \code{"suppress"}.}
 }
 \description{
 Coerce character date representations to parttime objects
@@ -40,27 +44,9 @@ dates <- c(
   "2012-05-23T08:35:32.123Z",  # Zulu time
   "2013-04-14T08:35:32.123+05",  # time offset from GMT
   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-  "20150101T08:35:32.123+05:30")  # condensed form
+  "20150101T08:35:32.123+05:30"  # condensed form
+)
 
 as.parttime(dates)
-
-\dontrun{
-### vctrs experiments informing design of parttime ###
-
-# using a rcrd (record) style vector
-rcrd_test <- vctrs::new_rcrd(
-  fields = list(a = 1:3, b = 4:6),
-  class = numeric())
-
-tibble(x = 1:3, y = rcrd_test)
-# okay
-
-tibble(x = 1:3) \%>\% mutate(y = rcrd_test)
-# Error: Column `y` must be length 3 (the number of rows) or one, not 2
-
-tibble(x = 1:3) \%>\% { .$y <- rcrd_test; . }
-# okay (stand-in for mutate until dplyr v0.9.0)
-
-}
 
 }
