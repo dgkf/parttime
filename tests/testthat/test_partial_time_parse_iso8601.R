@@ -33,7 +33,6 @@ test_that("parsing invalid iso8601 with mixed formats throws warning and returns
   expect_true(is.na(expect_warning(as.parttime("20220101T01:02"), "parse")))
   expect_true(is.na(expect_warning(as.parttime("20220101T01:02:03"), "parse")))
   expect_true(is.na(expect_warning(as.parttime("20220101T01:02:03+07:00"), "parse")))
-  expect_true(is.na(expect_warning(as.parttime("2022:01:01T010203"), "parse")))
 
   # extended date, but basic time
   expect_true(is.na(expect_warning(as.parttime("2022-01-01T0102"), "parse")))
