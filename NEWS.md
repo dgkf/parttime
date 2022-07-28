@@ -1,5 +1,9 @@
 # parttime 0.0.2 (dev)
 
+* `as.parttime` will now, by default, show warnings when some strings fail to
+  parse into the provided format. Behavior can be configured using the new
+  `on.na` parameter.
+
 * extends `lubridate`-style accessor and assignment helpers, such as `year()`
   and `year()<-`. Unfortuntely, many are provided as S4 generics, and may be
   masked by other packages that extend these generics. Some generic-like
@@ -22,14 +26,10 @@
 
 * bring package up-to-speed with `vctrs` package changes from last few years
 
-# parttime 0.0.1.2
-
 * fixed subset assignment operators [<- and [[<- 
 
-# parttime 0.0.1.1
-
 * improved imputation as to not introduce dates that aren't viable for the given
-month
+  month
 
 # parttime 0.0.1
 

@@ -32,6 +32,43 @@ test_that("as.character can convert partial_time to represenative string format"
   }
 })
 
+test_that("as.parttime.character emits warnings when empty strings are converted to NA", {
+  expect_warning(as.parttime(""), "could not be parsed")
+  expect_warning(as.parttime("  "), "could not be parsed")
+})
+
+test_that("as.parttime.character emits warnings provides a sampling of unparsable formats", {
+  expect_warning(
+    as.parttime(c("2022", "2023", "Y13", "Y15", "1999-01")),
+    "could not be parsed"
+  )
+
+  expect_warning(
+    as.parttime(c("2022", "2023", "Y13", "Y15", "1999-01")),
+    "Y13"  # first of Y## format is displayed as example
+  )
+
+  expect_warning(
+    as.parttime(c("2022", "2023", "Y13", "Y15", "W3", "W5", "1999-01")),
+    "Y13.*W3"  # first of each invalid format is displayed, Y## and W#
+  )
+})
+
+test_that("as.parttime.character on.na respects character input options ", {
+  expect_error(as.parttime(c("2022", "X13"), on.na = "error"))
+  expect_warning(as.parttime(c("2022", "X13"), on.na = "warning"))
+  expect_silent(as.parttime(c("2022", "X13"), on.na = "suppress"))
+})
+
+test_that("as.parttime.character on.na respects signaling function input options ", {
+  expect_error(as.parttime(c("2022", "X13"), on.na = stop))
+  expect_warning(as.parttime(c("2022", "X13"), on.na = warning))
+})
+
+test_that("as.parttime.character on.na respects NULL input options ", {
+  expect_silent(as.parttime(c("2022", "X13"), on.na = NULL))
+})
+
 test_that("as.POSIXct can convert partial_time to representative posix time", {
   expect_silent({
     pttms <- as.parttime(iso8601_dates, warn = FALSE)

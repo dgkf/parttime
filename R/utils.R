@@ -17,7 +17,35 @@ datetime_parts <- c(
 
 
 wrap <- function(..., .strwrap = list()) {
-  paste0(collapse = "\n", strwrap(indent = 2, paste0(...)))
+  text <- paste0(...)
+  leading_ws <- gsub("^(\\s*).*", "\\1", text)
+  trailing_ws <- gsub(".*(\\s*)$", "\\1", text)
+  strwrap_args <- append(list(text), .strwrap)
+  paste0(
+    leading_ws,
+    paste0(collapse = "\n", do.call(strwrap, strwrap_args), trailing_ws)
+  )
+}
+
+
+
+wrap_vec <- function(vec, indent = 0L,
+    width = getOption("width", 80L) - indent) {
+
+  vec <- as.character(vec)
+  n_nchar <- max(nchar(vec) + 2L, 0L)
+  n_out <- format(vec, width = n_nchar)
+
+  # add newlines to items before overflowing width
+  n_end  <- (seq_along(n_out) %% (width %/% n_nchar)) == 0L
+  n_end[[length(n_out)]] <- FALSE # never newline on last item
+  n_out[n_end] <- paste0(n_out[n_end], "\n")
+
+  # add indentation
+  n_start <- c(TRUE, utils::head(n_end, -1))
+  n_out[n_start] <- paste0(strrep(" ", indent), n_out[n_start])
+
+  paste0(n_out, collapse = "")
 }
 
 
