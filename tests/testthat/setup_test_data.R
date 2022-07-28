@@ -13,7 +13,7 @@ iso8601_dates <- c(
   "2011-12-13T14:15:16.017Z",  # Zulu time
   "2012-01-14T15:16:17.018+07",  # time offset from GMT
   "2013-02-15T16:17:18.019+07:30",  # time offset with min from GMT
-  "20140316T17:18:19.020+08:00"  # condensed form
+  "20140316T171819.020+0800"  # condensed form
 )
 
 # From the SDTMIG version 3.4

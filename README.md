@@ -159,11 +159,11 @@ iso8601_dates <- c(
   "2012-05-23T08:35:32.123Z",  # Zulu time
   "2013-04-14T08:35:32.123+05",  # time offset from GMT
   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-  "20150101T08:35:32.123+05:30"  # condensed form
+  "20150101T083532.123+0530"  # condensed form
 )
 
 as.parttime(iso8601_dates)
-## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully
+## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully
 ## represented. To avoid loss of datetime resolution, such partial dates
 ## are best represented as timespans. See `?timespan`.
 ## <partial_time<YMDhms+tz>[15]> 
@@ -181,8 +181,12 @@ as.parttime(iso8601_dates)
 
 ``` r
 impute_time("2019", "2000-01-02T03:04:05.006+0730")
-## <partial_time<YMDhmsZ>[1]> 
-## [1] "2019-01-02 03:04:05.006"
+## Warning in vec_cast.partial_time.character(x, pttm, ..., format = format, : Values could not be parsed (1 of 1 (100.0%)). Examples of unique
+## failing formats:
+## 
+##     '2000-01-02T03:04:05.006+0730'
+## <partial_time<YMDhms+tz>[1]> 
+## [1] "2019"
 ```
 
 ## Partial Datetime Comparisons
@@ -256,7 +260,7 @@ tibble(dates = iso8601_dates) %>%
     parttimes = as.parttime(dates),
     imputed_times = impute_time_min(parttimes)
   )
-## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully
+## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully
 ## represented. To avoid loss of datetime resolution, such partial dates
 ## are best represented as timespans. See `?timespan`.
 ## # A tibble: 15 × 3
@@ -276,7 +280,7 @@ tibble(dates = iso8601_dates) %>%
 ## 12 2012-05-23T08:35:3… 2012-05-23 08:35:32.123+0000 2012-05-23 08:35:32.123+0000
 ## 13 2013-04-14T08:35:3… 2013-04-14 08:35:32.123+0500 2013-04-14 08:35:32.123+0500
 ## 14 2014-03-24T08:35:3… 2014-03-24 08:35:32.123+0530 2014-03-24 08:35:32.123+0530
-## 15 20150101T08:35:32.… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530
+## 15 20150101T083532.12… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530
 ```
 
 # Roadmap

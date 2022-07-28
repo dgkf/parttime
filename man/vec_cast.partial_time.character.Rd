@@ -44,7 +44,7 @@ dates <- c(
   "2012-05-23T08:35:32.123Z",  # Zulu time
   "2013-04-14T08:35:32.123+05",  # time offset from GMT
   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-  "20150101T08:35:32.123+05:30"  # condensed form
+  "20150101T083532.123+0530"  # condensed form
 )
 
 as.parttime(dates)
