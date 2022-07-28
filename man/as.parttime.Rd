@@ -4,7 +4,7 @@
 \alias{as.parttime}
 \title{Coerce an object to a parttime object}
 \usage{
-as.parttime(x, ..., format = parse_iso8601, on.na = "warning")
+as.parttime(x, ..., format = parse_iso8601_datetime, on.na = "warning")
 }
 \arguments{
 \item{x}{an object for coersion}

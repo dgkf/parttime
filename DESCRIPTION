@@ -1,15 +1,19 @@
 Package: parttime
 Type: Package
 Title: A package for partial datetime format handling
-Version: 0.0.1.29
+Version: 0.0.1.30
 Authors@R: c(
       person(
-        given = "Doug", 
-        family = "Kelkhoff", 
+        "Doug","Kelkhoff", 
         email = "doug.kelkhoff@gmail.com",
         role = c("aut", "cre")
       ),
-      person("Bill", "Denney", email="wdenney@humanpredictions.com", role="ctb", comment=c(ORCID="0000-0002-5759-428X"))
+      person(
+        "Bill", "Denney", 
+        email = "wdenney@humanpredictions.com", 
+        role = "ctb", 
+        comment = c(ORCID = "0000-0002-5759-428X")
+      )
     )
 Description: A package for partial datetime format handling.
 License: MIT + file LICENSE

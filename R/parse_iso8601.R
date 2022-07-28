@@ -43,10 +43,10 @@ re_iso8601 <- paste0(
 #'   would be loss when coercing to a \code{parttime} matrix.
 #' @param ... Additional arguments unused
 #'
-#' @keywords internal
 #' @rdname parse_parttime
+#' @export
 #'
-parse_iso8601 <- function(x, warn = TRUE, ...) {
+parse_iso8601_datetime <- function(x, warn = TRUE, ...) {
   if (is.character(x)) {
     x <- parse_iso8601_matrix(x)
   }
@@ -84,12 +84,12 @@ parse_iso8601 <- function(x, warn = TRUE, ...) {
 #' upper-bounds of the timespan. Collectively, this amounts to a three
 #' dimensional array.
 #'
-#' @inheritParams parse_iso8601
+#' @inheritParams parse_iso8601_datetime
 #'
 #' @keywords internal
-#' @rdname parse_timespan
+#' @rdname parse_parttime
 #'
-parse_iso8601_as_timespan <- function(x, ...) {
+parse_iso8601_datetime_as_timespan <- function(x, ...) {
   tmspn_arr <- array(
     NA_real_,
     dim = c(length(x), length(datetime_parts) + 1L, 2L),
@@ -100,15 +100,15 @@ parse_iso8601_as_timespan <- function(x, ...) {
 
   # user parttime handler where possible, uniquely handle yearweek format
   i <- matrix_field_cond(m, includes = "week", excludes = "weekday")
-  m[!i, datetime_parts] <- parse_iso8601(m[!i, , drop = FALSE])
+  m[!i, datetime_parts] <- parse_iso8601_datetime(m[!i, , drop = FALSE])
 
   # impute yearweek + weekday with first day of the week for start
-  m[i, datetime_parts] <- parse_iso8601(paste0(x[i], "-1"))
+  m[i, datetime_parts] <- parse_iso8601_datetime(paste0(x[i], "-1"))
   tmspn_arr[, datetime_parts, "lb"] <- clean_parsed_parttime_matrix(m)
   tmspn_arr[, "inclusive", "lb"] <- 1
 
   # impute yearweek + weekday with last day of the week for end
-  m[i, datetime_parts] <- parse_iso8601(paste0(x[i], "-7"))
+  m[i, datetime_parts] <- parse_iso8601_datetime(paste0(x[i], "-7"))
   tmspn_arr[, datetime_parts, "ub"] <- minimally_increment(clean_parsed_parttime_matrix(m))
   tmspn_arr[, "inclusive", "ub"] <- 0
 
@@ -123,7 +123,7 @@ parse_iso8601_as_timespan <- function(x, ...) {
 #' additional columns for alternative iso8601 formats such as \code{yearday},
 #' \code{yearweek} and code{weakday}.
 #'
-#' @inheritParams parse_iso8601
+#' @inheritParams parse_iso8601_datetime
 #'
 #' @keywords internal
 #'

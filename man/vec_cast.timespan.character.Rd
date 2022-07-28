@@ -4,7 +4,7 @@
 \alias{vec_cast.timespan.character}
 \title{Cast partial time to timespan, representing uncertainty as a range}
 \usage{
-\method{vec_cast}{timespan.character}(x, to, ..., format = parse_iso8601_as_timespan)
+\method{vec_cast}{timespan.character}(x, to, ..., format = parse_iso8601_datetime_as_timespan)
 }
 \arguments{
 \item{x}{Vectors to cast.}

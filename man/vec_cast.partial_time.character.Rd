@@ -4,7 +4,7 @@
 \alias{vec_cast.partial_time.character}
 \title{Coerce character date representations to parttime objects}
 \usage{
-\method{vec_cast}{partial_time.character}(x, to, ..., format = parse_iso8601, on.na = warning)
+\method{vec_cast}{partial_time.character}(x, to, ..., format = parse_iso8601_datetime, on.na = warning)
 }
 \arguments{
 \item{x}{Vectors to cast.}
