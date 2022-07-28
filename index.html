@@ -180,11 +180,11 @@
 <span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span></span>
 <span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span></span>
 <span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span></span>
-<span>  <span class="st">"20150101T08:35:32.123+05:30"</span>  <span class="co"># condensed form</span></span>
+<span>  <span class="st">"20150101T083532.123+0530"</span>  <span class="co"># condensed form</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">iso8601_dates</span><span class="op">)</span></span>
-<span><span class="co">## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully</span></span>
+<span><span class="co">## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully</span></span>
 <span><span class="co">## represented. To avoid loss of datetime resolution, such partial dates</span></span>
 <span><span class="co">## are best represented as timespans. See `?timespan`.</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[15]&gt; </span></span>
@@ -202,8 +202,12 @@
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+0730"</span><span class="op">)</span></span>
-<span><span class="co">## &lt;partial_time&lt;YMDhmsZ&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2019-01-02 03:04:05.006"</span></span></code></pre></div>
+<span><span class="co">## Warning in vec_cast.partial_time.character(x, pttm, ..., format = format, : Values could not be parsed (1 of 1 (100.0%)). Examples of unique</span></span>
+<span><span class="co">## failing formats:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     '2000-01-02T03:04:05.006+0730'</span></span>
+<span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
+<span><span class="co">## [1] "2019"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="partial-datetime-comparisons">Partial Datetime Comparisons<a class="anchor" aria-label="anchor" href="#partial-datetime-comparisons"></a>
@@ -266,7 +270,7 @@
 <span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>,</span>
 <span>    imputed_times <span class="op">=</span> <span class="fu"><a href="reference/impute_time.html">impute_time_min</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"):   Date strings including week and excluding weekday can not be fully</span></span>
+<span><span class="co">## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully</span></span>
 <span><span class="co">## represented. To avoid loss of datetime resolution, such partial dates</span></span>
 <span><span class="co">## are best represented as timespans. See `?timespan`.</span></span>
 <span><span class="co">## # A tibble: 15 × 3</span></span>
@@ -286,7 +290,7 @@
 <span><span class="co">## 12 2012-05-23T08:35:3… 2012-05-23 08:35:32.123+0000 2012-05-23 08:35:32.123+0000</span></span>
 <span><span class="co">## 13 2013-04-14T08:35:3… 2013-04-14 08:35:32.123+0500 2013-04-14 08:35:32.123+0500</span></span>
 <span><span class="co">## 14 2014-03-24T08:35:3… 2014-03-24 08:35:32.123+0530 2014-03-24 08:35:32.123+0530</span></span>
-<span><span class="co">## 15 20150101T08:35:32.… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530</span></span></code></pre></div>
+<span><span class="co">## 15 20150101T083532.12… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
