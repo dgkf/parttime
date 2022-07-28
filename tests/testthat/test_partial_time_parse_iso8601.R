@@ -27,3 +27,18 @@ test_that("parsing typical cdisc works using iso8601 parser", {
   expect_true(all(pttm_mat[1:2, "secfrac"] == c(0.123, 0)))
   expect_true(all(is.na(pttm_mat[3:7, "secfrac"])))
 })
+
+test_that("parsing invalid iso8601 with mixed formats throws warning and returns NAs", {
+  # basic date, but extended time
+  expect_true(is.na(expect_warning(as.parttime("20220101T01:02"), "parse")))
+  expect_true(is.na(expect_warning(as.parttime("20220101T01:02:03"), "parse")))
+  expect_true(is.na(expect_warning(as.parttime("20220101T01:02:03+07:00"), "parse")))
+  expect_true(is.na(expect_warning(as.parttime("2022:01:01T010203"), "parse")))
+
+  # extended date, but basic time
+  expect_true(is.na(expect_warning(as.parttime("2022-01-01T0102"), "parse")))
+  expect_true(is.na(expect_warning(as.parttime("2022-01-01T010203"), "parse")))
+
+  # extended date & time, but basic tz
+  expect_true(is.na(expect_warning(as.parttime("2022-01-01T01:02:03+0700"), "parse")))
+})
