@@ -39,7 +39,9 @@ clean_parsed_parttime_matrix <- function(m) {
     m <- complete_parsed_parttime_matrix(m)
   }
 
+  m <- m[, datetime_parts, drop = FALSE]
   storage.mode(m) <- "numeric"
+
   tzhour_na <- is.na(m[, "tzhour"])
   all_na <- apply(is.na(m), 1, all)
 

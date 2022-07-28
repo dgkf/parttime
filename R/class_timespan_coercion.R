@@ -54,7 +54,7 @@ vec_cast.timespan.default <- function(x, to, ...) {
 #'
 vec_cast.timespan.character <- function(
   x, to, ...,
-  format = parse_iso8601_as_timespan
+  format = parse_iso8601_datetime_as_timespan
 ) {
   as.timespan(format(x, ...))
 }

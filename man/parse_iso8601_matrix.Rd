@@ -6,9 +6,6 @@
 \usage{
 parse_iso8601_matrix(dates)
 }
-\arguments{
-\item{dates}{character vector of dates to parse for iso8601 components}
-}
 \description{
 Parse an iso8601 datetime to a parttime-like matrix
 }

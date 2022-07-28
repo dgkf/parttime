@@ -39,7 +39,7 @@
 #' # [1] "1999"
 #'
 #' @export
-as.parttime <- function(x, ..., format = parse_iso8601, on.na = "warning") {
+as.parttime <- function(x, ..., format = parse_iso8601_datetime, on.na = "warning") {
   # spoof a parttime class object for dispatch to prevent recursion since
   # parttime()  function uses as.parttime.matrix
   pttm <- structure(0L, class = "partial_time")
@@ -102,7 +102,7 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #'
 #' @exportS3Method vec_cast.partial_time character
 vec_cast.partial_time.character <- function(x, to, ...,
-    format = parse_iso8601,
+    format = parse_iso8601_datetime,
     on.na = warning) {
 
   if (is.null(on.na)) {
