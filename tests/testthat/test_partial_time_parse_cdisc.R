@@ -43,7 +43,7 @@ test_that("parsing cdisc missing-in-the-middle throws warning for experimental f
 })
 
 test_that("parsing cdisc missing-in-the-middle preserves proper NAs", {
-  pttms <- as.parttime(cdisc_missing_in_middle, format = parse_cdisc_datetime)
+  pttms <- expect_warning(as.parttime(cdisc_missing_in_middle, format = parse_cdisc_datetime))
   pttm_mat <- expect_silent(as.matrix(pttms))
 
   expect_true(all(pttm_mat[c(1:4, 8:12), "year"] == 2003))
