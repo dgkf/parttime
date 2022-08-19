@@ -59,9 +59,7 @@ parse_cdisc_datetime <- function(x, warn = TRUE, ...) {
 
   if (any(!is.na(first_na) & !is.na(last_val) & last_val > first_na)) {
     warning(
-      "Missing-in-the-middle datetime handline is very experimental. ",
-      "`parttime` to date has not been developed with such formats in mind, ",
-      "and as such there are likely to be bugs. ",
+      "Missing-in-the-middle datetime handline is experimental. ",
       "Please report bugs as you encounter them with: \n\n",
       "   bug.report(package = 'parttime')",
       "\n"

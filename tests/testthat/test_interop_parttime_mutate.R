@@ -7,7 +7,7 @@ context("parttime dplyr::mutate integration tests")
 library(dplyr)
 
 test_that("parttime works when used in the context of a dplyr::mutate following dplyr 0.9.0", {
-  x <- c("2001", "1984", "3030-01-02", "")
+  x <- c("2001", "1984", "3030-01-02", NA)
 
   expect_equal({
     if (packageVersion("dplyr") >= "0.9.0") {
