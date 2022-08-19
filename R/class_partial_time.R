@@ -12,7 +12,6 @@ methods::setClass("partial_time")
 #' @param min numeric vector to use for partial time min component
 #' @param sec numeric vector to use for partial time sec component
 #' @param tzhour numeric vector to use for partial time tzhour component
-#' @param tzmin numeric vector to use for partial time tzmin component
 #'
 #' @examples
 #' parttime(2019)

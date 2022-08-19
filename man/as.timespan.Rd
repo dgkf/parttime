@@ -4,7 +4,7 @@
 \alias{as.timespan}
 \title{Cast an object to a timespan}
 \usage{
-as.timespan(x, ..., format = parse_iso8601_as_timespan)
+as.timespan(x, ..., format = parse_iso8601_datetime_as_timespan)
 }
 \arguments{
 \item{x}{an object to cast}

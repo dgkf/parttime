@@ -28,8 +28,6 @@ parttime(
 \item{sec}{numeric vector to use for partial time sec component}
 
 \item{tzhour}{numeric vector to use for partial time tzhour component}
-
-\item{tzmin}{numeric vector to use for partial time tzmin component}
 }
 \description{
 Create a parttime object
