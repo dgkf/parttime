@@ -93,17 +93,17 @@ introduced by coercion, a <code>character</code> value among <code>"error"</code
 <span class="r-in"><span>  <span class="st">"2001"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"2002-01-01"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"2004-245"</span>, <span class="co"># yearday</span></span></span>
-<span class="r-in"><span>  <span class="st">"2005-W13"</span>,  <span class="co"># yearweek</span></span></span>
-<span class="r-in"><span>  <span class="st">"2006-W02-5"</span>,  <span class="co"># yearweek + weekday</span></span></span>
+<span class="r-in"><span>  <span class="st">"2005-W13"</span>, <span class="co"># yearweek</span></span></span>
+<span class="r-in"><span>  <span class="st">"2006-W02-5"</span>, <span class="co"># yearweek + weekday</span></span></span>
 <span class="r-in"><span>  <span class="st">"2007-10-01T08"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"2008-09-20T08:35"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"2009-08-12T08:35.048"</span>,  <span class="co"># fractional minute</span></span></span>
+<span class="r-in"><span>  <span class="st">"2009-08-12T08:35.048"</span>, <span class="co"># fractional minute</span></span></span>
 <span class="r-in"><span>  <span class="st">"2010-07-22T08:35:32"</span>,</span></span>
-<span class="r-in"><span>  <span class="st">"2011-06-13T08:35:32.123"</span>,  <span class="co"># fractional second</span></span></span>
-<span class="r-in"><span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>,  <span class="co"># Zulu time</span></span></span>
-<span class="r-in"><span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>,  <span class="co"># time offset from GMT</span></span></span>
-<span class="r-in"><span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>,  <span class="co"># time offset with min from GMT</span></span></span>
-<span class="r-in"><span>  <span class="st">"20150101T083532.123+0530"</span>  <span class="co"># condensed form</span></span></span>
+<span class="r-in"><span>  <span class="st">"2011-06-13T08:35:32.123"</span>, <span class="co"># fractional second</span></span></span>
+<span class="r-in"><span>  <span class="st">"2012-05-23T08:35:32.123Z"</span>, <span class="co"># Zulu time</span></span></span>
+<span class="r-in"><span>  <span class="st">"2013-04-14T08:35:32.123+05"</span>, <span class="co"># time offset from GMT</span></span></span>
+<span class="r-in"><span>  <span class="st">"2014-03-24T08:35:32.123+05:30"</span>, <span class="co"># time offset with min from GMT</span></span></span>
+<span class="r-in"><span>  <span class="st">"20150101T083532.123+0530"</span> <span class="co"># condensed form</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
@@ -111,14 +111,14 @@ introduced by coercion, a <code>character</code> value among <code>"error"</code
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> represented. To avoid loss of datetime resolution, such partial dates</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> are best represented as timespans. See `?timespan`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partial_time&lt;<span style="color: #949494;">YMDhms+tz</span>&gt;[15]&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] <span style="color: #BB0000;">NA</span>                             "2001"                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2002<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1"                   "2004<span style="color: #949494;">-0</span>9<span style="color: #949494;">-0</span>1"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2005"                         "2006<span style="color: #949494;">-0</span>1<span style="color: #949494;">-</span>12"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2007<span style="color: #949494;">-</span>10<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8"                "2008<span style="color: #949494;">-0</span>9<span style="color: #949494;">-</span>20 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2009<span style="color: #949494;">-0</span>8<span style="color: #949494;">-</span>12 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>02<span style="color: #949494;">.</span>880"      "2010<span style="color: #949494;">-0</span>7<span style="color: #949494;">-</span>22 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>000"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2011<span style="color: #949494;">-0</span>6<span style="color: #949494;">-</span>13 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"      "2012<span style="color: #949494;">-0</span>5<span style="color: #949494;">-</span>23 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2013<span style="color: #949494;">-0</span>4<span style="color: #949494;">-</span>14 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0500" "2014<span style="color: #949494;">-0</span>3<span style="color: #949494;">-</span>24 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0530"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2015<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32<span style="color: #949494;">.</span>123+0530" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] <span style="color: #BB0000;">NA</span>                              "2001"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2002<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1"                    "2004<span style="color: #949494;">-0</span>9<span style="color: #949494;">-0</span>1"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2005"                          "2006<span style="color: #949494;">-0</span>1<span style="color: #949494;">-</span>12"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2007<span style="color: #949494;">-</span>10<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8"                 "2008<span style="color: #949494;">-0</span>9<span style="color: #949494;">-</span>20 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2009<span style="color: #949494;">-0</span>8<span style="color: #949494;">-</span>12 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>02.880"       "2010<span style="color: #949494;">-0</span>7<span style="color: #949494;">-</span>22 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2011<span style="color: #949494;">-0</span>6<span style="color: #949494;">-</span>13 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32.123"       "2012<span style="color: #949494;">-0</span>5<span style="color: #949494;">-</span>23 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32.123"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2013<span style="color: #949494;">-0</span>4<span style="color: #949494;">-</span>14 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32.123+05<span style="color: #949494;">:</span>00" "2014<span style="color: #949494;">-0</span>3<span style="color: #949494;">-</span>24 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32.123+05<span style="color: #949494;">:</span>30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2015<span style="color: #949494;">-0</span>1<span style="color: #949494;">-0</span>1 <span style="color: #949494;">0</span>8<span style="color: #949494;">:</span>35<span style="color: #949494;">:</span>32.123+05<span style="color: #949494;">:</span>30" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
