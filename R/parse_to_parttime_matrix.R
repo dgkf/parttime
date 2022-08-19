@@ -47,12 +47,9 @@ clean_parsed_parttime_matrix <- function(m) {
 
   if (any(tzhour_na)) {
     gmt_offset <- interpret_tz(getOption("parttime.assume_tz_offset", NA))
-    m[!all_na & tzhour_na, "tzhour"] <- gmt_offset %/% 60
-    m[!all_na & tzhour_na, "tzmin"]  <- gmt_offset %%  60
+    m[!all_na & tzhour_na, "tzhour"] <- gmt_offset / 60
   }
 
-  # when tzhour is available
-  m[!tzhour_na & is.na(m[, "tzmin"]), "tzmin"] <- 0
   m[, datetime_parts, drop = FALSE]
 }
 

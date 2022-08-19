@@ -35,13 +35,8 @@ reflow_fields <- function(fmat, days) {
   fmat[, "hour"] <- fmat[, "hour"] %/% 1
   fmat[, "sec"] <- fmat[, "sec"] + fmat[, "min"] %% 1 * 60
   fmat[, "min"] <- fmat[, "min"] %/% 1
-  fmat[, "secfrac"] <- fmat[, "secfrac"] + fmat[, "sec"] %% 1
-  fmat[, "sec"] <- fmat[, "sec"] %/% 1
 
   # flow overflow back up to parent fields
-  na <- is.na(fmat[, "secfrac"])
-  fmat[!na, "sec"] <- fmat[!na, "sec"] + fmat[!na, "secfrac"] %/% 1
-  fmat[, "secfrac"] <- fmat[, "secfrac"] %% 1
   na <- is.na(fmat[, "sec"])
   fmat[!na, "min"] <- fmat[!na, "min"] + fmat[!na, "sec"] %/% 60
   fmat[, "sec"] <- fmat[, "sec"] %% 60

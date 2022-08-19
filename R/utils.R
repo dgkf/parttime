@@ -9,9 +9,7 @@ datetime_parts <- c(
   "hour",
   "min",
   "sec",
-  "secfrac",
-  "tzhour",
-  "tzmin"
+  "tzhour"
 )
 
 

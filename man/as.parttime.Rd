@@ -37,7 +37,7 @@ as.parttime(c("1234", "5678"), format = "(?<year>\\\\d{4})")
 
 # format function that returns a matrix of components
 utf8_str <- function(x) intToUtf8(utf8ToInt(x) - 16)
-as.parttime(c("B@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
+as.parttime(c("B@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
 # <partial_time<YMDhmsZ>[2]>
 # [1] "2000" "2010"
 

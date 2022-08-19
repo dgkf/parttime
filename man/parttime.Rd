@@ -11,8 +11,7 @@ parttime(
   hour = NA,
   min = NA,
   sec = NA,
-  tzhour = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%/\%60,
-  tzmin = interpret_tz(getOption("parttime.assume_tz_offset", NA))\%\%60
+  tzhour = interpret_tz(getOption("parttime.assume_tz_offset", NA))/60
 )
 }
 \arguments{

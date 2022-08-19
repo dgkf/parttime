@@ -51,9 +51,7 @@ each of the nine datetime fields:
 \item{\code{hour}}
 \item{\code{min}}
 \item{\code{sec}}
-\item{\code{secfrac}}
 \item{\code{tzhour}}
-\item{\code{tzmin}}
 }
 }
 \note{

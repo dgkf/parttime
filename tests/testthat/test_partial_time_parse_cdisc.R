@@ -16,11 +16,9 @@ test_that("parsing cdisc dates works for example date strings", {
   expect_true(all(pttm_mat[1:3, "min"] == 14))
   expect_true(all(is.na(pttm_mat[4:7, "min"])))
 
-  expect_true(all(pttm_mat[1:2, "sec"] == 17))
+  expect_true(all(pttm_mat[1, "sec"] == 17.123))
+  expect_true(all(pttm_mat[2, "sec"] == 17))
   expect_true(all(is.na(pttm_mat[3:7, "sec"])))
-
-  expect_true(all(pttm_mat[1:2, "secfrac"] == c(0.123, 0)))
-  expect_true(all(is.na(pttm_mat[3:7, "secfrac"])))
 })
 
 test_that("parsing cdisc dates requires dash separator", {

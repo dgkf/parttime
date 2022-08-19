@@ -17,9 +17,7 @@ test_that("impute_time_min populates fields with minimum appropriate data", {
 
   expect_equal(impute_time_min("2022-02-15 03:04")[, "sec"], 0L)
   expect_equal(impute_time_min("2022-02-15 03:04:05")[, "sec"], 5L)
-
-  expect_equal(impute_time_min("2022-02-15 03:04:05")[, "secfrac"], 0L)
-  expect_equal(impute_time_min("2022-02-15 03:04:05.678")[, "secfrac"], 0.678)
+  expect_equal(impute_time_min("2022-02-15 03:04:05.678")[, "sec"], 5.678)
 })
 
 test_that("impute_time_* operates on vectors of partial_time", {
@@ -47,17 +45,8 @@ test_that("impute_time_max populates fields with maximum appropriate data", {
   expect_equal(impute_time_max("2022-02-15 03")[, "min"], 59L)
   expect_equal(impute_time_max("2022-02-15 03:04")[, "min"], 4L)
 
-  expect_equal(impute_time_max("2022-02-15 03:04")[, "sec"], 59)
+  expect_equal(impute_time_max("2022-02-15 03:04")[, "sec"], 59.999)
   expect_equal(impute_time_max("2022-02-15 03:04:05")[, "sec"], 5L)
-
-  # secfrac is imputed when sec is missing, imputing with maximum decimal
-  expect_equal(impute_time_max("2022-02-15 03:04")[, "secfrac"], 0.999)
-  expect_equal(impute_time_max("2022-02-15 03:04:05")[, "secfrac"], 0)
-
-  # secfrac is considered populated, even when not explicitly provided, and
-  # therefore is not imputed
-  expect_equal(impute_time_max("2022-02-15 03:04:05")[, "secfrac"], 0)
-  expect_equal(impute_time_max("2022-02-15 03:04:05.678")[, "secfrac"], 0.678)
 })
 
 test_that("impute_time_max considers month length and leap year month lengths", {

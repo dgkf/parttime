@@ -29,7 +29,7 @@ format_field_matrix <- function(x,
     verbose = getOption("parttime.print_verbose", FALSE),
     tz) {
 
-  tzcols <- .i(x, 2, "tzhour", "tzmin")
+  tzcols <- .i(x, 2, "tzhour")
   tzs <- tz_consensus(x)
 
   x_omit <- FALSE
@@ -79,30 +79,38 @@ format_field_matrix <- function(x,
 
   x_str[, "min"] <- paste0(pillar::style_subtle(":"), format_field(x[, "min"], 2))
 
-  x_str[, "sec"] <- paste0(pillar::style_subtle(":"), format_field(x[, "sec"], 2))
-
-  x_str[, "secfrac"] <- paste0(
-    pillar::style_subtle("."),
-    crayon::col_substring(format_field(x[, "secfrac"], 3, fmt = "%.03f"), 3)
+  x_str[, "sec"] <- paste0(
+    pillar::style_subtle(":"),
+    format_field(x[, "sec"] %/% 1, 2),
+    ifelse(
+      (r <- round(x[, "sec"] %% 1, 3)) == 0,
+      "",
+      substring(format_field(r, fmt = "%.3f"), 2)
+    )
   )
 
   # optional timezone (timespan/duration have no tz elements)
-  if (all(c("tzhour", "tzmin") %in% colnames(x_str))) {
+  if ("tzhour" %in% colnames(x_str)) {
     if ((!missing(tz) && tz) || identical(tzs, FALSE)) {
       i <- !is.na(x[, "tzhour"])
 
       assumed_tz <- interpret_tz(getOption("parttime.assume_tz_offset", NA))
       if (missing(tz) && !is.na(assumed_tz)) {
-        i <- i & (x[, c("tzhour", "tzmin")] %*% c(60, 1)) != assumed_tz
+        i <- i & (x[, "tzhour"] * 60) != assumed_tz
       } else if (!missing(tz)) {
         i <- i & tz
       }
 
-      x_str[!i, c("tzhour", "tzmin")] <- ""
-      x_str[i, "tzhour"] <- format_field(x[i, "tzhour"], 2, fmt = "%+03.f")
-      x_str[i, "tzmin"] <- crayon::col_substring(format_field(x[i, "tzmin"], 2, fmt = "%+03.f"), 2)
+      x_str[!i, "tzhour"] <- ""
+      x_str[i, "tzhour"] <- paste0(
+        ifelse(sign(x[i, "tzhour"]), "+", "-"),
+        format_field(x[i, "tzhour"] %/% 1, 2, fmt = "%02.f"),
+        pillar::style_subtle(":"),
+        format_field(x[i, "tzhour"] %%  1 * 60, 2, fmt = "%02.f")
+      )
+
     } else {
-      x_str[, c("tzhour", "tzmin")] <- ""
+      x_str[, "tzhour"] <- ""
     }
   }
 

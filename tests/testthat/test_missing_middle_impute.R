@@ -7,7 +7,8 @@ test_that("missing-in-the-middle imputes minimum and maximum values", {
   expect_equal(imp_mitm[, "day"], 5L)
   expect_equal(imp_mitm[, "hour"], 23L)
   expect_equal(imp_mitm[, "min"], 59L)
-  expect_equal(imp_mitm[, "sec"], 59)
+  expect_equal(imp_mitm[, "sec"] %/% 1, 59)
+  expect_equal(imp_mitm[, "sec"] %% 1, 0.999)
 
   imp_mitm <- impute_time_min(mitm)
   expect_equal(imp_mitm[, "month"], 1L)

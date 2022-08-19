@@ -27,18 +27,15 @@ test_that("parttime formats to iso8601-style as character", {
       expect_match(fmt, sprintf("%02.f", pttm[, "min"]))
 
     if (!is.na(pttm[, "sec"]))
-      expect_match(fmt, sprintf("%02.f", pttm[, "sec"]))
-
-    if (!is.na(pttm[, "secfrac"]))
-      expect_match(fmt, sprintf("%03.f", pttm[, "secfrac"] * 1000))
+      expect_match(fmt, sprintf(if (pttm[,"sec"] %% 1 == 0) "%02.f" else "%02.3f", pttm[, "sec"]))
 
     if (is.na(pttm[, "tzhour"]))
-      expect_no_match(fmt, "[+-]\\d{4}$")
+      expect_no_match(fmt, "[+-]\\d{2}:\\d{2}$")
 
     if (!is.na(pttm[, "tzhour"]))
-      expect_match(fmt_tz, sprintf("%02.f%02.f", pttm[, "tzhour"], pttm[, "tzmin"]))
+      expect_match(fmt_tz, sprintf("%02.f:%02.f", pttm[, "tzhour"] %/% 1, pttm[, "tzhour"] %% 1 * 60))
 
     if (!is.na(pttm[, "tzhour"]))
-      expect_no_match(fmt_no_tz, sprintf("%02.f%02.f$", pttm[, "tzhour"], pttm[, "tzmin"]))
+      expect_no_match(fmt_no_tz, sprintf("%04.f$", pttm[, "tzhour"] * 60))
   })
 })

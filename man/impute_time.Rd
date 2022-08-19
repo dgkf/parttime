@@ -45,7 +45,7 @@ impute_date_mid(x, ..., res = "day")
 as the timezone part of the datetime or an numeric minute offset.}
 
 \item{...}{additional individual named fields to impute. Can be one of
-"year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".}
+"year", "month", "day", "hour", "min", "sec", "tzhour"}
 
 \item{res}{the highest resolution datetime field used for imputation. Either
 a character value represented the highest resolution field or \code{NULL}

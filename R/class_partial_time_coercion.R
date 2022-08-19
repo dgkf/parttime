@@ -24,7 +24,7 @@
 #'
 #' # format function that returns a matrix of components
 #' utf8_str <- function(x) intToUtf8(utf8ToInt(x) - 16)
-#' as.parttime(c("B@@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
+#' as.parttime(c("B@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
 #' # <partial_time<YMDhmsZ>[2]>
 #' # [1] "2000" "2010"
 #'
@@ -53,7 +53,9 @@ as.parttime <- function(x, ..., format = parse_iso8601_datetime, on.na = "warnin
 #' @inheritParams vctrs::vec_cast
 #' @exportS3Method vec_cast partial_time
 vec_cast.partial_time <- function(x, to, ...) {
-  if (is.partial_time(x)) return(x)
+  if (is.partial_time(x)) {
+    return(x)
+  }
   UseMethod("vec_cast.partial_time")
 }
 
@@ -85,25 +87,24 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #'   "2001",
 #'   "2002-01-01",
 #'   "2004-245", # yearday
-#'   "2005-W13",  # yearweek
-#'   "2006-W02-5",  # yearweek + weekday
+#'   "2005-W13", # yearweek
+#'   "2006-W02-5", # yearweek + weekday
 #'   "2007-10-01T08",
 #'   "2008-09-20T08:35",
-#'   "2009-08-12T08:35.048",  # fractional minute
+#'   "2009-08-12T08:35.048", # fractional minute
 #'   "2010-07-22T08:35:32",
-#'   "2011-06-13T08:35:32.123",  # fractional second
-#'   "2012-05-23T08:35:32.123Z",  # Zulu time
-#'   "2013-04-14T08:35:32.123+05",  # time offset from GMT
-#'   "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-#'   "20150101T083532.123+0530"  # condensed form
+#'   "2011-06-13T08:35:32.123", # fractional second
+#'   "2012-05-23T08:35:32.123Z", # Zulu time
+#'   "2013-04-14T08:35:32.123+05", # time offset from GMT
+#'   "2014-03-24T08:35:32.123+05:30", # time offset with min from GMT
+#'   "20150101T083532.123+0530" # condensed form
 #' )
 #'
 #' as.parttime(dates)
 #'
 #' @exportS3Method vec_cast.partial_time character
 vec_cast.partial_time.character <- function(x, to, ...,
-    format = parse_iso8601_datetime,
-    on.na = warning) {
+  format = parse_iso8601_datetime, on.na = warning) {
 
   if (is.null(on.na)) {
     on.na <- "suppress"
@@ -119,8 +120,11 @@ vec_cast.partial_time.character <- function(x, to, ...,
   }
 
   pttm_mat <- if (length(x) > 0L) {
-    if (is.function(format)) format(x, ...)
-    else parse_to_parttime_matrix(x, regex = format)
+    if (is.function(format)) {
+      format(x, ...)
+    } else {
+      parse_to_parttime_matrix(x, regex = format)
+    }
   } else {
     # parsing function is irrelevant if input has no length, just use default
     parse_to_parttime_matrix(NA_character_)[NULL, , drop = FALSE]
@@ -145,7 +149,7 @@ vec_cast.partial_time.character <- function(x, to, ...,
 #'
 #' @exportS3Method vec_cast.partial_time matrix
 vec_cast.partial_time.matrix <- function(x, to, ...) {
-  stopifnot(ncol(x) == 9)
+  stopifnot(ncol(x) == 7)
   stopifnot(all(datetime_parts %in% colnames(x)))
 
   vctrs::new_rcrd(
@@ -168,23 +172,23 @@ vec_cast.logical.partial_time <- function(x, to, ...) {
 
 
 
-coerce_parital_time_to_POSIXlt <- function(x, tz = "GMT", ...,  warn = TRUE) {
+coerce_partial_time_to_POSIXlt <- function(x, tz = "GMT", ..., warn = TRUE) {
   if (warn) warn_partial(x)
   strptime(
     sprintf(
       "%04.f-%02.f-%02.fT%02.f:%02.f:%02.f.%s+%02.f%02.f",
-      x[, "year"]  %|NA|% 0,
+      x[, "year"] %|NA|% 0,
       x[, "month"] %|NA|% 0,
-      x[, "day"]   %|NA|% 0,
-      x[, "hour"]  %|NA|% 0,
-      x[, "min"]   %|NA|% 0,
-      x[, "sec"]   %|NA|% 0,
-      substring(sprintf("%.03f", x[, "secfrac"] %|NA|% 0), 3),
-      x[, "tzhour"] %|NA|% 0,
-      abs(x[, "tzmin"] %|NA|% 0)
+      x[, "day"] %|NA|% 0,
+      x[, "hour"] %|NA|% 0,
+      x[, "min"] %|NA|% 0,
+      x[, "sec"] %|NA|% 0,
+      substring(sprintf("%.03f", x[, "sec"] %% 1 %|NA|% 0), 3),
+      x[, "tzhour"] %/% 1 %|NA|% 0,
+      x[, "tzhour"] %% 1 * 60 %|NA|% 0
     ),
     format = "%Y-%m-%dT%H:%M:%OS%z",
-    tz = tz,  # sets origin for tz offset - assumes "GMT" as per iso8601
+    tz = tz, # sets origin for tz offset - assumes "GMT" as per iso8601
     ...
   )
 }
@@ -197,15 +201,15 @@ as.character.partial_time <- function(x, ...) {
   out <- rep_len(NA_character_, length(x))
 
   out[nna] <- paste0(
-    ifelse(is.na(x[nna, "year"]),    "", sprintf("%04d",  x[nna, "year"])),
-    ifelse(is.na(x[nna, "month"]),   "", sprintf("-%02d", x[nna, "month"])),
-    ifelse(is.na(x[nna, "day"]),     "", sprintf("-%02d", x[nna, "day"])),
-    ifelse(is.na(x[nna, "hour"]),    "", sprintf(" %02d", x[nna, "hour"])),
-    ifelse(is.na(x[nna, "min"]),     "", sprintf(":%02d", x[nna, "min"])),
-    ifelse(is.na(x[nna, "sec"]),     "", sprintf(":%02d", x[nna, "sec"])),
-    ifelse(is.na(x[nna, "secfrac"]), "", substring(sprintf("%.03f", x[nna, "secfrac"]), 2)),
-    ifelse(is.na(x[nna, "tzhour"]),  "", sprintf(" %02d", x[nna, "tzhour"])),
-    ifelse(is.na(x[nna, "tzmin"]),   "", sprintf("%02d", abs(x[nna, "tzmin"])))
+    ifelse(is.na(x[nna, "year"]), "", sprintf("%04d", x[nna, "year"])),
+    ifelse(is.na(x[nna, "month"]), "", sprintf("-%02d", x[nna, "month"])),
+    ifelse(is.na(x[nna, "day"]), "", sprintf("-%02d", x[nna, "day"])),
+    ifelse(is.na(x[nna, "hour"]), "", sprintf(" %02d", x[nna, "hour"])),
+    ifelse(is.na(x[nna, "min"]), "", sprintf(":%02d", x[nna, "min"])),
+    ifelse(is.na(x[nna, "sec"]), "", sprintf(":%02d", x[nna, "sec"] %/% 1)),
+    ifelse(is.na(x[nna, "sec"]), "", substring(sprintf("%.03f", x[nna, "sec"] %% 1), 2)),
+    ifelse(is.na(x[nna, "tzhour"]), "", sprintf(" %02d", x[nna, "tzhour"] %/% 1)),
+    ifelse(is.na(x[nna, "tzhour"]), "", sprintf("%02d", abs(x[nna, "tzhour"] %% 1 * 60)))
   )
 
   out
@@ -230,7 +234,7 @@ as.matrix.partial_time <- function(x, ...) {
 #' @export
 as.POSIXlt.partial_time <- function(x, ..., warn = TRUE) {
   if (warn) warn_partial(x)
-  coerce_parital_time_to_POSIXlt(x, ..., warn = FALSE)
+  coerce_partial_time_to_POSIXlt(x, ..., warn = FALSE)
 }
 
 

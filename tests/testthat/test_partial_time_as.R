@@ -25,10 +25,7 @@ test_that("as.character can convert partial_time to represenative string format"
       expect_match(pttms_chars[[i]], sprintf("\\b:%02.f\\b", pttms[[i, "min"]]))
 
     if (!is.na(pttms[[i, "sec"]]))
-      expect_match(pttms_chars[[i]], sprintf("\\b:%02.f\\b", pttms[[i, "sec"]]))
-
-    if (!is.na(pttms[[i, "secfrac"]]) && pttms[[i, "secfrac"]] != 0)
-      expect_match(pttms_chars[[i]], substring(sprintf("%.03f\\b", pttms[[i, "secfrac"]]), 2L))
+      expect_match(pttms_chars[[i]], sprintf("\\b:%02.3f\\b", pttms[[i, "sec"]]))
   }
 })
 

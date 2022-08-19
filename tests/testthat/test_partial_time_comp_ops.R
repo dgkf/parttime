@@ -40,8 +40,8 @@ test_that("definitely() excludes uncertainty for overlapping windows", {
 test_that("timezone causes uncertainty in comparison", {
   expect_equal({
     as.logical(
-      parttime(2019, tzhour = NA, tzmin = NA) <
-      parttime(2019, tzhour = NA, tzmin = NA)
+      parttime(2019, tzhour = NA) <
+      parttime(2019, tzhour = NA)
     )
   }, {
     NA
