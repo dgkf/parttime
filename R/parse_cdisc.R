@@ -24,8 +24,12 @@ re_cdisc_datetime <- paste0(
         ")",
       ")?",
       "(?:\\g{colon}",
-        "(?<sec>[0-5]\\d|-)",
-        "(?<secfrac>\\.\\d+)?",
+        "(?<sec>",
+          "[0-5]\\d",
+          "(?<secfrac>\\.\\d+)?",
+        "|",
+          "-",
+        ")",
       ")?",
     ")?",
   ")?$"
@@ -50,9 +54,6 @@ parse_cdisc_datetime <- function(x, warn = TRUE, ...) {
   m <- parse_to_parttime_matrix(x, regex = re_cdisc_datetime)
   m[m == "-"] <- ""
   m <- clean_parsed_parttime_matrix(m)
-
-  i <- !is.na(m[, "sec"]) & is.na(m[, "secfrac"])
-  m[i, "secfrac"] <- 0
 
   first_na <- apply(is.na(m), 1L, Position, f = identity)
   last_val <- apply(!is.na(m), 1L, Position, f = identity)

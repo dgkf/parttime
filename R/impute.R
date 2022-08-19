@@ -5,7 +5,7 @@
 #' @param tz a character timezone name for imputation, a character value to use
 #'   as the timezone part of the datetime or an numeric minute offset.
 #' @param ... additional individual named fields to impute. Can be one of
-#'   "year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour", "tzmin".
+#'   "year", "month", "day", "hour", "min", "sec", "tzhour"
 #'
 #' @return a new partial_time with specified fields imputed
 #'
@@ -130,8 +130,6 @@ impute_time.partial_time <- function(x, time, tz = "GMT", ..., res = NULL) {
   tzhour_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[, "tzhour"])
   vctrs::field(impute_pttm, "pttm_mat")[tzhour_na, "tzhour"] <- tz %/% 60
 
-  tzmin_na <- is.na(vctrs::field(impute_pttm, "pttm_mat")[, "tzmin"])
-  vctrs::field(impute_pttm, "pttm_mat")[tzmin_na, "tzmin"] <- tz %% 60
 
   # recycle imputed partial_time to length of x
   impute_pttm <- vctrs::vec_recycle(impute_pttm, length(x))
@@ -161,8 +159,7 @@ impute_time.matrix <- function(x, time, tz = "GMT", ...) {
   time <- as.matrix(time)
   time <- time[, datetime_parts, drop = FALSE]
 
-  time[is.na(time[, "tzhour"]), "tzhour"] <- tz %/% 60
-  time[is.na(time[, "tzmin"]), "tzmin"] <- tz %% 60
+  time[is.na(time[, "tzhour"]), "tzhour"] <- tz / 60
 
   xna <- is.na(x[,datetime_parts])
   x[, datetime_parts][xna] <- matrix(rep(time, nrow(x)), ncol = ncol(time), byrow = TRUE)[xna]
@@ -193,7 +190,10 @@ impute_partial_time_to_chr <- function(x, time, ...) {
 
   with(fields, sprintf(
     "%04.f-%02.f-%02.f %02.f:%02.f:%02.f.%03.f +%02.f%02.f",
-    year, month, day, hour, min, sec, secfrac * 1000, tzhour, tzmin))
+    year, month, day, hour, min,
+    sec %/% 1, sec %% 1 * 1000,
+    tzhour %/% 1, tzhour %/% 1 * 60
+  ))
 }
 
 

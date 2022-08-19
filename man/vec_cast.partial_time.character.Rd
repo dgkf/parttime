@@ -34,17 +34,17 @@ dates <- c(
   "2001",
   "2002-01-01",
   "2004-245", # yearday
-  "2005-W13",  # yearweek
-  "2006-W02-5",  # yearweek + weekday
+  "2005-W13", # yearweek
+  "2006-W02-5", # yearweek + weekday
   "2007-10-01T08",
   "2008-09-20T08:35",
-  "2009-08-12T08:35.048",  # fractional minute
+  "2009-08-12T08:35.048", # fractional minute
   "2010-07-22T08:35:32",
-  "2011-06-13T08:35:32.123",  # fractional second
-  "2012-05-23T08:35:32.123Z",  # Zulu time
-  "2013-04-14T08:35:32.123+05",  # time offset from GMT
-  "2014-03-24T08:35:32.123+05:30",  # time offset with min from GMT
-  "20150101T083532.123+0530"  # condensed form
+  "2011-06-13T08:35:32.123", # fractional second
+  "2012-05-23T08:35:32.123Z", # Zulu time
+  "2013-04-14T08:35:32.123+05", # time offset from GMT
+  "2014-03-24T08:35:32.123+05:30", # time offset with min from GMT
+  "20150101T083532.123+0530" # condensed form
 )
 
 as.parttime(dates)

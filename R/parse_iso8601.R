@@ -31,8 +31,10 @@ re_iso8601 <- paste0(
       ")?",
       "(?:",
         "\\g{timesep}",
-        "(?<sec>[0-5]\\d)",
-        "(?<secfrac>[\\.,]\\d+)?",
+        "(?<sec>",
+          "[0-5]\\d",
+          "(?<secfrac>[\\.,]\\d+)?",
+        ")",
       ")?",
       "(?<tz>",
         "[zZ]",
@@ -78,11 +80,10 @@ parse_iso8601_datetime <- function(x, warn = TRUE, ...) {
 
   # add sec, secfrac when frac (minfrac) is available
   i <- is_iso8601_minfrac(x)
-  x[i, c("sec", "secfrac")] <- recalc_sec_from_minfrac(x[i, , drop = FALSE])
+  x[i, "sec"] <- recalc_sec_from_minfrac(x[i, , drop = FALSE])
 
-  # fill secfrac when sec is provided
-  i <- is.na(x[, "secfrac"]) & !is.na(x[, "sec"])
-  x[i, "secfrac"] <- 0
+  # collapse tzmin component into tzhour
+  x[, "tzhour"] <- x[, "tzhour"] + (x[, "tzmin"] %|NA|% 0) / 60
 
   # drop iso8601-specific columns
   x[, datetime_parts, drop = FALSE]
@@ -97,8 +98,6 @@ parse_iso8601_datetime <- function(x, warn = TRUE, ...) {
 #' (with the addition of an "inclusive" column), one for the lower- and
 #' upper-bounds of the timespan. Collectively, this amounts to a three
 #' dimensional array.
-#'
-#' @inheritParams parse_iso8601_datetime
 #'
 #' @keywords internal
 #' @rdname parse_parttime
@@ -137,8 +136,6 @@ parse_iso8601_datetime_as_timespan <- function(x, ...) {
 #' additional columns for alternative iso8601 formats such as \code{yearday},
 #' \code{yearweek} and code{weakday}.
 #'
-#' @inheritParams parse_iso8601_datetime
-#'
 #' @keywords internal
 #'
 parse_iso8601_matrix <- function(dates) {
@@ -161,7 +158,7 @@ parse_iso8601_matrix <- function(dates) {
   )
 
   fields <- c("year", "month", "day", "week", "weekday", "yearday", "hour",
-    "min", "frac", "sec", "secfrac", "tzhour", "tzmin")
+    "min", "frac", "sec", "tzhour", "tzmin")
 
   match_m <- match_m[, fields, drop = FALSE]
   storage.mode(match_m) <- "numeric"
@@ -244,5 +241,5 @@ recalc_md_from_yearday <- function(x) {
 #' @keywords internal
 #' @rdname parse_iso8601_helpers
 recalc_sec_from_minfrac <- function(x) {
-  cbind(sec = (x[, "frac"] * 60) %/% 1, secfrac = (x[, "frac"] * 60) %% 1)
+  x[, "frac"] * 60
 }

@@ -238,18 +238,12 @@ methods::setMethod(
 #' @rdname parttime_access_and_assign
 #' @rawNamespace S3method(lubridate::second,partial_time)
 #' @export
-second.partial_time <- function(x) {
-  get_field(x, "sec") + get_field(x, "secfrac")
-}
+second.partial_time <- gen_get_field_fn("sec")
 
 #' @rdname parttime_access_and_assign
 #' @usage \method{second}{partial_time}(x) <- value
 #' @export
-`second<-.partial_time` <- function(x, value) {
-  sec <- trunc(value)
-  secfrac <- value - sec
-  set_field(x, c("sec", "secfrac"), cbind(sec = sec, secfrac = secfrac))
-}
+`second<-.partial_time` <- gen_set_field_fn("sec")
 
 #' @rdname parttime_access_and_assign
 #' @importMethodsFrom lubridate second<-
@@ -268,14 +262,14 @@ methods::setMethod(
 #' @rawNamespace S3method(lubridate::tz,partial_time)
 #' @export
 tz.partial_time <- function(x) {
-  get_field(x, "tzhour") * 60 + get_field(x, "tzmin")
+  get_field(x, "tzhour") * 60
 }
 
 #' @rdname parttime_access_and_assign
 #' @usage \method{tz}{partial_time}(x) <- value
 #' @export
 `tz<-.partial_time` <- function(x, value) {
-  set_field(x, c("tzhour", "tzmin"), cbind(tzhour = value %/% 60, tzmin = value %% 60))
+  set_field(x, "tzhour", value / 60)
 }
 
 
@@ -302,8 +296,7 @@ methods::setMethod(
     vctrs::field(e1, "pttm_mat")[, "day"]     <- day(e1)    + attr(e2, "day")
     vctrs::field(e1, "pttm_mat")[, "hour"]    <- hour(e1)   + attr(e2, "hour")
     vctrs::field(e1, "pttm_mat")[, "min"]     <- minute(e1) + attr(e2, "minute")
-    vctrs::field(e1, "pttm_mat")[, "sec"]     <- second(e1) + e2_secs
-    vctrs::field(e1, "pttm_mat")[, "secfrac"] <- get_field(e1, "secfrac") + (e2 - e2_secs)
+    vctrs::field(e1, "pttm_mat")[, "sec"]     <- second(e1) + attr(e2, "second")
     vctrs::field(e1, "pttm_mat") <- reflow_fields(vctrs::field(e1, "pttm_mat"))
 
     e1

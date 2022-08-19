@@ -11,9 +11,9 @@ to_gmt <- function(x) {
 
 #' @export
 to_gmt.matrix <- function(x) {
-  x[, "hour"] <- x[, "hour"] + x[, "tzhour"]
-  x[, "min"]  <- x[, "min"]  + x[, "tzmin"]
-  x[, c("tzhour", "tzmin")] <- 0
+  x[, "hour"] <- x[, "hour"] + x[, "tzhour"] %/% 1
+  x[, "min"]  <- x[, "min"]  + x[, "tzhour"] %% 1 * 60
+  x[, "tzhour"] <- 0
   reflow_fields(x)
 }
 
@@ -44,6 +44,6 @@ to_gmt.timespan <- function(x) {
 
 prune_tz <- function(x) {
   args <- rep_len(alist(, ), length(dim(x)))
-  args[[2]] <- -which(dimnames(x)[[2]] %in% c("tzhour", "tzmin"))
+  args[[2]] <- -which(dimnames(x)[[2]] %in% "tzhour")
   do.call("[", append(list(x), args))
 }

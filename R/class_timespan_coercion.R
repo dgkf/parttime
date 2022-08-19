@@ -4,7 +4,7 @@
 #' @inheritParams as.parttime
 #'
 #' @export
-as.timespan <- function(x, ..., format = parse_iso8601_as_timespan) {
+as.timespan <- function(x, ..., format = parse_iso8601_datetime_as_timespan) {
   UseMethod("as.timespan")
 }
 

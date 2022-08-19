@@ -16,9 +16,8 @@ obj_print_header.partial_time <- function(x, ...) {
   perc_complete <- apply(!is.na(vctrs::field(x, "pttm_mat")), 2, mean)
 
   # reduce a couple components down to single terms
-  perc_complete["sec"] <- min(perc_complete[c("sec", "secfrac")])
-  perc_complete["tzhour"] <- min(perc_complete[c("tzhour", "tzmin")])
-  perc_complete <- perc_complete[!names(perc_complete) %in% c("secfrac", "tzmin")]
+  perc_complete["sec"] <- perc_complete["sec"]
+  perc_complete["tzhour"] <- perc_complete["tzhour"]
   perc_complete <- perc_complete[datetime_parts]
 
   # get singular timezone if consistent across entire vector
@@ -84,9 +83,9 @@ obj_print_footer.partial_time <- function(x, ...) {
 
 
 tz_consensus <- function(xmat) {
-  if (nrow(xmat) < 1 || !all(c("tzhour", "tzmin") %in% colnames(xmat)))
+  if (nrow(xmat) < 1 || "tzhour" %in% colnames(xmat))
     return(FALSE)
 
-  tzs <- xmat[, c("tzhour", "tzmin"), drop = FALSE] %*% c(100,  1)
+  tzs <- xmat[, "tzhour"]
   if (isTRUE(all(tzs == tzs[1]))) tzs[[1]] else FALSE
 }

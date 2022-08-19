@@ -24,12 +24,12 @@ test_that("partial_time assignment helpers mutate field data", {
   expect_equal(unname(pttms[, "min"]), (1:15 * 4) %% 60)
 
   # second
-  expect_silent(second(pttms) <- (1:15 * 7) %% 60)
-  expect_equal(unname(pttms[, "sec"]), (1:15 * 7) %% 60)
+  expect_silent(second(pttms) <- (1:15 * 7.89) %% 60)
+  expect_equal(unname(pttms[, "sec"]), (1:15 * 7.89) %% 60)
 
   # tz
   expect_silent(tz(pttms) <- 1:15 * 20)
-  expect_equal(unname(pttms[, "tzhour"] * 60 + pttms[, "tzmin"]), 1:15 * 20)
+  expect_equal(unname(pttms[, "tzhour"]), (1:15 * 20) / 60)
 })
 
 test_that("partial_time assignment with out-of-range values reflows fields", {
