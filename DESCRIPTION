@@ -18,10 +18,10 @@ Authors@R:
     )
 Description:
     Datetimes and timestamps are invariably an imprecise notation, with any
-    partial representation representing some implicit uncertainty. To handle
-    this, 'parttime' provides classes for embedding partial missingness as a
-    central part of its datetime classes. This central feature allows for more
-    ergonomic use of datetimes for challenging datetime computation, including
+    partial representation implying some amount of uncertainty. To handle this,
+    'parttime' provides classes for embedding partial missingness as a central
+    part of its datetime classes. This central feature allows for more ergonomic
+    use of datetimes for challenging datetime computation, including
     calculations of overlapping date ranges, imputations, and more thoughtful
     handling of ambiguity that arises from uncertain timezones. This package was
     developed first and foremost with pharmaceutical applcications in mind, but
