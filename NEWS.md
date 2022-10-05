@@ -1,4 +1,4 @@
-# parttime 0.1.0 (dev)
+# parttime 0.1.0
 
 * Reworked `pmax` and `pmin` handling to address edge case failure modes.
   Performance may be impacted. If you identify performance regressions that
