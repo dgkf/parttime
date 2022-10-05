@@ -18,7 +18,7 @@ validate_res <- function(x, res) {
   if (is.character(res))
     res <- match(res, colnames(attr(x, "pttm_lgl")))
 
-  if (!is.finite(res) | res < 1 | res > ncol(attr(x, "pttm_lgl")))
+  if (!is.finite(res) || res < 1 || res > ncol(attr(x, "pttm_lgl")))
     stop("res must be a valid pttm_lgl matrix column index")
 
   res

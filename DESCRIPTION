@@ -1,8 +1,9 @@
 Package: parttime
 Type: Package
 Title: A package for partial datetime format handling
-Version: 0.0.1.30
-Authors@R: c(
+Version: 0.1.0
+Authors@R:
+    c(
       person(
         "Doug","Kelkhoff", 
         email = "doug.kelkhoff@gmail.com",
@@ -15,12 +16,25 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-5759-428X")
       )
     )
-Description: A package for partial datetime format handling.
+Description:
+    Datetimes and timestamps are invariably an imprecise notation, with any
+    partial representation representing some implicit uncertainty. To handle
+    this, 'parttime' provides classes for embedding partial missingness as a
+    central part of its datetime classes. This central feature allows for more
+    ergonomic use of datetimes for challenging datetime computation, including
+    calculations of overlapping date ranges, imputations, and more thoughtful
+    handling of ambiguity that arises from uncertain timezones. This package was
+    developed first and foremost with pharmaceutical applcications in mind, but
+    aims to be agnostic to application to accommodate general usecases just as
+    conveniently.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
 BugReports: https://www.github.com/dgkf/parttime/issues
+URL:
+    https://dgkf.github.io/parttime/,
+    https://github.com/dgkf/parttime
 Depends:
     R (>= 3.6)
 Imports:
@@ -38,4 +52,3 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://dgkf.github.io/parttime/, https://github.com/dgkf/parttime
