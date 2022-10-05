@@ -127,21 +127,29 @@ eq_parttimes <- function(generic, e1, e2) {
 #' @param e2 objects
 #'
 #' @examples
-#'                                        # when assume_tz "GMT"         when assume_tz NA
-#'                                        # ---------------------------  ---------------------------
-#'                                        # raw    possibly  definitely   raw   possibly  definitely
-#'                                        # -----  --------- -----------  ----- --------- -----------
-#' parttime(1998) < parttime(1999)        # TRUE   TRUE      TRUE         NA    TRUE      FALSE
-#' parttime(1998) < parttime(1997)        # FALSE  FALSE     FALSE        NA    TRUE      FALSE
-#' parttime(1999) < parttime(1999)        # NA     TRUE      FALSE        NA    TRUE      FALSE
-#' parttime(1998) < parttime(1999, 1, 3)  # TRUE   TRUE      TRUE         TRUE  TRUE      TRUE
+#' #                 when assume_tz "GMT"         when assume_tz NA
+#' #                 ---------------------------  ---------------------------
+#' #                 raw    possibly  definitely  raw   possibly  definitely
+#' #                 -----  --------- ----------  ----- --------- -----------
+#' #     1998 < 1999 TRUE   TRUE      TRUE        NA    TRUE      FALSE
+#' #     1998 < 1997 FALSE  FALSE     FALSE       NA    TRUE      FALSE
+#' #     1999 < 1999 NA     TRUE      FALSE       NA    TRUE      FALSE
+#' # 1998 < 1999/1/3 TRUE   TRUE      TRUE        TRUE  TRUE      TRUE
 #'
+#' parttime(1998) < parttime(1999)
+#' parttime(1998) < parttime(1997)
+#' parttime(1999) < parttime(1999)
+#' parttime(1998) < parttime(1999, 1, 3)
+#'
+#' @seealso possibly definitely
 #' @export
 Ops.partial_time <- function(e1, e2) {
-  f <- switch(.Generic,
+  f <- switch(
+    .Generic,
     "==" = eq_parttimes,
     "!=" = neq_parttimes,
-    NULL)
+    NULL
+  )
 
   if (!is.null(f)) return(f(.Generic, e1, e2))
   do.call(.Generic, list(as.timespan(e1), as.timespan(e2)))
@@ -156,14 +164,16 @@ Ops.partial_time <- function(e1, e2) {
 #'
 #' @export
 Ops.timespan <- function(e1, e2) {
-  f <- switch(.Generic,
+  f <- switch(
+    .Generic,
     ">"  = gt_lt_gte_lte_timespans,
     "<"  = gt_lt_gte_lte_timespans,
     ">=" = gt_lt_gte_lte_timespans,
     "<=" = gt_lt_gte_lte_timespans,
     # "==" = eq_neq_timespans,
     # "!=" = eq_neq_timespans,
-    NULL)
+    NULL
+  )
 
   if (is.null(f))
     warning(sprintf("'%s' not defined for \"timespan\" objects", .Generic))

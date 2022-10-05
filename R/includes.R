@@ -27,8 +27,11 @@ includes.partial_time <- function(e1, e2) {
 #' @inheritParams includes
 #'
 #' @examples
-#' x <- as.parttime(c("2019", "2019-03-01", "2019-03",    "2018",    "",     "2018", ""))
-#' y <- as.parttime(c("2019", "2019-03",    "2019-03-01", "2016-05", "2018", "",     ""))
+#' x_chr <- c("2019", "2019-03-01", "2019-03",    "2018",    "",     "2018", "")
+#' y_chr <- c("2019", "2019-03",    "2019-03-01", "2016-05", "2018", "",     "")
+#'
+#' x <- as.parttime(x_chr)
+#' y <- as.parttime(y_chr)
 #'
 #' includes(x, y)
 #'

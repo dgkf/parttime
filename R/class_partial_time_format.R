@@ -83,7 +83,7 @@ format_field_matrix <- function(x,
     pillar::style_subtle(":"),
     format_field(x[, "sec"] %/% 1, 2),
     ifelse(
-      (r <- round(x[, "sec"] %% 1, 3)) == 0,
+      is.na(x[,"sec"]) | (r <- round(x[, "sec"] %% 1, 3)) == 0,
       "",
       substring(format_field(r, fmt = "%.3f"), 2)
     )

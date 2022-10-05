@@ -1,4 +1,8 @@
-# parttime 0.0.2 (dev)
+# parttime 0.1.0 (dev)
+
+* Reworked `pmax` and `pmin` handling to address edge case failure modes.
+  Performance may be impacted. If you identify performance regressions that
+  impact your work, please file a ticket. (#35, @dgkf)
 
 * Renamed `parse_iso8601` to `parse_iso8601_datetime` to prepare for
   introduction of an alternative parser for iso8601 timespans. (#38, @dgkf)
