@@ -1,15 +1,36 @@
+#' Full parttime class name
+#'
+#' @param x A `partial_time` object
+#'
+#' @return A `character` representation of the `partial_time` class name
+#'
 #' @importFrom vctrs vec_ptype_full
 #' @exportS3Method vctrs::vec_ptype_full partial_time
 vec_ptype_full.partial_time <- function(x) "partial_time"
 
 
 
+#' Abbreviated partial time class name
+#'
+#' @param x A `partial_time` object
+#'
+#' @return A `character` representation of the abbreviated `partial_time` class
+#'   name
+#'
 #' @importFrom vctrs vec_ptype_abbr
 #' @exportS3Method vctrs::vec_ptype_abbr partial_time
 vec_ptype_abbr.partial_time <- function(x) "pttm"
 
 
 
+#' parttime output header
+#'
+#' @param x A `partial_time` object
+#' @param ... Additional arguments unused
+#'
+#' @return A `character` representation of `partial_time` metadata, as used to
+#'   describe its vector output header
+#'
 #' @importFrom vctrs obj_print_header
 #' @exportS3Method vctrs::obj_print_header partial_time
 obj_print_header.partial_time <- function(x, ...) {
@@ -59,6 +80,13 @@ obj_print_header.partial_time <- function(x, ...) {
 
 
 
+#' parttime data output
+#'
+#' @param x A `partial_time` object
+#' @param ... Additional arguments unused
+#'
+#' @return A `character` representation of `partial_time`
+#'
 #' @importFrom vctrs obj_print_data
 #' @exportS3Method vctrs::obj_print_data partial_time
 obj_print_data.partial_time <- function(x, ...) {
@@ -69,6 +97,14 @@ obj_print_data.partial_time <- function(x, ...) {
 
 
 
+#' parttime footer
+#'
+#' @param x A `partial_time` object
+#' @param ... Additional arguments unused
+#'
+#' @return A string output when `partial_time` vector printing exceeds max print
+#'   length.
+#'
 #' @importFrom vctrs obj_print_footer
 #' @exportS3Method vctrs::obj_print_footer partial_time
 obj_print_footer.partial_time <- function(x, ...) {

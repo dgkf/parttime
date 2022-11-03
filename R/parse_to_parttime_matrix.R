@@ -1,16 +1,19 @@
 #' Parse a character vector to create a matrix of datetime fields
 #'
-#' @param dates character vector of dates to parse for iso8601 components
-#' @param regex A regular expression used for parsing parttime strings. Defaults
-#'   to a parser for the ISO8601 standard. Should include named capture groups
-#'   for each datetime field. See Details for more information.
-#'
 #' @details
 #' A format regular expression should separate the components of a valid
 #' datetime string, capturing strings which can be coerced to numeric values for
 #' each of the nine datetime fields:
 #'
 #' `r paste(c("\\itemize{", sprintf("  \\item{\\code{%s}}", datetime_parts), "}"), collapse = "\n")`
+#'
+#' @param dates character vector of dates to parse for iso8601 components
+#' @param regex A regular expression used for parsing parttime strings. Defaults
+#'   to a parser for the ISO8601 standard. Should include named capture groups
+#'   for each datetime field. See Details for more information.
+#'
+#' @return A character matrix of capture fields provided by the provided regular
+#'   expression
 #'
 #' @rdname parse_parttime
 #' @export

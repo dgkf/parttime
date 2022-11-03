@@ -13,6 +13,11 @@
 
 \item{...}{additional arguments unused}
 }
+\value{
+A logical vector indicating whether the partial time comparison is
+possibly or definitely true provided any uncertainty represented in the
+\code{partial_time} inputs.
+}
 \description{
 Determine whether a partial_time logical matrix is possibly TRUE
 }

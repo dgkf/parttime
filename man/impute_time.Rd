@@ -53,7 +53,8 @@ to impute all fields. For the \code{impute_date} family of functions,
 defaults to \code{"day"}, or \code{NULL} otherwise.}
 }
 \value{
-a new partial_time with specified fields imputed
+a new \code{partial_time} with specified fields imputed by values provided
+by the imputation \code{time}
 }
 \description{
 Impute a partial time object with a timestamp or specific fields

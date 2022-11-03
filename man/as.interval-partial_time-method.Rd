@@ -13,6 +13,9 @@
 
 \item{...}{additional arguments to pass to as.interval}
 }
+\value{
+A \code{partial_timespan} vector
+}
 \description{
 Wrapper for lubridate as.interval
 }

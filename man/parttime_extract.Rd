@@ -37,6 +37,18 @@ invalid dates, but saves on compute. Generally, it should only be disabled
 when multiple calculations are performed back-to-back and the dates only
 need to be reflowed once at the end of the calculation.}
 }
+\value{
+A numeric matrix subset of the \code{partial_time} internal matrix
+representation. See the Details section of \link{parttime} for further
+information.
+
+A \code{numeric} vector of the provided parttime field
+
+the new value of the assigned \code{partial_time} object after
+modification.
+
+A \code{partial_time} vector after modification
+}
 \description{
 Indexing operators repurpose matrix indexing for indexing into parttime
 fields. When only \code{i} is provided, the \code{parttime} vector is sliced.

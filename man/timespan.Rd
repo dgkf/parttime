@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_timespan.R
 \name{timespan}
 \alias{timespan}
-\title{Create a timespan object}
+\title{Create a partial timespan object}
 \usage{
 timespan(start, end, inclusive = c(TRUE, FALSE))
 }
@@ -15,6 +15,22 @@ timespan(start, end, inclusive = c(TRUE, FALSE))
 two logical values indicating whether the timespan start and end are
 inclusive respectively}
 }
+\value{
+A \code{partial_timespan} object. See Details for further information.
+}
 \description{
-Create a timespan object
+Create a partial timespan object
+}
+\details{
+Partial timespans are vector representations of an array of (possibly
+missing) datetime fields. They represent timespans while accounting for the
+possibility that their start and end might not be fully known. The start and
+end are represented similarly to \code{partial_time} objects, and represent a
+lower and upper bound for the timespan, and may be either inclusive or
+exclusive.
+
+Internally, \code{partial_timespan} objects are represented as a three-dimensional
+array of partial time fields, with an added column representing whether each
+time is inclusive or exclusive. You may inspect this representation using
+\verb{vctrs::field(<tmspn>, "tmspn_arr")}.
 }

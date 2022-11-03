@@ -11,17 +11,34 @@
 
 \item{e2}{objects}
 }
+\value{
+the binary operator result of \code{partial_time} \code{e1} with \code{e2}. See
+Details for more information on operator behaviors.
+}
 \description{
 Handler for Ops generics for partial_time objects
 }
+\details{
+\code{partial_time} objects only implement binary operators \code{==} and \code{!=}. For
+other operators, \code{partial_time}s are first converted to \code{partial_timespan}s
+for operator evaluation.
+}
 \examples{
-                                       # when assume_tz "GMT"         when assume_tz NA
-                                       # ---------------------------  ---------------------------
-                                       # raw    possibly  definitely   raw   possibly  definitely
-                                       # -----  --------- -----------  ----- --------- -----------
-parttime(1998) < parttime(1999)        # TRUE   TRUE      TRUE         NA    TRUE      FALSE
-parttime(1998) < parttime(1997)        # FALSE  FALSE     FALSE        NA    TRUE      FALSE
-parttime(1999) < parttime(1999)        # NA     TRUE      FALSE        NA    TRUE      FALSE
-parttime(1998) < parttime(1999, 1, 3)  # TRUE   TRUE      TRUE         TRUE  TRUE      TRUE
+#                 when assume_tz "GMT"         when assume_tz NA
+#                 ---------------------------  ---------------------------
+#                 raw    possibly  definitely  raw   possibly  definitely
+#                 -----  --------- ----------  ----- --------- -----------
+#     1998 < 1999 TRUE   TRUE      TRUE        NA    TRUE      FALSE
+#     1998 < 1997 FALSE  FALSE     FALSE       NA    TRUE      FALSE
+#     1999 < 1999 NA     TRUE      FALSE       NA    TRUE      FALSE
+# 1998 < 1999/1/3 TRUE   TRUE      TRUE        TRUE  TRUE      TRUE
 
+parttime(1998) < parttime(1999)
+parttime(1998) < parttime(1997)
+parttime(1999) < parttime(1999)
+parttime(1998) < parttime(1999, 1, 3)
+
+}
+\seealso{
+possibly definitely
 }

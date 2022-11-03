@@ -3,6 +3,9 @@
 #' @param x an object to cast
 #' @inheritParams as.parttime
 #'
+#' @return A `partial_time` object. See the Details section of \link{timespan}
+#'   for more information.
+#'
 #' @export
 as.timespan <- function(x, ..., format = parse_iso8601_datetime_as_timespan) {
   UseMethod("as.timespan")
@@ -20,6 +23,7 @@ as.timespan.default <- function(x, ...) {
 #' Cast to timespan object
 #'
 #' @inheritParams vctrs::vec_cast
+#' @return A `partial_timespan` vector
 #'
 #' @importFrom vctrs vec_cast
 #' @exportS3Method vec_cast timespan
@@ -34,6 +38,7 @@ vec_cast.timespan <- function(x, to, ...) {
 #' Default handler for casting to a timespan
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inherit vec_cast.timespan return
 #'
 #' @importFrom vctrs stop_incompatible_cast vec_recycle
 #' @exportS3Method vec_cast.timespan default
@@ -49,6 +54,7 @@ vec_cast.timespan.default <- function(x, to, ...) {
 #'
 #' @inheritParams vctrs::vec_cast
 #' @inheritParams as.timespan
+#' @inherit vec_cast.timespan return
 #'
 #' @exportS3Method vec_cast.timespan character
 #'
@@ -65,6 +71,8 @@ vec_cast.timespan.character <- function(
 #' Cast partial time to timespan, representing uncertainty as a range
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inherit vec_cast.timespan return
+#'
 #' @exportS3Method vec_cast.timespan partial_time
 vec_cast.timespan.partial_time <- function(x, to, ...) {
   timespan(
@@ -79,6 +87,8 @@ vec_cast.timespan.partial_time <- function(x, to, ...) {
 #' Cast an array to a timespan
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inherit vec_cast.timespan return
+#'
 #' @exportS3Method vec_cast.timespan numeric
 vec_cast.timespan.numeric <- function(x, to, ...) {
   vctrs::new_rcrd(
@@ -92,5 +102,7 @@ vec_cast.timespan.numeric <- function(x, to, ...) {
 #' Cast an array to a timespan
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inherit vec_cast.timespan return
+#'
 #' @exportS3Method vec_cast.timespan double
 vec_cast.timespan.double <- vec_cast.timespan.numeric

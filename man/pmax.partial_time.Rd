@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_partial_time_min_max.R
 \name{pmax.partial_time}
 \alias{pmax.partial_time}
-\title{Get the elementwise maximum of vectors of partial_time objects}
+\title{Get the elementwise maximum of parttime vectors}
 \usage{
 \method{pmax}{partial_time}(..., na.rm = FALSE)
 }
@@ -12,8 +12,13 @@
 \item{na.rm}{a logical indicating whether missing values should be
     removed.}
 }
+\value{
+A \code{partial_time} vector with length equal to the maximum length of
+the vectors provided where each value is the maximum of the recycled values
+of each vector argument.
+}
 \description{
-Get the elementwise maximum of vectors of partial_time objects
+Get the elementwise maximum of parttime vectors
 }
 \examples{
 pmax(

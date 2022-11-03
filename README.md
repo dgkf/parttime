@@ -3,7 +3,8 @@
 
 <!-- badges: start -->
 
-[![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)]()
+[![CRAN](https://img.shields.io/cran/v/parttime.svg)](https://cran.r-project.org/package=parttime)
+![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)\]
 [![R-CMD-check](https://github.com/dgkf/parttime/workflows/R-CMD-check/badge.svg)](https://github.com/dgkf/parttime/actions)
 [![Coverage](https://codecov.io/gh/dgkf/parttime/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=main)
 <!-- badges: end -->
@@ -23,11 +24,11 @@ feature by offering the `partial_time` datetime class.
 
 This includes:
 
--   parsing of a wider range of datetime string formats
--   internal representations that captures date component missingness
--   overloading of operators for comparison
--   mechanisms for resolving datetime uncertainty
--   imputation
+- parsing of a wider range of datetime string formats
+- internal representations that captures date component missingness
+- overloading of operators for comparison
+- mechanisms for resolving datetime uncertainty
+- imputation
 
 ## Overview
 
@@ -60,17 +61,17 @@ year(pttms[1])
 
 month(pttms[2]) <- 3
 pttms
-## <partial_time<YMDhmsZ>[2]> 
+## <partial_time<YMDhms+tz>[2]> 
 ## [1] "2022"    "2022-03"
 
 month(pttms[1]) <- 3
 pttms
-## <partial_time<YMDhmsZ>[2]> 
+## <partial_time<YMDhms+tz>[2]> 
 ## [1] "2022-03" "2022-03"
 
 month(pttms) <- NA
 pttms
-## <partial_time<YMDhmsZ>[2]> 
+## <partial_time<YMDhms+tz>[2]> 
 ## [1] "2022" "2022"
 ```
 
@@ -116,8 +117,8 @@ impute_date_max(pttms[2])  # resolve date fields with maximum value
 ## [1] "2022-02-28"
 
 impute_time(pttms[1], "1999-06-05T04:03:02")  # arbitrary imputation
-## <partial_time<YMDhmsZ>[1]> 
-## [1] "2022-06-05 04:03:02.000"
+## <partial_time<YMDhms+tz>[1]> 
+## [1] "2022-06-05 04:03:02"
 ```
 
 ## The `partial_time` class
@@ -167,14 +168,14 @@ as.parttime(iso8601_dates)
 ## represented. To avoid loss of datetime resolution, such partial dates
 ## are best represented as timespans. See `?timespan`.
 ## <partial_time<YMDhms+tz>[15]> 
-##  [1] NA                             "2001"                        
-##  [3] "2002-01-01"                   "2004-09-01"                  
-##  [5] "2005"                         "2006-01-12"                  
-##  [7] "2007-10-01 08"                "2008-09-20 08:35"            
-##  [9] "2009-08-12 08:35:02.880"      "2010-07-22 08:35:32.000"     
-## [11] "2011-06-13 08:35:32.123"      "2012-05-23 08:35:32.123"     
-## [13] "2013-04-14 08:35:32.123+0500" "2014-03-24 08:35:32.123+0530"
-## [15] "2015-01-01 08:35:32.123+0530"
+##  [1] NA                              "2001"                         
+##  [3] "2002-01-01"                    "2004-09-01"                   
+##  [5] "2005"                          "2006-01-12"                   
+##  [7] "2007-10-01 08"                 "2008-09-20 08:35"             
+##  [9] "2009-08-12 08:35:02.880"       "2010-07-22 08:35:32"          
+## [11] "2011-06-13 08:35:32.123"       "2012-05-23 08:35:32.123"      
+## [13] "2013-04-14 08:35:32.123+05:00" "2014-03-24 08:35:32.123+05:30"
+## [15] "2015-01-01 08:35:32.123+05:30"
 ```
 
 ## Imputing Timestamps
@@ -264,23 +265,23 @@ tibble(dates = iso8601_dates) %>%
 ## represented. To avoid loss of datetime resolution, such partial dates
 ## are best represented as timespans. See `?timespan`.
 ## # A tibble: 15 × 3
-##    dates               parttimes                    imputed_times               
-##    <chr>               <pttm>                       <pttm>                      
-##  1 <NA>                NA                           NA                          
-##  2 2001                2001                         2001-01-01 00:00:00.000-1200
-##  3 2002-01-01          2002-01-01                   2002-01-01 00:00:00.000-1200
-##  4 2004-245            2004-09-01                   2004-09-01 00:00:00.000-1200
-##  5 2005-W13            2005                         2005-01-01 00:00:00.000-1200
-##  6 2006-W02-5          2006-01-12                   2006-01-12 00:00:00.000-1200
-##  7 2007-10-01T08       2007-10-01 08                2007-10-01 08:00:00.000-1200
-##  8 2008-09-20T08:35    2008-09-20 08:35             2008-09-20 08:35:00.000-1200
-##  9 2009-08-12T08:35.0… 2009-08-12 08:35:02.880      2009-08-12 08:35:02.880-1200
-## 10 2010-07-22T08:35:32 2010-07-22 08:35:32.000      2010-07-22 08:35:32.000-1200
-## 11 2011-06-13T08:35:3… 2011-06-13 08:35:32.123      2011-06-13 08:35:32.123-1200
-## 12 2012-05-23T08:35:3… 2012-05-23 08:35:32.123+0000 2012-05-23 08:35:32.123+0000
-## 13 2013-04-14T08:35:3… 2013-04-14 08:35:32.123+0500 2013-04-14 08:35:32.123+0500
-## 14 2014-03-24T08:35:3… 2014-03-24 08:35:32.123+0530 2014-03-24 08:35:32.123+0530
-## 15 20150101T083532.12… 2015-01-01 08:35:32.123+0530 2015-01-01 08:35:32.123+0530
+##    dates            parttimes                     imputed_times                 
+##    <chr>            <pttm>                        <pttm>                        
+##  1 <NA>             NA                            NA                            
+##  2 2001             2001                          2001-01-01 00:00:00+-12:00    
+##  3 2002-01-01       2002-01-01                    2002-01-01 00:00:00+-12:00    
+##  4 2004-245         2004-09-01                    2004-09-01 00:00:00+-12:00    
+##  5 2005-W13         2005                          2005-01-01 00:00:00+-12:00    
+##  6 2006-W02-5       2006-01-12                    2006-01-12 00:00:00+-12:00    
+##  7 2007-10-01T08    2007-10-01 08                 2007-10-01 08:00:00+-12:00    
+##  8 2008-09-20T08:35 2008-09-20 08:35              2008-09-20 08:35:00+-12:00    
+##  9 2009-08-12T08:3… 2009-08-12 08:35:02.880       2009-08-12 08:35:02.880+-12:00
+## 10 2010-07-22T08:3… 2010-07-22 08:35:32           2010-07-22 08:35:32+-12:00    
+## 11 2011-06-13T08:3… 2011-06-13 08:35:32.123       2011-06-13 08:35:32.123+-12:00
+## 12 2012-05-23T08:3… 2012-05-23 08:35:32.123-00:00 2012-05-23 08:35:32.123-00:00 
+## 13 2013-04-14T08:3… 2013-04-14 08:35:32.123+05:00 2013-04-14 08:35:32.123+05:00 
+## 14 2014-03-24T08:3… 2014-03-24 08:35:32.123+05:30 2014-03-24 08:35:32.123+05:30 
+## 15 20150101T083532… 2015-01-01 08:35:32.123+05:30 2015-01-01 08:35:32.123+05:30
 ```
 
 # Roadmap

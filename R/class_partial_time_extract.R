@@ -13,6 +13,10 @@
 #' @inheritParams base::`[`
 #' @param ... arguments unused
 #'
+#' @return A numeric matrix subset of the `partial_time` internal matrix
+#'   representation. See the Details section of \link{parttime} for further
+#'   information.
+#'
 #' @examples
 #' x <- as.parttime(c("2019", "2019-02", "2019-02-02"))
 #' # <partial_time<YMDhms+tz>[3]>
@@ -51,6 +55,7 @@
 
 
 #' @rdname parttime_extract
+#' @return A `numeric` vector of the provided parttime field
 #' @export
 `[[.partial_time` <- function(x, i, j, ..., value) {
   if (!missing(j)) {
@@ -76,6 +81,9 @@
 #'   need to be reflowed once at the end of the calculation.
 #' @inheritParams base::`[<-`
 #' @param ... arguments unused
+#'
+#' @return the new value of the assigned `partial_time` object after
+#'   modification.
 #'
 #' @examples
 #' x <- as.parttime(c("2019", "2019-02", "2019-02-02"))
@@ -122,6 +130,7 @@
 
 
 #' @rdname parttime_extract
+#' @return A `partial_time` vector after modification
 #' @export
 `[[<-.partial_time` <- function(x, i, ..., value) {
   x[i, ...] <- value

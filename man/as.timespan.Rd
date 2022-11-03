@@ -19,6 +19,10 @@ exprssion which contains capture groups for each of the parttime
 components.  See \link{parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
 }
+\value{
+A \code{partial_time} object. See the Details section of \link{timespan}
+for more information.
+}
 \description{
 Cast an object to a timespan
 }

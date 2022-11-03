@@ -3,6 +3,10 @@
 #' @param x an uncertain object to resolve
 #' @param ... additional paramters used by class-specific functions
 #'
+#' @return A logical vector indicating whether the partial time comparison is
+#'   possibly or definitely true provided any uncertainty represented in the
+#'   `partial_time` inputs.
+#'
 #' @family uncert-resolvers
 #'
 #' @export
@@ -17,6 +21,10 @@ definitely <- function(x, ...) {
 #' @param x a partial_time_logical matrix for coersion
 #' @param by the resolution of assessment, a column or index
 #' @param ... additional arguments unused
+#'
+#' @return A logical vector indicating whether the partial time comparison is
+#'   possibly or definitely true provided any uncertainty represented in the
+#'   `partial_time` inputs.
 #'
 #' @examples
 #'
@@ -42,6 +50,7 @@ definitely.partial_time_logical <- function(x,
 #' "Possibly" generic for resolving uncertainty
 #'
 #' @inheritParams definitely
+#' @inherit definitely return
 #'
 #' @family uncert-resolvers
 #'
@@ -55,6 +64,7 @@ possibly <- function(x, ...) {
 #' Determine whether a partial_time logical matrix is possibly TRUE
 #'
 #' @inheritParams definitely.partial_time_logical
+#' @inherit definitely return
 #'
 #' @examples
 #'

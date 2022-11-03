@@ -1,3 +1,10 @@
+#' Concatenate parttimes
+#'
+#' @inheritParams base::c
+#'
+#' @return A `partial_time` vector. An error is raised if any other class object
+#'   is attempted to be concatenated.
+#'
 #' @export
 c.partial_time <- function(...) {
   xs <- list(...)

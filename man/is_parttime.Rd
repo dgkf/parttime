@@ -18,6 +18,10 @@ is.parttime(x)
 \arguments{
 \item{x}{object to test}
 }
+\value{
+A logical scalar indicating whether an object is a \code{partial_time}
+object.
+}
 \description{
 Shorthand for checking partial time inheritance
 }

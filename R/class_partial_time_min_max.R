@@ -34,11 +34,13 @@ min_max_parttime_matrix_list <- function(f, x, na.rm = FALSE, na.warn = TRUE) {
 
 
 
-#' Get the maximum of a vector of partial_time objects
+#' Get the maximum of a parttime vector
 #'
 #' @param ... partial_time objects
 #' @param na.rm whether \code{NA} should be removed when calculating max
 #' @param na.warn whether to raise a warning for \code{NA}
+#'
+#' @return A `partial_time` scalar
 #'
 #' @examples
 #' max(parttime(c("2019", "2018", "2019-02", "2018-03")))
@@ -50,11 +52,13 @@ max.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
 
 
 
-#' Get the minimum of a vector of partial_time objects
+#' Get the minimum of aparttime vector
 #'
 #' @param ... partial_time objects
 #' @param na.rm whether \code{NA} should be removed when calculating min
 #' @param na.warn whether to raise a warning for \code{NA}
+#'
+#' @return A `partial_time` scalar
 #'
 #' @export
 min.partial_time <- function(..., na.rm = FALSE, na.warn = TRUE) {
@@ -98,9 +102,14 @@ pmax.default <- function(..., na.rm = FALSE) {
 
 
 
-#' Get the elementwise maximum of vectors of partial_time objects
+#' Get the elementwise maximum of parttime vectors
 #'
 #' @inheritParams base::pmax
+#'
+#' @return A `partial_time` vector with length equal to the maximum length of
+#'   the vectors provided where each value is the maximum of the recycled values
+#'   of each vector argument.
+#'
 #' @examples
 #' pmax(
 #'   parttime(c("2019", "2018", "2019-02", "2018",    "2010")),
@@ -129,9 +138,14 @@ pmin.default <- function(..., na.rm = FALSE) {
 
 
 
-#' Get the elementwise minimum of vectors of partial_time objects
+#' Get the elementwise minimum of parttime vectors
 #'
 #' @inheritParams base::pmin
+#'
+#' @return A `partial_time` vector with length equal to the maximum length of
+#'   the vectors provided where each value is the minimum of the recycled values
+#'   of each vector argument.
+#'
 #' @export
 pmin.partial_time <- function(..., na.rm = FALSE) {
   pmin_pmax_handler(base::min, ..., na.rm = na.rm)

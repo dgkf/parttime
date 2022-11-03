@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_partial_time_min_max.R
 \name{min.partial_time}
 \alias{min.partial_time}
-\title{Get the minimum of a vector of partial_time objects}
+\title{Get the minimum of aparttime vector}
 \usage{
 \method{min}{partial_time}(..., na.rm = FALSE, na.warn = TRUE)
 }
@@ -13,6 +13,9 @@
 
 \item{na.warn}{whether to raise a warning for \code{NA}}
 }
+\value{
+A \code{partial_time} scalar
+}
 \description{
-Get the minimum of a vector of partial_time objects
+Get the minimum of aparttime vector
 }

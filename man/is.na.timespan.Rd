@@ -11,6 +11,10 @@
 
 \item{...}{additional arguments unused}
 }
+\value{
+A logical vector indicating whether each element in the
+\code{partial_timespan} vector is \code{NA}.
+}
 \description{
 Check if elements of a partial time vector is NA
 }

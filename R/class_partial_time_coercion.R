@@ -13,6 +13,9 @@
 #' @param ... Additional arguments passed to `format` when a function is
 #'   provided.
 #'
+#' @return `parttime` vector. See the Details section of \link{parttime} for
+#'   further information.
+#'
 #' @examples
 #' as.parttime(c("1985-10-18", "1991-08-23", "1996-09-26"))
 #' # <partial_time<YMDhmsZ>[3]>
@@ -51,6 +54,8 @@ as.parttime <- function(x, ..., format = parse_iso8601_datetime, on.na = "warnin
 #' Cast to partial time object
 #'
 #' @inheritParams vctrs::vec_cast
+#' @return A `partial_time` vector
+#'
 #' @exportS3Method vec_cast partial_time
 vec_cast.partial_time <- function(x, to, ...) {
   if (is.partial_time(x)) {
@@ -64,6 +69,8 @@ vec_cast.partial_time <- function(x, to, ...) {
 #' Default handler for casting to a partial time
 #'
 #' @inheritParams vctrs::vec_cast
+#'
+#' @return A `partial_time` vector
 #'
 #' @importFrom vctrs stop_incompatible_cast
 #' @exportS3Method vec_cast.partial_time default
@@ -80,6 +87,8 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #'   provided.
 #' @inheritParams vctrs::vec_cast
 #' @inheritParams as.parttime
+#'
+#' @return A `partial_time` vector
 #'
 #' @examples
 #' dates <- c(
@@ -147,6 +156,8 @@ vec_cast.partial_time.character <- function(x, to, ...,
 #'
 #' @inheritParams vctrs::vec_cast
 #'
+#' @return A `partial_time` vector
+#'
 #' @exportS3Method vec_cast.partial_time matrix
 vec_cast.partial_time.matrix <- function(x, to, ...) {
   stopifnot(ncol(x) == 7)
@@ -163,6 +174,8 @@ vec_cast.partial_time.matrix <- function(x, to, ...) {
 #' Cast partial time to logical
 #'
 #' @inheritParams vctrs::vec_cast
+#'
+#' @return A `partial_time` vector
 #'
 #' @importFrom vctrs vec_cast.logical
 #' @exportS3Method vec_cast.logical partial_time

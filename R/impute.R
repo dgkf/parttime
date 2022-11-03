@@ -7,7 +7,8 @@
 #' @param ... additional individual named fields to impute. Can be one of
 #'   "year", "month", "day", "hour", "min", "sec", "tzhour"
 #'
-#' @return a new partial_time with specified fields imputed
+#' @return a new `partial_time` with specified fields imputed by values provided
+#'   by the imputation `time`
 #'
 #' @rdname impute_time
 #'

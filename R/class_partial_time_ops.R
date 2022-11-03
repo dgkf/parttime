@@ -126,6 +126,14 @@ eq_parttimes <- function(generic, e1, e2) {
 #' @param e1 objects
 #' @param e2 objects
 #'
+#' @details
+#' `partial_time` objects only implement binary operators `==` and `!=`. For
+#' other operators, `partial_time`s are first converted to `partial_timespan`s
+#' for operator evaluation.
+#'
+#' @return the binary operator result of `partial_time` `e1` with `e2`. See
+#'   Details for more information on operator behaviors.
+#'
 #' @examples
 #' #                 when assume_tz "GMT"         when assume_tz NA
 #' #                 ---------------------------  ---------------------------
@@ -161,6 +169,11 @@ Ops.partial_time <- function(e1, e2) {
 #'
 #' @param e1 objects
 #' @param e2 objects
+#'
+#' @details
+#'
+#' @return the binary operator result of `partial_timespan` `e1` with `e2`. See
+#'   Details for more information on operator behaviors.
 #'
 #' @export
 Ops.timespan <- function(e1, e2) {

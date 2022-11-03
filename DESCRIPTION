@@ -1,18 +1,18 @@
 Package: parttime
 Type: Package
-Title: A package for partial datetime format handling
+Title: Partial Datetime Handling
 Version: 0.1.0
 Authors@R:
     c(
       person(
-        "Doug","Kelkhoff", 
+        "Doug","Kelkhoff",
         email = "doug.kelkhoff@gmail.com",
         role = c("aut", "cre")
       ),
       person(
-        "Bill", "Denney", 
-        email = "wdenney@humanpredictions.com", 
-        role = "ctb", 
+        "Bill", "Denney",
+        email = "wdenney@humanpredictions.com",
+        role = "ctb",
         comment = c(ORCID = "0000-0002-5759-428X")
       )
     )
@@ -23,18 +23,16 @@ Description:
     part of its datetime classes. This central feature allows for more ergonomic
     use of datetimes for challenging datetime computation, including
     calculations of overlapping date ranges, imputations, and more thoughtful
-    handling of ambiguity that arises from uncertain timezones. This package was
-    developed first and foremost with pharmaceutical applcications in mind, but
-    aims to be agnostic to application to accommodate general usecases just as
+    handling of ambiguity that arises from uncertain time zones. This package was
+    developed first and foremost with pharmaceutical applications in mind, but
+    aims to be agnostic to application to accommodate general use cases just as
     conveniently.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
-BugReports: https://www.github.com/dgkf/parttime/issues
-URL:
-    https://dgkf.github.io/parttime/,
-    https://github.com/dgkf/parttime
+BugReports: https://github.com/dgkf/parttime/issues
+URL: https://dgkf.github.io/parttime/, https://github.com/dgkf/parttime
 Depends:
     R (>= 3.6)
 Imports:
@@ -50,5 +48,4 @@ Suggests:
     testthat,
     knitr,
     rmarkdown
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

@@ -11,7 +11,7 @@ normalize_month_day(x)
 of month}
 }
 \value{
-a vector of parttime objects with normalized days of the month
+a vector of \code{partial_time} objects with normalized days of the month
 }
 \description{
 Normalize days in month back to day limit for a given month

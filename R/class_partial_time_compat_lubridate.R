@@ -5,6 +5,8 @@ methods::setGeneric("as.interval", lubridate::as.interval)
 #'
 #' @inheritParams lubridate::as.interval
 #'
+#' @return A `partial_timespan` vector
+#'
 #' @importFrom methods setMethod signature
 #' @importFrom lubridate as.interval
 #' @export
@@ -61,6 +63,8 @@ gen_set_field_warn_s4 <- function(fname) {
 #'
 #' @param x A time-like object to access or assign to
 #' @param value For assignment, a value to assign
+#'
+#' @return The numeric vector associated with the accessor field.
 #'
 #' @name parttime_access_and_assign
 #' @rdname parttime_access_and_assign
@@ -280,6 +284,8 @@ tz.partial_time <- function(x) {
 #'
 #' @param e1 A partial_time object
 #' @param e2 A lubridate Period object
+#'
+#' @return A new `partial_time` object offset by `Period` `e2`
 #'
 #' @export
 methods::setMethod(

@@ -59,6 +59,12 @@ re_iso8601 <- paste0(
 #'   would be loss when coercing to a \code{parttime} matrix.
 #' @param ... Additional arguments unused
 #'
+#' @return A matrix of capture fields discovered while parsing ISO8601-style
+#'   datetimes.
+#'
+#' @references
+#' ["ISO_8601" on Wikipedia](https://en.wikipedia.org/wiki/ISO_8601)
+#'
 #' @rdname parse_parttime
 #' @export
 #'
