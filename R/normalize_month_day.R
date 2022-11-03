@@ -3,7 +3,7 @@
 #' @param x a vector of parttime objects with days which may exceed viable days
 #'   of month
 #'
-#' @return a vector of parttime objects with normalized days of the month
+#' @return a vector of `partial_time` objects with normalized days of the month
 #'
 #' @examples
 #' x <- as.parttime(c("2019", "2019-02-31", "2019-01-05", "2016-02-31", "2016-01-05"))

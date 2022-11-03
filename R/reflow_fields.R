@@ -6,6 +6,7 @@
 #'   "leap-time" to add on top of non-leap conversion.
 #'
 #' @return a fields matrix with appropriately ranged time components
+#'
 #' @examples
 #'
 #' # example with difftimes (when you only care about days of change)

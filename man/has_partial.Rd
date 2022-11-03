@@ -18,6 +18,10 @@ has_partial(
 
 \item{components}{components to include in testing}
 }
+\value{
+A logical vector indicating whether each element of a \code{partial_time}
+has any missing datetime fields.
+}
 \description{
 Test whether a partial_time object is incomplete
 }

@@ -11,6 +11,9 @@
 
 \item{e2}{object to test whether included in \code{e1}}
 }
+\value{
+A logical vector indicating whether \code{e1} includes \code{e2}
+}
 \description{
 Determine whether a partial time contains an object
 }

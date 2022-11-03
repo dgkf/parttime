@@ -111,7 +111,7 @@ gmtoff <- function(tzone) {
   if (is.numeric(tzone)) return(tzone)
 
   if (!tzone %in% OlsonNames())
-    stop("Invalid timezone. Use `OlsonNames()` to see a list of valid timezones.")
+    stop("Invalid timezone. Use `OlsonNames()` to see a list of valid time zones.")
 
   date_stub <- lubridate::as_datetime("1970-01-01 00:00:00 GMT")
 

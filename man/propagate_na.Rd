@@ -14,7 +14,7 @@ of month}
 other fields are missing}
 }
 \value{
-a vector of parttime objects with missingness propagated to lower
+a \code{partial_time} vector with missingness propagated to lower
 resolution time fields
 }
 \description{
@@ -27,3 +27,4 @@ vctrs::field(x, "pttm_mat")[,"min"] <- 23
 parttime:::propagate_na(x)
 
 }
+\keyword{internal}

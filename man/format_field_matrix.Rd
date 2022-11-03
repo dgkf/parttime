@@ -17,7 +17,7 @@ format_field_matrix(
 timestamps, even if partially missing.}
 
 \item{tz}{a \code{logical} value indicating whether to include timezone
-information.  By default, will only display timezones if they are not
+information. By default, will only display time zones if they are not
 missing and not equal to the assumed timezone option.}
 }
 \description{

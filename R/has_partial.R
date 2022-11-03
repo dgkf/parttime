@@ -4,6 +4,9 @@
 #' @param ... additional arguments unused
 #' @param components components to include in testing
 #'
+#' @return A logical vector indicating whether each element of a `partial_time`
+#'   has any missing datetime fields.
+#'
 #' @export
 has_partial <- function(x, ..., components = c("year", "month", "day", "hour",
     "min", "sec", "secfrac", "tzhour", "tzmin")) {
@@ -32,6 +35,9 @@ has_partial <- function(x, ..., components = c("year", "month", "day", "hour",
 #'
 #' @inheritParams has_partial
 #'
+#' @return A logical vector indicating whether each element of a `partial_time`
+#'   has any missing date fields.
+#'
 #' @export
 has_partial_date <- function(x) {
   has_partial(x, components = c("year", "month", "day", "tzhour", "tzmin"))
@@ -42,6 +48,9 @@ has_partial_date <- function(x) {
 #' Test whether a partial_time object's time components are incomplete
 #'
 #' @inheritParams has_partial
+#'
+#' @return A logical vector indicating whether each element of a `partial_time`
+#'   has any missing time fields.
 #'
 #' @export
 has_partial_time <- function(x) {

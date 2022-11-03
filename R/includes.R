@@ -3,6 +3,8 @@
 #' @param e1 object to test whether includes \code{e2}
 #' @param e2 object to test whether included in \code{e1}
 #'
+#' @return A logical vector indicating whether `e1` includes `e2`
+#'
 #' @export
 includes <- function(e1, e2) {
   UseMethod("includes")
@@ -13,6 +15,7 @@ includes <- function(e1, e2) {
 #' Determine whether a partial time contains an object
 #'
 #' @inheritParams includes
+#' @inherit includes return
 #'
 #' @method includes partial_time
 #' @export
@@ -25,6 +28,9 @@ includes.partial_time <- function(e1, e2) {
 #' Test for whether a timestamp could be included within parttime uncertainty
 #'
 #' @inheritParams includes
+#'
+#' @return A logical vector indicating whether `partial_time` `e1` includes
+#'   `partial_time` `e2`
 #'
 #' @examples
 #' x_chr <- c("2019", "2019-03-01", "2019-03",    "2018",    "",     "2018", "")

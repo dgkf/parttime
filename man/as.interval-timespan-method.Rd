@@ -13,6 +13,9 @@
 
 \item{...}{additional arguments to pass to as.interval}
 }
+\value{
+An unaffected \code{partial_timespan}
+}
 \description{
 Wrapper for lubridate as.interval
 }

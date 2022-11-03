@@ -22,6 +22,9 @@ exprssion which contains capture groups for each of the parttime
 components.  See \link{parse_to_parttime_matrix}'s \code{regex} parameter
 for more details.}
 }
+\value{
+A \code{partial_timespan} vector
+}
 \description{
 Cast partial time to timespan, representing uncertainty as a range
 }

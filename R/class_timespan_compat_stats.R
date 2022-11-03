@@ -5,6 +5,8 @@
 #' @param x An object to retrieve the start from
 #' @param ... Additional arguments passed to methods
 #'
+#' @return The starting `partial_time` of a `partial_timespan` object.
+#'
 start <- function(x, ...) {
   UseMethod("start")
 }
@@ -28,6 +30,8 @@ start.timespan <- function(x, ...) {
 #'
 #' @param x An object to retrieve the end from
 #' @param ... Additional arguments passed to methods
+#'
+#' @return The ending `partial_time` of a `partial_timespan` object.
 #'
 end <- function(x, ...) {
   UseMethod("end")

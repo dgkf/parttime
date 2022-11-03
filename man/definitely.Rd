@@ -11,6 +11,11 @@ definitely(x, ...)
 
 \item{...}{additional paramters used by class-specific functions}
 }
+\value{
+A logical vector indicating whether the partial time comparison is
+possibly or definitely true provided any uncertainty represented in the
+\code{partial_time} inputs.
+}
 \description{
 "Definitely" generic for resolving uncertainty
 }

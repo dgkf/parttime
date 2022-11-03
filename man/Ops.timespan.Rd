@@ -11,6 +11,10 @@
 
 \item{e2}{objects}
 }
+\value{
+the binary operator result of \code{partial_timespan} \code{e1} with \code{e2}. See
+Details for more information on operator behaviors.
+}
 \description{
 Handler for Ops generics for timespan objects
 }

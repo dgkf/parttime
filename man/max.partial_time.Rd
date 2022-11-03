@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_partial_time_min_max.R
 \name{max.partial_time}
 \alias{max.partial_time}
-\title{Get the maximum of a vector of partial_time objects}
+\title{Get the maximum of a parttime vector}
 \usage{
 \method{max}{partial_time}(..., na.rm = FALSE, na.warn = TRUE)
 }
@@ -13,8 +13,11 @@
 
 \item{na.warn}{whether to raise a warning for \code{NA}}
 }
+\value{
+A \code{partial_time} scalar
+}
 \description{
-Get the maximum of a vector of partial_time objects
+Get the maximum of a parttime vector
 }
 \examples{
 max(parttime(c("2019", "2018", "2019-02", "2018-03")))

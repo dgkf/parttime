@@ -11,6 +11,9 @@
 
 \item{e2}{A lubridate Period object}
 }
+\value{
+A new \code{partial_time} object offset by \code{Period} \code{e2}
+}
 \description{
 Addition of a lubridate Period to a parttime partial_time
 }

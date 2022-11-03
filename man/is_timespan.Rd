@@ -9,6 +9,10 @@ is_timespan(x)
 \arguments{
 \item{x}{object to test}
 }
+\value{
+A logical scalar indicating whether an object is a \code{partial_timespan}
+object.
+}
 \description{
 Shorthand for checking timespan inheritance
 }

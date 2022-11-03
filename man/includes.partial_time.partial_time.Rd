@@ -11,12 +11,19 @@
 
 \item{e2}{object to test whether included in \code{e1}}
 }
+\value{
+A logical vector indicating whether \code{partial_time} \code{e1} includes
+\code{partial_time} \code{e2}
+}
 \description{
 Test for whether a timestamp could be included within parttime uncertainty
 }
 \examples{
-x <- as.parttime(c("2019", "2019-03-01", "2019-03",    "2018",    "",     "2018", ""))
-y <- as.parttime(c("2019", "2019-03",    "2019-03-01", "2016-05", "2018", "",     ""))
+x_chr <- c("2019", "2019-03-01", "2019-03",    "2018",    "",     "2018", "")
+y_chr <- c("2019", "2019-03",    "2019-03-01", "2016-05", "2018", "",     "")
+
+x <- as.parttime(x_chr)
+y <- as.parttime(y_chr)
 
 includes(x, y)
 

@@ -25,6 +25,9 @@ for more details.}
 introduced by coercion, a \code{character} value among \code{"error"}, \code{"warning"} or
 \code{"suppress"} (for silencing messages) or \code{NULL} equivalent to \code{"suppress"}.}
 }
+\value{
+A \code{partial_time} vector
+}
 \description{
 Coerce character date representations to parttime objects
 }

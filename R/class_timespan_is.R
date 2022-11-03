@@ -3,6 +3,9 @@
 #' @param x partial_time vector to test
 #' @param ... additional arguments unused
 #'
+#' @return A logical vector indicating whether each element in the
+#'   `partial_timespan` vector is `NA`.
+#'
 #' @export
 is.na.timespan <- function(x, ...) {
   cols <- head(dimnames(vctrs::field(x, "tmspn_arr"))[[2L]], -1L)
@@ -14,6 +17,9 @@ is.na.timespan <- function(x, ...) {
 #' Shorthand for checking timespan inheritance
 #'
 #' @param x object to test
+#'
+#' @return A logical scalar indicating whether an object is a `partial_timespan`
+#'   object.
 #'
 #' @export
 is_timespan <- function(x) {

@@ -117,6 +117,9 @@ tz(x) <- value
 
 \item{value}{For assignment, a value to assign}
 }
+\value{
+The numeric vector associated with the accessor field.
+}
 \description{
 Datetime component access and assignment functions
 }

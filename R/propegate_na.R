@@ -5,7 +5,7 @@
 #' @param keep_tz logical indicating whether to retain timezone fields, even if
 #'   other fields are missing
 #'
-#' @return a vector of parttime objects with missingness propagated to lower
+#' @return a `partial_time` vector with missingness propagated to lower
 #'   resolution time fields
 #'
 #' @examples
@@ -13,6 +13,8 @@
 #'   "2016-01-05", "2020-01-01 03:04:05.1234"))
 #' vctrs::field(x, "pttm_mat")[,"min"] <- 23
 #' parttime:::propagate_na(x)
+#'
+#' @keywords internal
 #'
 propagate_na <- function(x, keep_tz = FALSE) {
   vctrs::field(x, "pttm_mat") <- propagate_na_matrix(

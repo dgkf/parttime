@@ -29,8 +29,19 @@ parttime(
 
 \item{tzhour}{numeric vector to use for partial time tzhour component}
 }
+\value{
+A \code{partial_time} object. See Details section for further information.
+}
 \description{
 Create a parttime object
+}
+\details{
+A \code{parttime} object (short for its class name, \code{partial_time}), is a vector
+representation of a numeric matrix containing rows for each vector element
+and a column for each datetime field.
+
+To inspect the internal representation of a \code{partial_time} class vector, you
+can use \verb{vctrs::field(<pttm>, "pttm_mat")}.
 }
 \examples{
 parttime(2019)

@@ -9,6 +9,9 @@ to_gmt(x)
 \arguments{
 \item{x}{object to coerce to GMT time}
 }
+\value{
+A time object adjusted to GMT time
+}
 \description{
 Generic for coercing timestamps to GMT timezone
 }

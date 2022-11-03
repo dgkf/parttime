@@ -11,6 +11,9 @@ end(x, ...)
 
 \item{...}{Additional arguments passed to methods}
 }
+\value{
+The ending \code{partial_time} of a \code{partial_timespan} object.
+}
 \description{
 A generic method to retrieve the end of an object
 }

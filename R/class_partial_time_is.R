@@ -3,6 +3,9 @@
 #' @param x partial_time vector to test
 #' @param ... additional arguments unused
 #'
+#' @return A logical vector indicating whether each element in the
+#'   `partial_time` vector is `NA`.
+#'
 #' @export
 is.na.partial_time <- function(x, ...) {
   unname(apply(is.na(vctrs::field(x, "pttm_mat")), 1, all))
@@ -13,6 +16,9 @@ is.na.partial_time <- function(x, ...) {
 #' Shorthand for checking partial time inheritance
 #'
 #' @param x object to test
+#'
+#' @return A logical scalar indicating whether an object is a `partial_time`
+#'   object.
 #'
 #' @rdname is_parttime
 #' @family is_parttime

@@ -11,6 +11,9 @@ start(x, ...)
 
 \item{...}{Additional arguments passed to methods}
 }
+\value{
+The starting \code{partial_time} of a \code{partial_timespan} object.
+}
 \description{
 A generic method to retrieve the start of an object
 }

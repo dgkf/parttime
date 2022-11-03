@@ -30,6 +30,16 @@ would be loss when coercing to a \code{parttime} matrix.}
 to a parser for the ISO8601 standard. Should include named capture groups
 for each datetime field. See Details for more information.}
 }
+\value{
+A matrix of capture fields discovered while parsing CDISC-style
+datetimes.
+
+A matrix of capture fields discovered while parsing ISO8601-style
+datetimes.
+
+A character matrix of capture fields provided by the provided regular
+expression
+}
 \description{
 Parse cdisc datetime strings as parttime matrix
 
@@ -60,5 +70,10 @@ representation of timespan objects. It consists of two parttime-like matrices
 (with the addition of an "inclusive" column), one for the lower- and
 upper-bounds of the timespan. Collectively, this amounts to a three
 dimensional array.
+}
+\references{
+\href{https://www.cdisc.org/system/files/members/standard/foundational/SDTMIG_v3.4.pdf}{CDISC SDTMIG v3.4}
+
+\href{https://en.wikipedia.org/wiki/ISO_8601}{"ISO_8601" on Wikipedia}
 }
 \keyword{internal}

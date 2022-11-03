@@ -15,6 +15,9 @@
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
 }
+\value{
+A \code{partial_time} vector
+}
 \description{
 Default handler for casting to a partial time
 }

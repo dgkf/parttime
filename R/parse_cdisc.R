@@ -47,6 +47,12 @@ re_cdisc_datetime <- paste0(
 #'   would be loss when coercing to a \code{parttime} matrix.
 #' @param ... Additional arguments unused
 #'
+#' @return A matrix of capture fields discovered while parsing CDISC-style
+#'   datetimes.
+#'
+#' @references
+#'   [CDISC SDTMIG v3.4](https://www.cdisc.org/system/files/members/standard/foundational/SDTMIG_v3.4.pdf)
+#'
 #' @rdname parse_parttime
 #' @export
 #'

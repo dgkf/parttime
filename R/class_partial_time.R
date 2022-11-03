@@ -5,6 +5,14 @@ methods::setClass("partial_time")
 
 #' Create a parttime object
 #'
+#' @details
+#' A `parttime` object (short for its class name, `partial_time`), is a vector
+#' representation of a numeric matrix containing rows for each vector element
+#' and a column for each datetime field.
+#'
+#' To inspect the internal representation of a `partial_time` class vector, you
+#' can use `vctrs::field(<pttm>, "pttm_mat")`.
+#'
 #' @param year numeric vector to use for partial time year component
 #' @param month numeric vector to use for partial time month component
 #' @param day numeric vector to use for partial time day component
@@ -12,6 +20,8 @@ methods::setClass("partial_time")
 #' @param min numeric vector to use for partial time min component
 #' @param sec numeric vector to use for partial time sec component
 #' @param tzhour numeric vector to use for partial time tzhour component
+#'
+#' @return A `partial_time` object. See Details section for further information.
 #'
 #' @examples
 #' parttime(2019)

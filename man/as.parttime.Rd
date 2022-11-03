@@ -23,6 +23,10 @@ for more details.}
 introduced by coercion, a \code{character} value among \code{"error"}, \code{"warning"} or
 \code{"suppress"} (for silencing messages) or \code{NULL} equivalent to \code{"suppress"}.}
 }
+\value{
+\code{parttime} vector. See the Details section of \link{parttime} for
+further information.
+}
 \description{
 Coerce an object to a parttime object
 }

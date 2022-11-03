@@ -2,6 +2,8 @@
 #'
 #' @param x object to coerce to GMT time
 #'
+#' @return A time object adjusted to GMT time
+#'
 #' @export
 to_gmt <- function(x) {
   UseMethod("to_gmt")
