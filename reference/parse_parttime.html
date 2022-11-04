@@ -16,7 +16,7 @@ Parse a character vector to create a matrix of datetime fields"><!-- mathjax -->
     
     <a class="navbar-brand me-2" href="../index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.30</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,6 +95,21 @@ for each datetime field. See Details for more information.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>A matrix of capture fields discovered while parsing CDISC-style
+datetimes.</p>
+
+
+<p>A matrix of capture fields discovered while parsing ISO8601-style
+datetimes.</p>
+
+
+<p>A character matrix of capture fields provided by the provided regular
+expression</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>A format regular expression should separate the components of a valid
 datetime string, capturing strings which can be coerced to numeric values for
@@ -114,6 +129,11 @@ representation of timespan objects. It consists of two parttime-like matrices
 (with the addition of an "inclusive" column), one for the lower- and
 upper-bounds of the timespan. Collectively, this amounts to a three
 dimensional array.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p><a href="https://www.cdisc.org/system/files/members/standard/foundational/SDTMIG_v3.4.pdf" class="external-link">CDISC SDTMIG v3.4</a></p>
+<p><a href="https://en.wikipedia.org/wiki/ISO_8601" class="external-link">"ISO_8601" on Wikipedia</a></p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -37,10 +37,16 @@
     <loc>/reference/as.timespan.html</loc>
   </url>
   <url>
+    <loc>/reference/c.partial_time.html</loc>
+  </url>
+  <url>
     <loc>/reference/definitely.html</loc>
   </url>
   <url>
     <loc>/reference/definitely.partial_time_logical.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dim.partial_time.html</loc>
   </url>
   <url>
     <loc>/reference/dot-i.html</loc>
@@ -53,6 +59,12 @@
   </url>
   <url>
     <loc>/reference/extract.html</loc>
+  </url>
+  <url>
+    <loc>/reference/format.partial_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/format.pillar_shaft_partial_time.html</loc>
   </url>
   <url>
     <loc>/reference/format_field_matrix.html</loc>
@@ -109,6 +121,15 @@
     <loc>/reference/normalize_month_day.html</loc>
   </url>
   <url>
+    <loc>/reference/obj_print_data.partial_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/obj_print_footer.partial_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/obj_print_header.partial_time.html</loc>
+  </url>
+  <url>
     <loc>/reference/parse_failure_message.html</loc>
   </url>
   <url>
@@ -131,6 +152,9 @@
   </url>
   <url>
     <loc>/reference/parttime_logical.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pillar_shaft.partial_time.html</loc>
   </url>
   <url>
     <loc>/reference/plus-partial_time-Period-method.html</loc>
@@ -187,6 +211,9 @@
     <loc>/reference/trim.html</loc>
   </url>
   <url>
+    <loc>/reference/type_sum.partial_time.html</loc>
+  </url>
+  <url>
     <loc>/reference/vec_cast.logical.partial_time.html</loc>
   </url>
   <url>
@@ -218,5 +245,11 @@
   </url>
   <url>
     <loc>/reference/vec_cast.timespan.partial_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vec_ptype_abbr.partial_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vec_ptype_full.partial_time.html</loc>
   </url>
 </urlset>

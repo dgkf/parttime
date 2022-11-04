@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.30</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,8 +45,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.2" id="parttime-002-dev">parttime 0.0.2 (dev)<a class="anchor" aria-label="anchor" href="#parttime-002-dev"></a></h2>
-<ul><li><p>Renamed <code>parse_iso8601</code> to <code>parse_iso8601_datetime</code> to prepare for introduction of an alternative parser for iso8601 timespans. (<a href="https://github.com/dgkf/parttime/issues/38" class="external-link">#38</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>)</p></li>
+<h2 class="pkg-version" data-toc-text="0.1.0" id="parttime-010">parttime 0.1.0<a class="anchor" aria-label="anchor" href="#parttime-010"></a></h2><p class="text-muted">CRAN release: 2022-11-04</p>
+<ul><li><p>Reworked <code>pmax</code> and <code>pmin</code> handling to address edge case failure modes. Performance may be impacted. If you identify performance regressions that impact your work, please file a ticket. (<a href="https://github.com/dgkf/parttime/issues/35" class="external-link">#35</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>)</p></li>
+<li><p>Renamed <code>parse_iso8601</code> to <code>parse_iso8601_datetime</code> to prepare for introduction of an alternative parser for iso8601 timespans. (<a href="https://github.com/dgkf/parttime/issues/38" class="external-link">#38</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>)</p></li>
 <li><p>New format added for CDISC-style datetime strings. Can be used via <code>as.parttime(..., format = parse_cdisc_datetime)</code>. (<a href="https://github.com/dgkf/parttime/issues/38" class="external-link">#38</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>)</p></li>
 <li><p><code>as.parttime</code> will now, by default, show warnings when some strings fail to parse into the provided format. Behavior can be configured using the new <code>on.na</code> parameter. (<a href="https://github.com/dgkf/parttime/issues/36" class="external-link">#36</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>)</p></li>
 <li><p>extends <code>lubridate</code>-style accessor and assignment helpers, such as <code><a href="../reference/parttime_access_and_assign.html">year()</a></code> and <code>year()&lt;-</code>. Unfortuntely, many are provided as S4 generics, and may be masked by other packages that extend these generics. Some generic-like functions are provided only as non-generic forms in <code>lubridate</code> and will always be masked, such as <code><a href="../reference/parttime_access_and_assign.html">tz()</a></code>. (<a href="https://github.com/dgkf/parttime/issues/14" class="external-link">#14</a>, <a href="https://github.com/dgkf" class="external-link">@dgkf</a>).</p></li>

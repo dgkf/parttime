@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.30</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
           
           <code><a href="timespan.html">timespan()</a></code> 
         </dt>
-        <dd>Create a timespan object</dd>
+        <dd>Create a partial timespan object</dd>
       </dl><dl><dt>
           
           <code><a href="as.parttime.html">as.parttime()</a></code> 
@@ -129,6 +129,11 @@
 
       <dl><dt>
           
+          <code><a href="c.partial_time.html">c(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>Concatenate parttimes</dd>
+      </dl><dl><dt>
+          
           <code><a href="is.na.partial_time.html">is.na(<i>&lt;partial_time&gt;</i>)</a></code> 
         </dt>
         <dd>Check if elements of a partial time vector is NA</dd>
@@ -141,12 +146,12 @@
           
           <code><a href="max.partial_time.html">max(<i>&lt;partial_time&gt;</i>)</a></code> 
         </dt>
-        <dd>Get the maximum of a vector of partial_time objects</dd>
+        <dd>Get the maximum of a parttime vector</dd>
       </dl><dl><dt>
           
           <code><a href="min.partial_time.html">min(<i>&lt;partial_time&gt;</i>)</a></code> 
         </dt>
-        <dd>Get the minimum of a vector of partial_time objects</dd>
+        <dd>Get the minimum of aparttime vector</dd>
       </dl><dl><dt>
           
           <code><a href="pmax.html">pmax()</a></code> 
@@ -156,7 +161,7 @@
           
           <code><a href="pmax.partial_time.html">pmax(<i>&lt;partial_time&gt;</i>)</a></code> 
         </dt>
-        <dd>Get the elementwise maximum of vectors of partial_time objects</dd>
+        <dd>Get the elementwise maximum of parttime vectors</dd>
       </dl><dl><dt>
           
           <code><a href="pmin.html">pmin()</a></code> 
@@ -166,7 +171,22 @@
           
           <code><a href="pmin.partial_time.html">pmin(<i>&lt;partial_time&gt;</i>)</a></code> 
         </dt>
-        <dd>Get the elementwise minimum of vectors of partial_time objects</dd>
+        <dd>Get the elementwise minimum of parttime vectors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="dim.partial_time.html">dim(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime vector dimensions</dd>
+      </dl><dl><dt>
+          
+          <code><a href="format.partial_time.html">format(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>Format a parttime object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="format.pillar_shaft_partial_time.html">format(<i>&lt;pillar_shaft_partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime pillar formattin</dd>
       </dl></div><div class="section level2">
       
       <h3 id="stats-style-timeseries-accessors">stats-style timeseries accessors<a class="anchor" aria-label="anchor" href="#stats-style-timeseries-accessors"></a></h3>
@@ -219,6 +239,47 @@
           <code><a href="is.timespan.html">is.timespan()</a></code> 
         </dt>
         <dd>Shorthand for checking timespan inheritance</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="pillar-methods">pillar methods<a class="anchor" aria-label="anchor" href="#pillar-methods"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="format.pillar_shaft_partial_time.html">format(<i>&lt;pillar_shaft_partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime pillar formattin</dd>
+      </dl><dl><dt>
+          
+          <code><a href="pillar_shaft.partial_time.html">pillar_shaft(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime as pillar shaft</dd>
+      </dl><dl><dt>
+          
+          <code><a href="obj_print_data.partial_time.html">obj_print_data(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime data output</dd>
+      </dl><dl><dt>
+          
+          <code><a href="obj_print_footer.partial_time.html">obj_print_footer(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime footer</dd>
+      </dl><dl><dt>
+          
+          <code><a href="obj_print_header.partial_time.html">obj_print_header(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime output header</dd>
+      </dl><dl><dt>
+          
+          <code><a href="type_sum.partial_time.html">type_sum(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>parttime type name</dd>
       </dl></div><div class="section level2">
       <h2 id="operators">Operators<a class="anchor" aria-label="anchor" href="#operators"></a></h2>
       
@@ -414,6 +475,16 @@
           <code><a href="vec_cast.timespan.partial_time.html">vec_cast(<i>&lt;timespan.partial_time&gt;</i>)</a></code> 
         </dt>
         <dd>Cast partial time to timespan, representing uncertainty as a range</dd>
+      </dl><dl><dt>
+          
+          <code><a href="vec_ptype_abbr.partial_time.html">vec_ptype_abbr(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>Abbreviated partial time class name</dd>
+      </dl><dl><dt>
+          
+          <code><a href="vec_ptype_full.partial_time.html">vec_ptype_full(<i>&lt;partial_time&gt;</i>)</a></code> 
+        </dt>
+        <dd>Full parttime class name</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
