@@ -17,11 +17,14 @@ reference:
 - title: Generics 
 - subtitle: "base generics"
   contents:
+  - matches("^c\\b")
   - starts_with("is.na")
   - matches("^max\\b")
   - matches("^min\\b")
   - matches("^pmax\\b")
   - matches("^pmin\\b")
+  - matches("^dim\\b")
+  - matches("^format\\b")
 - subtitle: "stats-style timeseries accessors"
   contents:
   - start
@@ -34,6 +37,11 @@ reference:
   - parttime_access_and_assign
   - starts_with("as.interval")
   - is.timespan
+- subtitle: "pillar methods"
+  contents:
+  - matches("pillar")
+  - starts_with("obj_print")
+  - starts_with("type_sum")
 - title: Operators
   contents:
   - starts_with("Ops\\.")

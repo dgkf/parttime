@@ -32,7 +32,7 @@ pillar_shaft.partial_time <- function(x, ...) {
 
 
 
-#' parttime pillar formattin
+#' parttime pillar formatting
 #'
 #' @param width A maximum display width of the each element in the resulting
 #'   vector of strings
