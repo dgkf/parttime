@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![CRAN](https://img.shields.io/cran/v/parttime.svg)](https://cran.r-project.org/package=parttime)
-![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)\]
+![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)
 [![R-CMD-check](https://github.com/dgkf/parttime/workflows/R-CMD-check/badge.svg)](https://github.com/dgkf/parttime/actions)
 [![Coverage](https://codecov.io/gh/dgkf/parttime/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=main)
 <!-- badges: end -->
