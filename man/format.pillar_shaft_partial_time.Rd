@@ -2,7 +2,7 @@
 % Please edit documentation in R/class_partial_time_compat_pillar.R
 \name{format.pillar_shaft_partial_time}
 \alias{format.pillar_shaft_partial_time}
-\title{parttime pillar formattin}
+\title{parttime pillar formatting}
 \usage{
 \method{format}{pillar_shaft_partial_time}(x, width, ...)
 }
@@ -19,5 +19,5 @@ vector of strings}
 A \code{character} representation of a \code{partial_time} vector
 }
 \description{
-parttime pillar formattin
+parttime pillar formatting
 }

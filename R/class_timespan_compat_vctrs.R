@@ -1,12 +1,16 @@
 #' @importFrom vctrs vec_ptype_full
 #' @export
-vec_ptype_full.timespan <- function(x) "timespan"
+vec_ptype_full.timespan <- function(x, ...) {
+  "timespan"
+}
 
 
 
 #' @importFrom vctrs vec_ptype_abbr
 #' @export
-vec_ptype_abbr.timespan <- function(x) "tmspn"
+vec_ptype_abbr.timespan <- function(x, ..., prefix_named, suffix_shape) {
+  "tmspn"
+}
 
 
 

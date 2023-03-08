@@ -170,8 +170,6 @@ Ops.partial_time <- function(e1, e2) {
 #' @param e1 objects
 #' @param e2 objects
 #'
-#' @details
-#'
 #' @return the binary operator result of `partial_timespan` `e1` with `e2`. See
 #'   Details for more information on operator behaviors.
 #'

@@ -4,10 +4,17 @@
 \alias{vec_ptype_abbr.partial_time}
 \title{Abbreviated partial time class name}
 \usage{
-\method{vec_ptype_abbr}{partial_time}(x)
+\method{vec_ptype_abbr}{partial_time}(x, ..., prefix_named, suffix_shape)
 }
 \arguments{
 \item{x}{A \code{partial_time} object}
+
+\item{...}{These dots are for future extensions and must be empty.}
+
+\item{prefix_named}{If \code{TRUE}, add a prefix for named vectors.}
+
+\item{suffix_shape}{If \code{TRUE} (the default), append the shape of
+the vector.}
 }
 \value{
 A \code{character} representation of the abbreviated \code{partial_time} class
