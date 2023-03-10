@@ -18,10 +18,10 @@
     conveniently.">
 <title>Partial Datetime Handling • parttime</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Partial Datetime Handling">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Partial Datetime Handling">
 <meta property="og:description" content="
     Datetimes and timestamps are invariably an imprecise notation, with any
     partial representation implying some amount of uncertainty. To handle this,
@@ -46,7 +46,7 @@
     
     <a class="navbar-brand me-2" href="index.html">parttime</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,6 +84,7 @@
 <div class="page-header"><h1 id="parttime">parttime<a class="anchor" aria-label="anchor" href="#parttime"></a>
 </h1></div>
 <!-- badges: start -->
+
 <p>A package for a partial datetime class and generics</p>
 </div>
 <div class="section level1">
@@ -109,40 +110,40 @@
 </h2>
 <p><code>partial_time</code>s can be parsed from strings. Any missing data is not immediately imputed with a known date. Instead, its uncertainty is preserved as a central part of the <code>partial_time</code> class.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022"</span>, <span class="st">"2022-02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023"</span>, <span class="st">"2023-02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can access the components of each datetime as though the <code>partial_time</code> is a matrix of datetime fields, or using <code>lubridate</code>-style accessors and assignment functions.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pttms</span><span class="op">[</span>, <span class="st">"year"</span><span class="op">]</span></span>
-<span><span class="co">##    2022 2022-02 </span></span>
-<span><span class="co">##    2022    2022</span></span>
+<span><span class="co">##    2023 2023-02 </span></span>
+<span><span class="co">##    2023    2023</span></span>
 <span></span>
 <span><span class="va">pttms</span><span class="op">[[</span><span class="fl">1</span>, <span class="st">"year"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co">## [1] 2022</span></span>
+<span><span class="co">## [1] 2023</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">year</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">)</span>  <span class="co"># the first row are names of elements in a named numeric vector</span></span>
-<span><span class="co">##    2022 2022-02 </span></span>
-<span><span class="co">##    2022    2022</span></span>
+<span><span class="co">##    2023 2023-02 </span></span>
+<span><span class="co">##    2023    2023</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">year</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">## [1] 2022</span></span>
+<span><span class="co">## [1] 2023</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">pttms</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
-<span><span class="co">## [1] "2022"    "2022-03"</span></span>
+<span><span class="co">## [1] "2023"    "2023-03"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">pttms</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
-<span><span class="co">## [1] "2022-03" "2022-03"</span></span>
+<span><span class="co">## [1] "2023-03" "2023-03"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/parttime_access_and_assign.html">month</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="va">pttms</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[2]&gt; </span></span>
-<span><span class="co">## [1] "2022" "2022"</span></span></code></pre></div>
+<span><span class="co">## [1] "2023" "2023"</span></span></code></pre></div>
 <p>Because <code>partial_time</code> objects may have uncertainty, comparison between times conveys this uncertainty. As a brief example, if we compare our dates from above we see that it is unclear whether one is greater-than the other.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022"</span>, <span class="st">"2022-02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pttms</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2023"</span>, <span class="st">"2023-02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">## [1] NA</span></span>
@@ -160,11 +161,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_date_max</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>  <span class="co"># resolve date fields with maximum value</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2022-02-28"</span></span>
+<span><span class="co">## [1] "2023-02-28"</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="va">pttms</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"1999-06-05T04:03:02"</span><span class="op">)</span>  <span class="co"># arbitrary imputation</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2022-06-05 04:03:02"</span></span></code></pre></div>
+<span><span class="co">## [1] "2023-06-05 04:03:02"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-partial_time-class">The <code>partial_time</code> class<a class="anchor" aria-label="anchor" href="#the-partial_time-class"></a>
@@ -221,13 +222,9 @@
 <h2 id="imputing-timestamps">Imputing Timestamps<a class="anchor" aria-label="anchor" href="#imputing-timestamps"></a>
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+0730"</span><span class="op">)</span></span>
-<span><span class="co">## Warning in vec_cast.partial_time.character(x, pttm, ..., format = format, : Values could not be parsed (1 of 1 (100.0%)). Examples of unique</span></span>
-<span><span class="co">## failing formats:</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">##     '2000-01-02T03:04:05.006+0730'</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/impute_time.html">impute_time</a></span><span class="op">(</span><span class="st">"2019"</span>, <span class="st">"2000-01-02T03:04:05.006+07:30"</span><span class="op">)</span></span>
 <span><span class="co">## &lt;partial_time&lt;YMDhms+tz&gt;[1]&gt; </span></span>
-<span><span class="co">## [1] "2019"</span></span></code></pre></div>
+<span><span class="co">## [1] "2019-01-02 03:04:05.006"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="partial-datetime-comparisons">Partial Datetime Comparisons<a class="anchor" aria-label="anchor" href="#partial-datetime-comparisons"></a>
@@ -290,7 +287,10 @@
 <span>    parttimes <span class="op">=</span> <span class="fu"><a href="reference/as.parttime.html">as.parttime</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>,</span>
 <span>    imputed_times <span class="op">=</span> <span class="fu"><a href="reference/impute_time.html">impute_time_min</a></span><span class="op">(</span><span class="va">parttimes</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully</span></span>
+<span><span class="co">## Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">## ℹ In argument: `parttimes = as.parttime(dates)`.</span></span>
+<span><span class="co">## Caused by warning in `warn_repr_data_loss()`:</span></span>
+<span><span class="co">## ! Date strings including week and excluding weekday can not be fully</span></span>
 <span><span class="co">## represented. To avoid loss of datetime resolution, such partial dates</span></span>
 <span><span class="co">## are best represented as timespans. See `?timespan`.</span></span>
 <span><span class="co">## # A tibble: 15 × 3</span></span>
@@ -322,10 +322,16 @@
 <p>The <code>partial_time</code> class is pretty complete. The <code>timespan</code> and <code>partial_difftime</code> classes are still under construction!</p>
 </div>
 <div class="section level2">
-<h2 id="in-development-">In-development <span class="emoji" data-emoji="construction">🚧</span>
-<a class="anchor" aria-label="anchor" href="#in-development-"></a>
+<h2 id="in-development-construction">In-development <span class="emoji" data-emoji="construction">🚧</span>
+<a class="anchor" aria-label="anchor" href="#in-development-construction"></a>
 </h2>
 <table class="table">
+<colgroup>
+<col width="20%">
+<col width="16%">
+<col width="39%">
+<col width="23%">
+</colgroup>
 <thead><tr class="header">
 <th>status</th>
 <th>class</th>
@@ -567,7 +573,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
     </footer>
