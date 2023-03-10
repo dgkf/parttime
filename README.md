@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![CRAN](https://img.shields.io/cran/v/parttime.svg)](https://cran.r-project.org/package=parttime)
-![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)
+![status](https://img.shields.io/static/v1?label=status&message=developing&color=orange)\]
 [![R-CMD-check](https://github.com/dgkf/parttime/workflows/R-CMD-check/badge.svg)](https://github.com/dgkf/parttime/actions)
 [![Coverage](https://codecov.io/gh/dgkf/parttime/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dgkf/parttime?branch=main)
 <!-- badges: end -->
@@ -37,7 +37,7 @@ immediately imputed with a known date. Instead, its uncertainty is
 preserved as a central part of the `partial_time` class.
 
 ``` r
-pttms <- as.parttime(c("2022", "2022-02"))
+pttms <- as.parttime(c("2023", "2023-02"))
 ```
 
 We can access the components of each datetime as though the
@@ -46,33 +46,33 @@ We can access the components of each datetime as though the
 
 ``` r
 pttms[, "year"]
-##    2022 2022-02 
-##    2022    2022
+##    2023 2023-02 
+##    2023    2023
 
 pttms[[1, "year"]]
-## [1] 2022
+## [1] 2023
 
 year(pttms)  # the first row are names of elements in a named numeric vector
-##    2022 2022-02 
-##    2022    2022
+##    2023 2023-02 
+##    2023    2023
 
 year(pttms[1])
-## [1] 2022
+## [1] 2023
 
 month(pttms[2]) <- 3
 pttms
 ## <partial_time<YMDhms+tz>[2]> 
-## [1] "2022"    "2022-03"
+## [1] "2023"    "2023-03"
 
 month(pttms[1]) <- 3
 pttms
 ## <partial_time<YMDhms+tz>[2]> 
-## [1] "2022-03" "2022-03"
+## [1] "2023-03" "2023-03"
 
 month(pttms) <- NA
 pttms
 ## <partial_time<YMDhms+tz>[2]> 
-## [1] "2022" "2022"
+## [1] "2023" "2023"
 ```
 
 Because `partial_time` objects may have uncertainty, comparison between
@@ -81,7 +81,7 @@ dates from above we see that it is unclear whether one is greater-than
 the other.
 
 ``` r
-pttms <- as.parttime(c("2022", "2022-02"))
+pttms <- as.parttime(c("2023", "2023-02"))
 ```
 
 ``` r
@@ -114,11 +114,11 @@ performed.
 ``` r
 impute_date_max(pttms[2])  # resolve date fields with maximum value
 ## <partial_time<YMDhms+tz>[1]> 
-## [1] "2022-02-28"
+## [1] "2023-02-28"
 
 impute_time(pttms[1], "1999-06-05T04:03:02")  # arbitrary imputation
 ## <partial_time<YMDhms+tz>[1]> 
-## [1] "2022-06-05 04:03:02"
+## [1] "2023-06-05 04:03:02"
 ```
 
 ## The `partial_time` class
@@ -181,13 +181,9 @@ as.parttime(iso8601_dates)
 ## Imputing Timestamps
 
 ``` r
-impute_time("2019", "2000-01-02T03:04:05.006+0730")
-## Warning in vec_cast.partial_time.character(x, pttm, ..., format = format, : Values could not be parsed (1 of 1 (100.0%)). Examples of unique
-## failing formats:
-## 
-##     '2000-01-02T03:04:05.006+0730'
+impute_time("2019", "2000-01-02T03:04:05.006+07:30")
 ## <partial_time<YMDhms+tz>[1]> 
-## [1] "2019"
+## [1] "2019-01-02 03:04:05.006"
 ```
 
 ## Partial Datetime Comparisons
@@ -261,7 +257,10 @@ tibble(dates = iso8601_dates) %>%
     parttimes = as.parttime(dates),
     imputed_times = impute_time_min(parttimes)
   )
-## Warning in warn_repr_data_loss(x, includes = "week", excludes = "weekday"): Date strings including week and excluding weekday can not be fully
+## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `parttimes = as.parttime(dates)`.
+## Caused by warning in `warn_repr_data_loss()`:
+## ! Date strings including week and excluding weekday can not be fully
 ## represented. To avoid loss of datetime resolution, such partial dates
 ## are best represented as timespans. See `?timespan`.
 ## # A tibble: 15 × 3

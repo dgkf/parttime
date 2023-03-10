@@ -160,7 +160,7 @@ as.parttime(iso8601_dates)
 ## Imputing Timestamps
 
 ```{r}
-impute_time("2019", "2000-01-02T03:04:05.006+0730")
+impute_time("2019", "2000-01-02T03:04:05.006+07:30")
 ```
 
 ## Partial Datetime Comparisons
