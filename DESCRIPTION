@@ -1,7 +1,7 @@
 Package: parttime
 Type: Package
 Title: Partial Datetime Handling
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     c(
       person(
@@ -30,7 +30,7 @@ Description:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 BugReports: https://github.com/dgkf/parttime/issues
 URL: https://dgkf.github.io/parttime/, https://github.com/dgkf/parttime
 Depends:

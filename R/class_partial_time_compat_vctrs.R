@@ -1,25 +1,31 @@
 #' Full parttime class name
 #'
 #' @param x A `partial_time` object
+#' @inheritParams vctrs::vec_ptype_full
 #'
 #' @return A `character` representation of the `partial_time` class name
 #'
 #' @importFrom vctrs vec_ptype_full
 #' @exportS3Method vctrs::vec_ptype_full partial_time
-vec_ptype_full.partial_time <- function(x) "partial_time"
+vec_ptype_full.partial_time <- function(x, ...) {
+  "partial_time"
+}
 
 
 
 #' Abbreviated partial time class name
 #'
 #' @param x A `partial_time` object
+#' @inheritParams vctrs::vec_ptype_abbr
 #'
 #' @return A `character` representation of the abbreviated `partial_time` class
 #'   name
 #'
 #' @importFrom vctrs vec_ptype_abbr
 #' @exportS3Method vctrs::vec_ptype_abbr partial_time
-vec_ptype_abbr.partial_time <- function(x) "pttm"
+vec_ptype_abbr.partial_time <- function(x, ..., prefix_named, suffix_shape) {
+  "pttm"
+}
 
 
 
@@ -73,7 +79,7 @@ obj_print_header.partial_time <- function(x, ...) {
   cat(sprintf("<%s%s[%.f]>",
     vctrs::vec_ptype_full(x),
     if (nchar(complete_txt)) paste0("<", complete_txt, ">") else "",
-    length(x)), '\n')
+    length(x)), "\n")
 
   invisible(x)
 }

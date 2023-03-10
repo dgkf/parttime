@@ -4,10 +4,12 @@
 \alias{vec_ptype_full.partial_time}
 \title{Full parttime class name}
 \usage{
-\method{vec_ptype_full}{partial_time}(x)
+\method{vec_ptype_full}{partial_time}(x, ...)
 }
 \arguments{
 \item{x}{A \code{partial_time} object}
+
+\item{...}{These dots are for future extensions and must be empty.}
 }
 \value{
 A \code{character} representation of the \code{partial_time} class name
