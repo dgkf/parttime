@@ -140,7 +140,7 @@ parse_iso8601_datetime_as_timespan <- function(x, ...) {
 #'
 #' @note In addition to parttime matrix fields, the returned matrix has
 #' additional columns for alternative iso8601 formats such as \code{yearday},
-#' \code{yearweek} and code{weakday}.
+#' \code{yearweek} and \code{weakday}.
 #'
 #' @keywords internal
 #'
