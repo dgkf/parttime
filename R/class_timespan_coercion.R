@@ -25,11 +25,13 @@ as.timespan.default <- function(x, ...) {
 #' @inheritParams vctrs::vec_cast
 #' @return A `partial_timespan` vector
 #'
-#' @importFrom vctrs vec_cast
+#' @method vec_cast timespan
 #' @exportS3Method vec_cast timespan
 #'
 vec_cast.timespan <- function(x, to, ...) {
-  if (is.timespan(x)) return(x)
+  if (is.timespan(x)) {
+    return(x)
+  }
   UseMethod("vec_cast.timespan")
 }
 
@@ -59,9 +61,8 @@ vec_cast.timespan.default <- function(x, to, ...) {
 #' @exportS3Method vec_cast.timespan character
 #'
 vec_cast.timespan.character <- function(
-  x, to, ...,
-  format = parse_iso8601_datetime_as_timespan
-) {
+    x, to, ...,
+    format = parse_iso8601_datetime_as_timespan) {
   as.timespan(format(x, ...))
 }
 

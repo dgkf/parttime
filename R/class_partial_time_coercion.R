@@ -27,7 +27,7 @@
 #'
 #' # format function that returns a matrix of components
 #' utf8_str <- function(x) intToUtf8(utf8ToInt(x) - 16)
-#' as.parttime(c("B@@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
+#' as.parttime(c("B@", "B@A@"), format = function(x) cbind(year = sapply(x, utf8_str)))
 #' # <partial_time<YMDhmsZ>[2]>
 #' # [1] "2000" "2010"
 #'
@@ -56,6 +56,8 @@ as.parttime <- function(x, ..., format = parse_iso8601_datetime, on.na = "warnin
 #' @inheritParams vctrs::vec_cast
 #' @return A `partial_time` vector
 #'
+#' @importFrom vctrs vec_cast
+#' @method vec_cast partial_time
 #' @exportS3Method vec_cast partial_time
 vec_cast.partial_time <- function(x, to, ...) {
   if (is.partial_time(x)) {
@@ -112,9 +114,9 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' as.parttime(dates)
 #'
 #' @exportS3Method vec_cast.partial_time character
-vec_cast.partial_time.character <- function(x, to, ...,
-  format = parse_iso8601_datetime, on.na = warning) {
-
+vec_cast.partial_time.character <- function(
+    x, to, ...,
+    format = parse_iso8601_datetime, on.na = warning) {
   if (is.null(on.na)) {
     on.na <- "suppress"
   }
