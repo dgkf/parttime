@@ -16,14 +16,14 @@ minimally_increment.partial_time <- function(x) {
 }
 
 
-minimally_increment.matrix <- function(x_mat) {
+minimally_increment.matrix <- function(x) {
   # increment last available time field
-  col_inc <- colnames(x_mat) %in% "inclusive"
-  col_tz <- colnames(x_mat) == "tzhour"
-  last_indx <- which(col(x_mat) == apply(x_mat, 1, Position, f = is.na) - 1)
-  x_mat[, !col_tz & !col_inc][last_indx] <- x_mat[, !col_tz & !col_inc][last_indx] + 1
-  x_mat[, !col_inc] <- reflow_fields(x_mat[, !col_inc, drop = FALSE])
-  x_mat
+  col_inc <- colnames(x) %in% "inclusive"
+  col_tz <- colnames(x) == "tzhour"
+  last_indx <- which(col(x) == apply(x, 1, Position, f = is.na) - 1)
+  x[, !col_tz & !col_inc][last_indx] <- x[, !col_tz & !col_inc][last_indx] + 1
+  x[, !col_inc] <- reflow_fields(x[, !col_inc, drop = FALSE])
+  x
 }
 
 

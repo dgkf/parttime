@@ -52,6 +52,7 @@ includes.partial_time.partial_time <- function(e1, e2) {
 
 
 
+#' @method includes timespan
 includes.timespan <- function(e1, e2) {
   UseMethod("includes.timespan")
 }
