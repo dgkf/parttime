@@ -12,6 +12,6 @@ Parse an iso8601 datetime to a parttime-like matrix
 \note{
 In addition to parttime matrix fields, the returned matrix has
 additional columns for alternative iso8601 formats such as \code{yearday},
-\code{yearweek} and code{weakday}.
+\code{yearweek} and \code{weakday}.
 }
 \keyword{internal}

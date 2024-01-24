@@ -4,7 +4,7 @@
 \alias{vec_cast.partial_time}
 \title{Cast to partial time object}
 \usage{
-vec_cast.partial_time(x, to, ...)
+\method{vec_cast}{partial_time}(x, to, ...)
 }
 \arguments{
 \item{x}{Vectors to cast.}

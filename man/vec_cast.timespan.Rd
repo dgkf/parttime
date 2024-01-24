@@ -4,7 +4,7 @@
 \alias{vec_cast.timespan}
 \title{Cast to timespan object}
 \usage{
-vec_cast.timespan(x, to, ...)
+\method{vec_cast}{timespan}(x, to, ...)
 }
 \arguments{
 \item{x}{Vectors to cast.}

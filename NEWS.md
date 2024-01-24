@@ -1,3 +1,7 @@
+# parttime 0.1.2
+
+* Minor updates to documentation to handle new `R CMD check` `NOTE`s. 
+
 # parttime 0.1.1
 
 * Update formals for `vctrs` generic methods to reflect changes in the `vctrs`
