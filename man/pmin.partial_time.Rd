@@ -9,8 +9,8 @@
 \arguments{
 \item{...}{numeric or character arguments (see Note).}
 
-\item{na.rm}{a logical indicating whether missing values should be
-    removed.}
+\item{na.rm}{a logical (\code{TRUE} or \code{FALSE}) indicating
+    whether missing values should be removed.}
 }
 \value{
 A \code{partial_time} vector with length equal to the maximum length of

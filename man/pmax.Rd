@@ -9,8 +9,8 @@ pmax(..., na.rm = FALSE)
 \arguments{
 \item{...}{numeric or character arguments (see Note).}
 
-\item{na.rm}{a logical indicating whether missing values should be
-    removed.}
+\item{na.rm}{a logical (\code{TRUE} or \code{FALSE}) indicating
+    whether missing values should be removed.}
 }
 \value{
 For \code{min} or \code{max}, a length-one vector.  For \code{pmin} or
@@ -127,9 +127,10 @@ stopifnot(identical(D,  cut01(D) ),
           identical(n0, pmax(n0, 4)))
 }
 \references{
-Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
-  \emph{The New S Language}.
-  Wadsworth & Brooks/Cole.
+{\if{html}{\out{<span id="reference+Extremes.Rd+R+3ABecker+2BChambers+2BWilks+3A1988"></span>}}Becker RA, Chambers JM, Wilks AR (1988).
+\emph{The New S Language}.
+Chapman and Hall/CRC, London.
+ISBN 053409192X.}
 }
 \seealso{
 \code{\link[base]{range}} (\emph{both} min and max) and

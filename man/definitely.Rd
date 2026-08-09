@@ -20,7 +20,7 @@ possibly or definitely true provided any uncertainty represented in the
 "Definitely" generic for resolving uncertainty
 }
 \seealso{
-Other uncert-resolvers: 
-\code{\link{possibly}()}
+Other uncert-resolvers:
+\code{\link[=possibly]{possibly()}}
 }
 \concept{uncert-resolvers}
