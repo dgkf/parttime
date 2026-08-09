@@ -13,8 +13,12 @@ to_gmt <- function(x) {
 
 #' @export
 to_gmt.matrix <- function(x) {
-  x[, "hour"] <- x[, "hour"] + x[, "tzhour"] %/% 1
-  x[, "min"]  <- x[, "min"]  + x[, "tzhour"] %% 1 * 60
+  # The offset says how far ahead of UTC the recorded time is, so reaching UTC
+  # subtracts it: 23:30+02:00 is 21:30Z.  `%/%` and `%%` decompose a negative
+  # offset consistently -- -5.75 gives -6 hours and 0.25 of an hour, and
+  # subtracting both adds the 5:45 that a -05:45 offset requires.
+  x[, "hour"] <- x[, "hour"] - x[, "tzhour"] %/% 1
+  x[, "min"]  <- x[, "min"]  - x[, "tzhour"] %% 1 * 60
   x[, "tzhour"] <- 0
   reflow_fields(x)
 }

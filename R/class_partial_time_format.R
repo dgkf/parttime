@@ -133,8 +133,15 @@ format_field_matrix <- function(x,
 format_field <- function(x, digits = 2, leading_optional = FALSE,
     fmt = if (leading_optional) "%.f" else sprintf("%%0%.f.f", digits)) {
 
-  paste0(
-    if (leading_optional)
-      pillar::style_subtle(strrep("0", digits - nchar(x %|NA|% 0L))),
-    ifelse(is.na(x), pillar::style_na(sprintf(fmt, 0L)), sprintf(fmt, x)))
+  # An unknown component reads as a run of hyphens rather than as a zero.
+  # Styling alone was not enough: `style_na()` is colour, so a component nobody
+  # recorded printed as "00", and anything that strips styling or writes to a
+  # file could not tell it from a midnight or a January that was collected.
+  ifelse(
+    is.na(x),
+    pillar::style_na(strrep("-", digits)),
+    paste0(
+      if (leading_optional)
+        pillar::style_subtle(strrep("0", digits - nchar(x %|NA|% 0L))),
+      sprintf(fmt, x)))
 }
