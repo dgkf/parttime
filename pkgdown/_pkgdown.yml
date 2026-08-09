@@ -25,6 +25,7 @@ reference:
   - matches("^pmin\\b")
   - matches("^dim\\b")
   - matches("^format\\b")
+  - matches("^xtfrm\\b")
 - subtitle: "stats-style timeseries accessors"
   contents:
   - start
