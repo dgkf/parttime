@@ -2,19 +2,20 @@
 % Please edit documentation in R/class_partial_time_c.R
 \name{c.partial_time}
 \alias{c.partial_time}
-\title{Concatenate parttimes}
+\title{Concatenate partial_time objects}
 \usage{
 \method{c}{partial_time}(...)
 }
 \arguments{
-\item{...}{objects to be concatenated.  All \code{\link[base]{NULL}} entries
-    are dropped before method dispatch unless at the very beginning of the
-    argument list.}
+\item{...}{\code{partial_time} objects to concatenate}
 }
 \value{
-A \code{partial_time} vector. An error is raised if any other class object
-is attempted to be concatenated.
+A \code{partial_time} object.
 }
 \description{
-Concatenate parttimes
+Concatenate partial_time objects
+}
+\examples{
+c(as.parttime("2015-04"), as.parttime("2016-08-01"))
+
 }

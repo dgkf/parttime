@@ -4,19 +4,15 @@
 \alias{has_partial}
 \title{Test whether a partial_time object is incomplete}
 \usage{
-has_partial(
-  x,
-  ...,
-  components = c("year", "month", "day", "hour", "min", "sec", "secfrac", "tzhour",
-    "tzmin")
-)
+has_partial(x, ..., components = NULL)
 }
 \arguments{
 \item{x}{a partial_time object to test for incompleteness}
 
 \item{...}{additional arguments unused}
 
-\item{components}{components to include in testing}
+\item{components}{components to include in testing. Defaults to every
+component the object carries.}
 }
 \value{
 A logical vector indicating whether each element of a \code{partial_time}
@@ -24,4 +20,9 @@ has any missing datetime fields.
 }
 \description{
 Test whether a partial_time object is incomplete
+}
+\examples{
+has_partial(as.parttime(c("2015", "2015-04-13T10:30:15")))
+has_partial(as.parttime("2015-04"), "year", "month")
+
 }

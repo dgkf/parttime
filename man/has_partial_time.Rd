@@ -16,3 +16,7 @@ has any missing time fields.
 \description{
 Test whether a partial_time object's time components are incomplete
 }
+\examples{
+has_partial_time(as.parttime(c("2015-04-13", "2015-04-13T10:30:15")))
+
+}
