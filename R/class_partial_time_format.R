@@ -133,8 +133,14 @@ format_field_matrix <- function(x,
 format_field <- function(x, digits = 2, leading_optional = FALSE,
     fmt = if (leading_optional) "%.f" else sprintf("%%0%.f.f", digits)) {
 
-  paste0(
-    if (leading_optional)
-      pillar::style_subtle(strrep("0", digits - nchar(x %|NA|% 0L))),
-    ifelse(is.na(x), pillar::style_na(sprintf(fmt, 0L)), sprintf(fmt, x)))
+  # A zero here was indistinguishable from a collected midnight or January
+  # once `style_na()`'s colour was stripped or the value reached a file.  `?`
+  # rather than `-`, which already delimits the date.
+  ifelse(
+    is.na(x),
+    pillar::style_na(strrep("?", digits)),
+    paste0(
+      if (leading_optional)
+        pillar::style_subtle(strrep("0", digits - nchar(x %|NA|% 0L))),
+      sprintf(fmt, x)))
 }
