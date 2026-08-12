@@ -77,8 +77,87 @@ vec_cast.partial_time <- function(x, to, ...) {
 #' @importFrom vctrs stop_incompatible_cast
 #' @exportS3Method vec_cast.partial_time default
 vec_cast.partial_time.default <- function(x, to, ...) {
-  if (!all(is.na(x) | is.null(x))) vctrs::stop_incompatible_cast(x, to)
+  # `stop_incompatible_cast()` has no defaults for the argument names it
+  # reports, so omitting them replaces the message with an error about a
+  # missing formal and the caller never learns which types would not convert.
+  if (!all(is.na(x) | is.null(x))) {
+    vctrs::stop_incompatible_cast(x, to, x_arg = "x", to_arg = "to")
+  }
   vctrs::vec_recycle(parttime(NA), size = length(x))
+}
+
+
+
+#' Cast a Date to a partial time
+#'
+#' A `Date` carries a year, month and day and no time of day, so the time
+#' components are missing rather than zero.  It names a calendar date rather
+#' than an instant, so it carries no UTC offset either and takes the assumed
+#' one, which makes `as.parttime(as.Date("2001-01-01"))` and
+#' `as.parttime("2001-01-01")` the same value.
+#'
+#' @inheritParams vctrs::vec_cast
+#'
+#' @return A `partial_time` vector
+#'
+#' @examples
+#' as.parttime(as.Date(c("2001-01-01", NA)))
+#'
+#' @exportS3Method vec_cast.partial_time Date
+vec_cast.partial_time.Date <- function(x, to, ...) {
+  lt <- as.POSIXlt(x, tz = "UTC")
+  # A missing date is missing entirely.  Taking the assumed offset for it would
+  # leave a value with no date, no time and an offset, which `is.na()` reads as
+  # present -- the character and date-time casts both give `NA` throughout.
+  assumed <- interpret_tz(getOption("parttime.assume_tz_offset", NA)) / 60
+  parttime(
+    year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
+    tzhour = ifelse(is.na(x), NA_real_, assumed)
+  )
+}
+
+
+
+#' Cast a date-time to a partial time
+#'
+#' Every component is known, including the UTC offset, which is read from the
+#' value rather than assumed.  The offset is the one in force at that instant,
+#' so a zone observing daylight saving gives different offsets either side of
+#' the change.
+#'
+#' @inheritParams vctrs::vec_cast
+#'
+#' @return A `partial_time` vector
+#'
+#' @examples
+#' as.parttime(as.POSIXct("2001-06-15 10:30:15", tz = "UTC"))
+#'
+#' @exportS3Method vec_cast.partial_time POSIXt
+vec_cast.partial_time.POSIXt <- function(x, to, ...) {
+  lt <- as.POSIXlt(x)
+  parttime(
+    year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
+    hour = lt$hour, min = lt$min, sec = lt$sec,
+    tzhour = utc_offset_hours(x)
+  )
+}
+
+
+
+#' The UTC offset of a date-time, in hours
+#'
+#' Read through `format()` rather than from `as.POSIXlt()$gmtoff`, which is
+#' `NA` on some platforms for a zoned time.
+#'
+#' @param x a `POSIXt` object
+#' @return A numeric vector of offsets in hours, `NA` where `x` is.
+#' @noRd
+utc_offset_hours <- function(x) {
+  z <- format(x, "%z")
+  sign <- ifelse(substring(z, 1, 1) == "-", -1, 1)
+  hours <- as.numeric(substring(z, 2, 3))
+  minutes <- as.numeric(substring(z, 4, 5))
+  sign * (hours + minutes / 60)
 }
 
 
