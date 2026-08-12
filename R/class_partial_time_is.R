@@ -8,7 +8,13 @@
 #'
 #' @export
 is.na.partial_time <- function(x, ...) {
-  unname(apply(is.na(vctrs::field(x, "pttm_mat")), 1, all))
+  # A UTC offset says how to read a time, not that one was recorded, and it is
+  # filled from `parttime.assume_tz_offset` when the value carried none.
+  # Counting it would let a value with no date and no time report as present on
+  # the strength of an assumption.
+  mat <- vctrs::field(x, "pttm_mat")
+  datetime <- setdiff(colnames(mat), "tzhour")
+  unname(apply(is.na(mat[, datetime, drop = FALSE]), 1, all))
 }
 
 
