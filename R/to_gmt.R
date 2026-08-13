@@ -41,11 +41,3 @@ to_gmt.timespan <- function(x) {
   vctrs::field(x, "tmspn_arr") <- to_gmt(vctrs::field(x, "tmspn_arr"))
   x
 }
-
-
-
-prune_tz <- function(x) {
-  args <- rep_len(alist(, ), length(dim(x)))
-  args[[2]] <- -which(dimnames(x)[[2]] %in% "tzhour")
-  do.call("[", append(list(x), args))
-}

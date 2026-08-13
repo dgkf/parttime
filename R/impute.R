@@ -170,35 +170,6 @@ impute_time.matrix <- function(x, time, tz = "GMT", ...) {
 
 
 
-impute_partial_time_to_chr <- function(x, time, ...) {
-  if (!"partial_time" %in% class(x)) x <- as.parttime(x)
-
-  if (!missing(time)) {
-    if (is.character(time))
-      time <- parse_iso8601_datetime(time)
-    if (any(is.na(time)))
-      stop("time parameter with must specify a complete timestamp.")
-  }
-
-  fields <- rbind(
-    attr(x, "field"),
-    if (!missing(time)) time,
-    attr(x, "impute"),
-    parse_iso8601_datetime("0000-01-01T01:00:00.000Z")
-  )
-
-  fields <- as.list(apply(fields, 2, Find, f = Negate(is.na)))
-
-  with(fields, sprintf(
-    "%04.f-%02.f-%02.f %02.f:%02.f:%02.f.%03.f +%02.f%02.f",
-    year, month, day, hour, min,
-    sec %/% 1, sec %% 1 * 1000,
-    tzhour %/% 1, tzhour %/% 1 * 60
-  ))
-}
-
-
-
 interpret_tz <- function(tz) {
   if (!is.character(tz)) return(tz)
   if (is.na(suppressWarnings(as.numeric(tz)))) return(gmtoff(tz))
