@@ -43,15 +43,6 @@ gen_set_field_fn <- function(field) {
   f
 }
 
-gen_set_field_warn_s4 <- function(fname) {
-  f <- function(x, value) {}
-  body(f) <- bquote({
-    stop(sprintf("`%s` not defined for type `%s`", .(fname), class(x)[[1L]]))
-  })
-  environment(f) <- parent.env(environment())
-  f
-}
-
 
 
 #' Datetime component access and assignment functions

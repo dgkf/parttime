@@ -123,12 +123,6 @@ gmtoff <- function(tzone) {
 
 
 
-local_tz <- function() {
-  attr(as.POSIXlt(lubridate::now()), "tzone")
-}
-
-
-
 #' @importFrom utils head tail
 #' @importFrom crayon col_nchar col_align
 format_vector <- function(x) {
