@@ -199,9 +199,25 @@ impute_partial_time_to_chr <- function(x, time, ...) {
 
 
 
+#' Interpret a timezone as an offset in minutes
+#'
+#' A numeric value is already an offset and passes through.  A character value is
+#' either the `"+HHMM"` form, which is read directly, or a timezone name, which
+#' `gmtoff()` resolves.  The two forms may be mixed in one vector.
+#'
+#' @param tz a numeric offset in minutes, or a character vector of `"+HHMM"`
+#'   offsets and timezone names
+#' @return A numeric vector of offsets in minutes, `NA` where `tz` is.  An
+#'   unrecognised timezone name is an error rather than `NA`, so a mistyped one
+#'   is not silently read as an unknown offset.
+#' @noRd
 interpret_tz <- function(tz) {
   if (!is.character(tz)) return(tz)
-  if (is.na(suppressWarnings(as.numeric(tz)))) return(gmtoff(tz))
-  tz <- as.numeric(tz)
-  ((abs(tz) %/% 100) * 60 + abs(tz) %% 100) * sign(tz)
+  offset <- suppressWarnings(as.numeric(tz))
+  named <- !is.na(tz) & is.na(offset)
+  offset <- ((abs(offset) %/% 100) * 60 + abs(offset) %% 100) * sign(offset)
+  if (any(named)) {
+    offset[named] <- vapply(tz[named], gmtoff, numeric(1), USE.NAMES = FALSE)
+  }
+  offset
 }
