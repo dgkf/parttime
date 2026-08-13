@@ -77,9 +77,6 @@ vec_cast.partial_time <- function(x, to, ...) {
 #' @importFrom vctrs stop_incompatible_cast
 #' @exportS3Method vec_cast.partial_time default
 vec_cast.partial_time.default <- function(x, to, ...) {
-  # `stop_incompatible_cast()` has no defaults for the argument names it
-  # reports, so omitting them replaces the message with an error about a
-  # missing formal and the caller never learns which types would not convert.
   if (!all(is.na(x) | is.null(x))) {
     vctrs::stop_incompatible_cast(x, to, x_arg = "x", to_arg = "to")
   }
@@ -97,35 +94,69 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' `as.parttime("2001-01-01")` the same value.
 #'
 #' @inheritParams vctrs::vec_cast
+#' @param missing_hour,missing_minute,missing_second the value to record for a
+#'   time component the input does not carry.  `NA`, the default, leaves it
+#'   unknown; `0` reads a date as the midnight that starts it.  A wholly missing
+#'   value stays missing whatever these are set to.
 #'
 #' @return A `partial_time` vector
 #'
 #' @examples
 #' as.parttime(as.Date(c("2001-01-01", NA)))
 #'
+#' # read a date as the midnight that starts it
+#' as.parttime(
+#'   as.Date("2001-01-01"),
+#'   missing_hour = 0, missing_minute = 0, missing_second = 0
+#' )
+#'
 #' @exportS3Method vec_cast.partial_time Date
-vec_cast.partial_time.Date <- function(x, to, ...) {
+vec_cast.partial_time.Date <- function(
+    x, to, ...,
+    missing_hour = NA, missing_minute = NA, missing_second = NA) {
   lt <- as.POSIXlt(x, tz = "UTC")
-  # A missing date is missing entirely.  Taking the assumed offset for it would
-  # leave a value with no date, no time and an offset, which `is.na()` reads as
-  # present -- the character and date-time casts both give `NA` throughout.
   assumed <- interpret_tz(getOption("parttime.assume_tz_offset", NA)) / 60
+  known <- !is.na(lt$year)
   parttime(
     year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
-    tzhour = ifelse(is.na(x), NA_real_, assumed)
+    # A `Date` carries no time of day at all, so every time component is filled.
+    hour = fill_missing(NA, missing_hour, known),
+    min = fill_missing(NA, missing_minute, known),
+    sec = fill_missing(NA, missing_second, known),
+    tzhour = ifelse(known, assumed, NA_real_)
   )
+}
+
+
+
+#' Record a value for a component the input does not carry
+#'
+#' A wholly missing value stays missing: filling any component of one would
+#' leave a value with no date but a time or an offset, which `is.na()` reads as
+#' present, where the character cast gives `NA` throughout.
+#'
+#' @param observed the component as read from the input, or `NA` for one the
+#'   input cannot carry
+#' @param value what to record where the component is missing
+#' @param known whether the input value has a date at all
+#' @return `observed`, with its missing entries replaced by `value`
+#' @noRd
+fill_missing <- function(observed, value, known) {
+  ifelse(known & is.na(observed), value, observed)
 }
 
 
 
 #' Cast a date-time to a partial time
 #'
-#' Every component is known, including the UTC offset, which is read from the
-#' value rather than assumed.  The offset is the one in force at that instant,
-#' so a zone observing daylight saving gives different offsets either side of
-#' the change.
+#' A `POSIXct` carries every component, including the UTC offset, which is read
+#' from the value rather than assumed.  The offset is the one in force at that
+#' instant, so a zone observing daylight saving gives different offsets either
+#' side of the change.  A `POSIXlt` can be built with a component missing, and
+#' those are the components `missing_hour` and its companions fill.
 #'
 #' @inheritParams vctrs::vec_cast
+#' @inheritParams vec_cast.partial_time.Date
 #'
 #' @return A `partial_time` vector
 #'
@@ -133,32 +164,24 @@ vec_cast.partial_time.Date <- function(x, to, ...) {
 #' as.parttime(as.POSIXct("2001-06-15 10:30:15", tz = "UTC"))
 #'
 #' @exportS3Method vec_cast.partial_time POSIXt
-vec_cast.partial_time.POSIXt <- function(x, to, ...) {
+vec_cast.partial_time.POSIXt <- function(
+    x, to, ...,
+    missing_hour = NA, missing_minute = NA, missing_second = NA) {
   lt <- as.POSIXlt(x)
+  known <- !is.na(lt$year)
   parttime(
     year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
-    hour = lt$hour, min = lt$min, sec = lt$sec,
-    tzhour = utc_offset_hours(x)
+    hour = fill_missing(lt$hour, missing_hour, known),
+    min = fill_missing(lt$min, missing_minute, known),
+    sec = fill_missing(lt$sec, missing_second, known),
+    # `%z` renders the offset in force at that instant, which
+    # `as.POSIXlt()$gmtoff` would too but `?DateTimeClasses` documents as
+    # optional and `NA` where the platform does not supply it.
+    tzhour = interpret_tz(format(x, "%z")) / 60
   )
 }
 
 
-
-#' The UTC offset of a date-time, in hours
-#'
-#' Read through `format()` rather than from `as.POSIXlt()$gmtoff`, which is
-#' `NA` on some platforms for a zoned time.
-#'
-#' @param x a `POSIXt` object
-#' @return A numeric vector of offsets in hours, `NA` where `x` is.
-#' @noRd
-utc_offset_hours <- function(x) {
-  z <- format(x, "%z")
-  sign <- ifelse(substring(z, 1, 1) == "-", -1, 1)
-  hours <- as.numeric(substring(z, 2, 3))
-  minutes <- as.numeric(substring(z, 4, 5))
-  sign * (hours + minutes / 60)
-}
 
 
 

@@ -58,6 +58,78 @@ test_that("a missing date is missing throughout", {
   )
 })
 
+test_that("the time a Date does not carry can be given a value", {
+  # What a caller wants when a Date stands in for a datetime: the midnight that
+  # starts the date.  Set singly, the components not named stay unknown.
+  expect_equal(
+    unname(vctrs::field(
+      as.parttime(
+        as.Date("2001-01-01"),
+        missing_hour = 0, missing_minute = 0, missing_second = 0
+      ),
+      "pttm_mat"
+    )[1, ]),
+    c(2001, 1, 1, 0, 0, 0, 0)
+  )
+  expect_equal(
+    unname(vctrs::field(
+      as.parttime(as.Date("2001-01-01"), missing_hour = 12),
+      "pttm_mat"
+    )[1, ]),
+    c(2001, 1, 1, 12, NA, NA, 0)
+  )
+})
+
+test_that("a POSIXt component that is missing can be given a value", {
+  # A `POSIXlt` can be built with a component missing where the date is known.
+  lt <- as.POSIXlt("2001-06-15 10:30:15", tz = "UTC")
+  lt$sec <- NA_real_
+  expect_equal(
+    unname(vctrs::field(as.parttime(lt, missing_second = 0), "pttm_mat")[1, ]),
+    c(2001, 6, 15, 10, 30, 0, NA)
+  )
+})
+
+test_that("a component that was recorded is not overwritten", {
+  # A `POSIXct` carries every component, so the arguments have nothing to fill
+  # and cannot replace the time that was actually recorded.
+  expect_equal(
+    unname(vctrs::field(
+      as.parttime(
+        as.POSIXct("2001-06-15 10:30:15", tz = "UTC"),
+        missing_hour = 9, missing_minute = 9, missing_second = 0
+      ),
+      "pttm_mat"
+    )[1, ]),
+    c(2001, 6, 15, 10, 30, 15, 0)
+  )
+})
+
+test_that("a missing value stays missing whatever the time is set to", {
+  # Filling the time of a date nobody recorded would leave a value with no date
+  # but a time, which reads as present.
+  expect_equal(
+    is.na(as.parttime(
+      as.Date(c("2001-01-01", NA)),
+      missing_hour = 0, missing_minute = 0, missing_second = 0
+    )),
+    c(FALSE, TRUE)
+  )
+  expect_equal(
+    c(
+      all(is.na(vctrs::field(
+        as.parttime(as.Date(NA), missing_hour = 0, missing_minute = 0, missing_second = 0),
+        "pttm_mat"
+      ))),
+      all(is.na(vctrs::field(
+        as.parttime(as.POSIXct(NA), missing_hour = 0, missing_minute = 0, missing_second = 0),
+        "pttm_mat"
+      )))
+    ),
+    c(TRUE, TRUE)
+  )
+})
+
 test_that("degenerate input", {
   expect_equal(length(as.parttime(as.Date(character(0)))), 0L)
   expect_equal(length(as.parttime(as.POSIXct(character(0)))), 0L)
@@ -65,8 +137,7 @@ test_that("degenerate input", {
 })
 
 test_that("a type that cannot convert says which", {
-  # The refusal used to be an error about a missing formal of
-  # `stop_incompatible_cast()`, which named neither type.
+  # Both type names appear, so a caller learns what would not convert.
   cnd <- expect_error(as.parttime(list(1, 2)), class = "vctrs_error_cast")
   expect_match(conditionMessage(cnd), "<list>")
   expect_match(conditionMessage(cnd), "<partial_time>")

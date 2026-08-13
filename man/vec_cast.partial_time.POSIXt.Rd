@@ -4,7 +4,14 @@
 \alias{vec_cast.partial_time.POSIXt}
 \title{Cast a date-time to a partial time}
 \usage{
-\method{vec_cast}{partial_time.POSIXt}(x, to, ...)
+\method{vec_cast}{partial_time.POSIXt}(
+  x,
+  to,
+  ...,
+  missing_hour = NA,
+  missing_minute = NA,
+  missing_second = NA
+)
 }
 \arguments{
 \item{x}{Vectors to cast.}
@@ -14,15 +21,21 @@
 \item{...}{For \code{vec_cast_common()}, vectors to cast. For
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
+
+\item{missing_hour, missing_minute, missing_second}{the value to record for a
+time component the input does not carry.  \code{NA}, the default, leaves it
+unknown; \code{0} reads a date as the midnight that starts it.  A wholly missing
+value stays missing whatever these are set to.}
 }
 \value{
 A \code{partial_time} vector
 }
 \description{
-Every component is known, including the UTC offset, which is read from the
-value rather than assumed.  The offset is the one in force at that instant,
-so a zone observing daylight saving gives different offsets either side of
-the change.
+A \code{POSIXct} carries every component, including the UTC offset, which is read
+from the value rather than assumed.  The offset is the one in force at that
+instant, so a zone observing daylight saving gives different offsets either
+side of the change.  A \code{POSIXlt} can be built with a component missing, and
+those are the components \code{missing_hour} and its companions fill.
 }
 \examples{
 as.parttime(as.POSIXct("2001-06-15 10:30:15", tz = "UTC"))

@@ -4,7 +4,14 @@
 \alias{vec_cast.partial_time.Date}
 \title{Cast a Date to a partial time}
 \usage{
-\method{vec_cast}{partial_time.Date}(x, to, ...)
+\method{vec_cast}{partial_time.Date}(
+  x,
+  to,
+  ...,
+  missing_hour = NA,
+  missing_minute = NA,
+  missing_second = NA
+)
 }
 \arguments{
 \item{x}{Vectors to cast.}
@@ -14,6 +21,11 @@
 \item{...}{For \code{vec_cast_common()}, vectors to cast. For
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
+
+\item{missing_hour, missing_minute, missing_second}{the value to record for a
+time component the input does not carry.  \code{NA}, the default, leaves it
+unknown; \code{0} reads a date as the midnight that starts it.  A wholly missing
+value stays missing whatever these are set to.}
 }
 \value{
 A \code{partial_time} vector
@@ -27,5 +39,11 @@ one, which makes \code{as.parttime(as.Date("2001-01-01"))} and
 }
 \examples{
 as.parttime(as.Date(c("2001-01-01", NA)))
+
+# read a date as the midnight that starts it
+as.parttime(
+  as.Date("2001-01-01"),
+  missing_hour = 0, missing_minute = 0, missing_second = 0
+)
 
 }
