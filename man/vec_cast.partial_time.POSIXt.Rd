@@ -8,9 +8,13 @@
   x,
   to,
   ...,
-  missing_hour = NA,
-  missing_minute = NA,
-  missing_second = NA
+  missing_year = FALSE,
+  missing_month = FALSE,
+  missing_day = FALSE,
+  missing_hour = FALSE,
+  missing_minute = FALSE,
+  missing_second = FALSE,
+  missing_tz = FALSE
 )
 }
 \arguments{
@@ -22,10 +26,8 @@
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
 
-\item{missing_hour, missing_minute, missing_second}{the value to record for a
-time component the input does not carry.  \code{NA}, the default, leaves it
-unknown; \code{0} reads a date as the midnight that starts it.  A wholly missing
-value stays missing whatever these are set to.}
+\item{missing_year, missing_month, missing_day, missing_hour, missing_minute, missing_second, missing_tz}{a logical vector, recycled to the length of \code{x}, marking the elements whose
+component was never collected.}
 }
 \value{
 A \code{partial_time} vector
@@ -34,10 +36,23 @@ A \code{partial_time} vector
 A \code{POSIXct} carries every component, including the UTC offset, which is read
 from the value rather than assumed.  The offset is the one in force at that
 instant, so a zone observing daylight saving gives different offsets either
-side of the change.  A \code{POSIXlt} can be built with a component missing, and
-those are the components \code{missing_hour} and its companions fill.
+side of the change.
+}
+\details{
+Reading a value collected to a coarser precision fills the components below
+it, so a day-precision observation arrives at midnight in some zone.  Every
+component, the offset included, can be marked per element, so a column
+holding a mixture of precisions can be restored to the partial values it came
+from.
 }
 \examples{
 as.parttime(as.POSIXct("2001-06-15 10:30:15", tz = "UTC"))
+
+# a value collected only to the day, whose time of day is an artefact
+as.parttime(
+  as.POSIXct("2001-06-15 00:00:00", tz = "UTC"),
+  missing_hour = TRUE, missing_minute = TRUE, missing_second = TRUE,
+  missing_tz = TRUE
+)
 
 }

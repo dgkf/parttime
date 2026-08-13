@@ -58,75 +58,100 @@ test_that("a missing date is missing throughout", {
   )
 })
 
-test_that("the time a Date does not carry can be given a value", {
-  # What a caller wants when a Date stands in for a datetime: the midnight that
-  # starts the date.  Set singly, the components not named stay unknown.
+test_that("a Date component that was never collected can be marked per element", {
+  # A month-precision value read into a Date lands on the first of the month, so
+  # only that element's day is an artefact.  The rest keep the day they carry.
   expect_equal(
     unname(vctrs::field(
       as.parttime(
-        as.Date("2001-01-01"),
-        missing_hour = 0, missing_minute = 0, missing_second = 0
+        as.Date(c("2001-01-15", "2001-02-01", "2001-03-20")),
+        missing_day = c(FALSE, TRUE, FALSE)
       ),
       "pttm_mat"
+    )[, "day"]),
+    c(15, NA, 20)
+  )
+})
+
+test_that("a mask recycles to the length of the input", {
+  expect_equal(
+    unname(vctrs::field(
+      as.parttime(as.Date(c("2001-01-15", "2001-02-20")), missing_month = TRUE, missing_day = TRUE),
+      "pttm_mat"
+    )[, c("year", "month", "day")]),
+    cbind(c(2001, 2001), c(NA, NA), c(NA, NA))
+  )
+})
+
+test_that("a date-time can be marked missing at every level of precision", {
+  x <- as.POSIXct("2001-06-15 10:30:15", tz = "UTC")
+  expect_equal(
+    unname(vctrs::field(
+      as.parttime(x, missing_second = TRUE),
+      "pttm_mat"
     )[1, ]),
-    c(2001, 1, 1, 0, 0, 0, 0)
+    c(2001, 6, 15, 10, 30, NA, 0)
   )
   expect_equal(
     unname(vctrs::field(
-      as.parttime(as.Date("2001-01-01"), missing_hour = 12),
+      as.parttime(x, missing_hour = TRUE, missing_minute = TRUE, missing_second = TRUE),
       "pttm_mat"
     )[1, ]),
-    c(2001, 1, 1, 12, NA, NA, 0)
+    c(2001, 6, 15, NA, NA, NA, 0)
   )
-})
-
-test_that("a POSIXt component that is missing can be given a value", {
-  # A `POSIXlt` can be built with a component missing where the date is known.
-  lt <- as.POSIXlt("2001-06-15 10:30:15", tz = "UTC")
-  lt$sec <- NA_real_
-  expect_equal(
-    unname(vctrs::field(as.parttime(lt, missing_second = 0), "pttm_mat")[1, ]),
-    c(2001, 6, 15, 10, 30, 0, NA)
-  )
-})
-
-test_that("a component that was recorded is not overwritten", {
-  # A `POSIXct` carries every component, so the arguments have nothing to fill
-  # and cannot replace the time that was actually recorded.
   expect_equal(
     unname(vctrs::field(
       as.parttime(
-        as.POSIXct("2001-06-15 10:30:15", tz = "UTC"),
-        missing_hour = 9, missing_minute = 9, missing_second = 0
+        x,
+        missing_year = TRUE, missing_month = TRUE, missing_day = TRUE,
+        missing_hour = TRUE, missing_minute = TRUE, missing_second = TRUE,
+        missing_tz = TRUE
       ),
       "pttm_mat"
     )[1, ]),
-    c(2001, 6, 15, 10, 30, 15, 0)
+    rep(NA_real_, 7)
   )
 })
 
-test_that("a missing value stays missing whatever the time is set to", {
-  # Filling the time of a date nobody recorded would leave a value with no date
-  # but a time, which reads as present.
+test_that("the offset can be marked missing on its own", {
+  # A zoned value whose offset is an artefact of the reader, not collected.
   expect_equal(
-    is.na(as.parttime(
-      as.Date(c("2001-01-01", NA)),
-      missing_hour = 0, missing_minute = 0, missing_second = 0
-    )),
+    unname(vctrs::field(
+      as.parttime(
+        as.POSIXct("2001-06-15 10:30:15", tz = "America/New_York"),
+        missing_tz = TRUE
+      ),
+      "pttm_mat"
+    )[1, ]),
+    c(2001, 6, 15, 10, 30, 15, NA)
+  )
+})
+
+test_that("a mask marks elements and cannot fabricate one", {
+  # Marking only ever removes what the input carried, so a value that was
+  # missing to begin with stays missing.
+  expect_equal(
+    is.na(as.parttime(as.Date(c("2001-01-01", NA)), missing_day = TRUE)),
     c(FALSE, TRUE)
   )
-  expect_equal(
-    c(
-      all(is.na(vctrs::field(
-        as.parttime(as.Date(NA), missing_hour = 0, missing_minute = 0, missing_second = 0),
-        "pttm_mat"
-      ))),
-      all(is.na(vctrs::field(
-        as.parttime(as.POSIXct(NA), missing_hour = 0, missing_minute = 0, missing_second = 0),
-        "pttm_mat"
-      )))
-    ),
-    c(TRUE, TRUE)
+  expect_true(all(is.na(vctrs::field(
+    as.parttime(as.POSIXct(NA), missing_second = TRUE), "pttm_mat"
+  ))))
+})
+
+test_that("a mask must be logical, the right length, and not itself NA", {
+  d <- as.Date(c("2001-01-15", "2001-02-20"))
+  # Every message names the argument it came from, rather than an internal one.
+  expect_error(as.parttime(d, missing_day = 2), class = "vctrs_error_cast_lossy")
+  expect_error(as.parttime(d, missing_day = "x"), class = "vctrs_error_cast")
+  expect_error(
+    as.parttime(d, missing_day = c(TRUE, FALSE, TRUE)),
+    class = "vctrs_error_incompatible_size"
+  )
+  expect_error(as.parttime(d, missing_day = NA), "cannot .*be .*NA")
+  expect_match(
+    conditionMessage(expect_error(as.parttime(d, missing_day = "x"))),
+    "missing_day"
   )
 })
 

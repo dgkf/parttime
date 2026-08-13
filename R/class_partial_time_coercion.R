@@ -93,56 +93,67 @@ vec_cast.partial_time.default <- function(x, to, ...) {
 #' one, which makes `as.parttime(as.Date("2001-01-01"))` and
 #' `as.parttime("2001-01-01")` the same value.
 #'
+#' A partial date does not survive a `Date`: `"2001-01"` names a month, but
+#' reading it gives the first day of that month, a day nobody collected.  The
+#' `missing_*` arguments mark such components per element, so a vector holding a
+#' mixture of precisions can be restored to the partial values it came from.
+#'
 #' @inheritParams vctrs::vec_cast
-#' @param missing_hour,missing_minute,missing_second the value to record for a
-#'   time component the input does not carry.  `NA`, the default, leaves it
-#'   unknown; `0` reads a date as the midnight that starts it.  A wholly missing
-#'   value stays missing whatever these are set to.
+#' @param missing_year,missing_month,missing_day a logical vector, recycled to
+#'   the length of `x`, marking the elements whose component was never
+#'   collected.  A `Date` carries no time of day and names no instant, so the
+#'   time components and the UTC offset are missing already and take no
+#'   argument.
 #'
 #' @return A `partial_time` vector
 #'
 #' @examples
 #' as.parttime(as.Date(c("2001-01-01", NA)))
 #'
-#' # read a date as the midnight that starts it
+#' # the second value was collected to the month, so its day was never observed
 #' as.parttime(
-#'   as.Date("2001-01-01"),
-#'   missing_hour = 0, missing_minute = 0, missing_second = 0
+#'   as.Date(c("2001-01-15", "2001-02-01")),
+#'   missing_day = c(FALSE, TRUE)
 #' )
 #'
 #' @exportS3Method vec_cast.partial_time Date
 vec_cast.partial_time.Date <- function(
     x, to, ...,
-    missing_hour = NA, missing_minute = NA, missing_second = NA) {
+    missing_year = FALSE, missing_month = FALSE, missing_day = FALSE) {
   lt <- as.POSIXlt(x, tz = "UTC")
   assumed <- interpret_tz(getOption("parttime.assume_tz_offset", NA)) / 60
-  known <- !is.na(lt$year)
+  size <- length(x)
   parttime(
-    year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
-    # A `Date` carries no time of day at all, so every time component is filled.
-    hour = fill_missing(NA, missing_hour, known),
-    min = fill_missing(NA, missing_minute, known),
-    sec = fill_missing(NA, missing_second, known),
-    tzhour = ifelse(known, assumed, NA_real_)
+    year = drop_component(lt$year + 1900L, missing_year, size, "missing_year"),
+    month = drop_component(lt$mon + 1L, missing_month, size, "missing_month"),
+    day = drop_component(lt$mday, missing_day, size, "missing_day"),
+    # A missing date takes no assumed offset.  That would leave a value with no
+    # date but an offset, which `is.na()` reads as present, where the character
+    # cast gives `NA` throughout.
+    tzhour = ifelse(is.na(lt$year), NA_real_, assumed)
   )
 }
 
 
 
-#' Record a value for a component the input does not carry
+#' Drop the components an input records but never collected
 #'
-#' A wholly missing value stays missing: filling any component of one would
-#' leave a value with no date but a time or an offset, which `is.na()` reads as
-#' present, where the character cast gives `NA` throughout.
-#'
-#' @param observed the component as read from the input, or `NA` for one the
-#'   input cannot carry
-#' @param value what to record where the component is missing
-#' @param known whether the input value has a date at all
-#' @return `observed`, with its missing entries replaced by `value`
+#' @param observed the component as read from the input
+#' @param drop a logical vector, recycled to `size`, marking the elements whose
+#'   component is to be treated as never collected
+#' @param size the length of the value being cast
+#' @param arg the name of the argument `drop` came from, for error messages
+#' @return `observed`, with the marked elements set to `NA`
 #' @noRd
-fill_missing <- function(observed, value, known) {
-  ifelse(known & is.na(observed), value, observed)
+drop_component <- function(observed, drop, size, arg) {
+  drop <- vctrs::vec_cast(drop, logical(), x_arg = arg)
+  drop <- vctrs::vec_recycle(drop, size, x_arg = arg)
+  if (anyNA(drop)) {
+    stop("`", arg, "` marks which elements were never collected, so it cannot ",
+         "itself be `NA`.", call. = FALSE)
+  }
+  observed[drop] <- NA
+  observed
 }
 
 
@@ -152,32 +163,52 @@ fill_missing <- function(observed, value, known) {
 #' A `POSIXct` carries every component, including the UTC offset, which is read
 #' from the value rather than assumed.  The offset is the one in force at that
 #' instant, so a zone observing daylight saving gives different offsets either
-#' side of the change.  A `POSIXlt` can be built with a component missing, and
-#' those are the components `missing_hour` and its companions fill.
+#' side of the change.
+#'
+#' Reading a value collected to a coarser precision fills the components below
+#' it, so a day-precision observation arrives at midnight in some zone.  Every
+#' component, the offset included, can be marked per element, so a column
+#' holding a mixture of precisions can be restored to the partial values it came
+#' from.
 #'
 #' @inheritParams vctrs::vec_cast
-#' @inheritParams vec_cast.partial_time.Date
+#' @param missing_year,missing_month,missing_day,missing_hour,missing_minute,missing_second,missing_tz
+#'   a logical vector, recycled to the length of `x`, marking the elements whose
+#'   component was never collected.
 #'
 #' @return A `partial_time` vector
 #'
 #' @examples
 #' as.parttime(as.POSIXct("2001-06-15 10:30:15", tz = "UTC"))
 #'
+#' # a value collected only to the day, whose time of day is an artefact
+#' as.parttime(
+#'   as.POSIXct("2001-06-15 00:00:00", tz = "UTC"),
+#'   missing_hour = TRUE, missing_minute = TRUE, missing_second = TRUE,
+#'   missing_tz = TRUE
+#' )
+#'
 #' @exportS3Method vec_cast.partial_time POSIXt
 vec_cast.partial_time.POSIXt <- function(
     x, to, ...,
-    missing_hour = NA, missing_minute = NA, missing_second = NA) {
+    missing_year = FALSE, missing_month = FALSE, missing_day = FALSE,
+    missing_hour = FALSE, missing_minute = FALSE, missing_second = FALSE,
+    missing_tz = FALSE) {
   lt <- as.POSIXlt(x)
-  known <- !is.na(lt$year)
+  size <- length(x)
   parttime(
-    year = lt$year + 1900L, month = lt$mon + 1L, day = lt$mday,
-    hour = fill_missing(lt$hour, missing_hour, known),
-    min = fill_missing(lt$min, missing_minute, known),
-    sec = fill_missing(lt$sec, missing_second, known),
+    year = drop_component(lt$year + 1900L, missing_year, size, "missing_year"),
+    month = drop_component(lt$mon + 1L, missing_month, size, "missing_month"),
+    day = drop_component(lt$mday, missing_day, size, "missing_day"),
+    hour = drop_component(lt$hour, missing_hour, size, "missing_hour"),
+    min = drop_component(lt$min, missing_minute, size, "missing_minute"),
+    sec = drop_component(lt$sec, missing_second, size, "missing_second"),
     # `%z` renders the offset in force at that instant, which
     # `as.POSIXlt()$gmtoff` would too but `?DateTimeClasses` documents as
     # optional and `NA` where the platform does not supply it.
-    tzhour = interpret_tz(format(x, "%z")) / 60
+    tzhour = drop_component(
+      interpret_tz(format(x, "%z")) / 60, missing_tz, size, "missing_tz"
+    )
   )
 }
 

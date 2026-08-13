@@ -8,9 +8,9 @@
   x,
   to,
   ...,
-  missing_hour = NA,
-  missing_minute = NA,
-  missing_second = NA
+  missing_year = FALSE,
+  missing_month = FALSE,
+  missing_day = FALSE
 )
 }
 \arguments{
@@ -22,10 +22,11 @@
 \code{vec_cast()}, \code{vec_cast_default()}, and \code{vec_restore()}, these
 dots are only for future extensions and should be empty.}
 
-\item{missing_hour, missing_minute, missing_second}{the value to record for a
-time component the input does not carry.  \code{NA}, the default, leaves it
-unknown; \code{0} reads a date as the midnight that starts it.  A wholly missing
-value stays missing whatever these are set to.}
+\item{missing_year, missing_month, missing_day}{a logical vector, recycled to
+the length of \code{x}, marking the elements whose component was never
+collected.  A \code{Date} carries no time of day and names no instant, so the
+time components and the UTC offset are missing already and take no
+argument.}
 }
 \value{
 A \code{partial_time} vector
@@ -37,13 +38,19 @@ than an instant, so it carries no UTC offset either and takes the assumed
 one, which makes \code{as.parttime(as.Date("2001-01-01"))} and
 \code{as.parttime("2001-01-01")} the same value.
 }
+\details{
+A partial date does not survive a \code{Date}: \code{"2001-01"} names a month, but
+reading it gives the first day of that month, a day nobody collected.  The
+\verb{missing_*} arguments mark such components per element, so a vector holding a
+mixture of precisions can be restored to the partial values it came from.
+}
 \examples{
 as.parttime(as.Date(c("2001-01-01", NA)))
 
-# read a date as the midnight that starts it
+# the second value was collected to the month, so its day was never observed
 as.parttime(
-  as.Date("2001-01-01"),
-  missing_hour = 0, missing_minute = 0, missing_second = 0
+  as.Date(c("2001-01-15", "2001-02-01")),
+  missing_day = c(FALSE, TRUE)
 )
 
 }
